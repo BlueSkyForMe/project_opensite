@@ -46,7 +46,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>开</b>场</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -253,8 +253,8 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset ('/admin/adminlte/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="{{ asset ('/uploads/photo') }}/{{ session('master')->photo }}" class="user-image" alt="User Image">
+              <span class="hidden-xs">{{ session('master')->userName }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -287,7 +287,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('/admin/logout') }}" class="btn btn-default btn-flat">退出登录</a>
                 </div>
               </li>
             </ul>
@@ -307,10 +307,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset ('/admin/adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset ('/uploads/photo') }}/{{ session('master')->photo }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ session('master')->userName }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -330,14 +330,14 @@
         <li class="header">主要 导航</li>
         <li class="active treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>用户管理</span>
+            <i class="fa fa-dashboard"></i> <span>后台管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{ url('/admin/user/add') }}"><i class="fa fa-circle-o"></i> 添加管理员</a></li>
-            <li><a href="{{ url('/admin/user/index') }}"><i class="fa fa-circle-o"></i> 用户列表</a></li>
+            <li class="active"><a href="{{ url('/admin/manage/add') }}"><i class="fa fa-circle-o"></i> 添加管理员</a></li>
+            <li><a href="{{ url('/admin/manage/index') }}"><i class="fa fa-circle-o"></i> 管理员列表</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -708,6 +708,26 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- 模态框 -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">确认删除</h4>
+      </div>
+      <div class="modal-body">
+        您确定要删除吗？
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="delete" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- jQuery 2.2.3 -->
 <script src="{{ asset ('/admin/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -745,5 +765,8 @@
 <script src="{{ asset ('/admin/adminlte/dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset ('/admin/adminlte/dist/js/demo.js') }}"></script>
+
+@yield('js')
+
 </body>
 </html>

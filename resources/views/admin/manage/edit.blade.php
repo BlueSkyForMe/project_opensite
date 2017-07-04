@@ -43,11 +43,10 @@
 				</div>
 			@endif	
             <!-- form start -->
-            <form role="form" action="{{ url ('/admin/user/update') }}" method="POST">
+            <form role="form" action="{{ url ('/admin/manage/update') }}/{{ $data->id }}" method="POST" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="box-body">
                 <div class="form-group">
-                  <input type="hidden" name="id" value="{{ $data->id }}">
                   <label for="exampleInputEmail1">用户名</label>
                   <input type="text" name="userName" value="{{ $data->userName }}" class="form-control" id="exampleInputEmail1" disabled />
                 </div>
@@ -56,16 +55,17 @@
                   <input type="email" name="email" value="{{ $data->email }}" class="form-control" id="exampleInputEmail1" placeholder="请输入邮箱">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">手机号</label>
-                  <input type="text" name="phone" value="{{ $data->phone }}" class="form-control" id="exampleInputEmail1" placeholder="请填写手机号">
-                </div>
-                <div class="form-group">
                   <label for="exampleInputPassword1">密码</label>
                   <input type="password" name="password" value="{{ $data->password }}" class="form-control" id="exampleInputPassword1" placeholder="请填写密码">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">密码</label>
-                  <input type="password" name="re_password" value="{{ $data->password }}" class="form-control" id="exampleInputPassword1" placeholder="请填写密码">
+                  <input type="password" name="re_password" value="" class="form-control" id="exampleInputPassword1" placeholder="请填写密码">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputFile">头像</label>
+                  <input type="file" name="photo" id="exampleInputFile">
+                  <p class="help-block">请上传你的大头贴</p>
                 </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">更新</button>

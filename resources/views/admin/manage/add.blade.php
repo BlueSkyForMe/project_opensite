@@ -43,7 +43,7 @@
 				</div>
 			@endif	
             <!-- form start -->
-            <form role="form" action="{{ url ('/admin/user/insert') }}" method="POST">
+            <form role="form" action="{{ url ('/admin/manage/insert') }}" method="POST" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="box-body">
                 <div class="form-group">
@@ -55,16 +55,17 @@
                   <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="exampleInputEmail1" placeholder="请输入邮箱">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">手机号</label>
-                  <input type="text" name="phone" value="{{ old('phone') }}" class="form-control" id="exampleInputEmail1" placeholder="请填写手机号">
-                </div>
-                <div class="form-group">
                   <label for="exampleInputPassword1">密码</label>
                   <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="exampleInputPassword1" placeholder="请填写密码">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">确认密码</label>
                   <input type="password" name="re_password" value="{{ old('re_password') }}" class="form-control" id="exampleInputPassword1" placeholder="请确认密码">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputFile">头像</label>
+                  <input type="file" name="photo" id="exampleInputFile">
+                  <p class="help-block">请上传你的大头贴</p>
                 </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">添加</button>

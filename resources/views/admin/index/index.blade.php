@@ -7,8 +7,16 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        首页
-        <small>欢迎您 管理员</small>
+        @if (session('master')->auth == 1)
+          超级管理员
+        @else
+          管理员
+        @endif
+        <small>
+          @if (session('info'))
+            <p class="text-danger">{{ session('info') }}</p>
+          @endif
+        </small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 后台首页</a></li>
