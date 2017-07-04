@@ -105,14 +105,16 @@ class UserController extends Controller
     			// 验证密码
     			$this->validate($request, 
     				[
-    					'password' => 'required'
+    					'password' => 'required',
+    					're_password'=> 'same:password'
     				], 
     				[
-    					'password.required' => '密码不能为空'
+    					'password.required' => '密码不能为空',
+    					're_password.same' => '两次输入的密码不一致'
     				]);
 
     			// 清除token
-    			$data = $request->except('_token', 'id');
+    			$data = $request->except('_token', 'id', 're_password');
 
     			// 密码加密
     			$data['password'] = encrypt($data['password']);
@@ -135,17 +137,18 @@ class UserController extends Controller
     			$this->validate($request, 
     				[
     					'password' => 'required',
-    					'phone' => 'required|unique:users'
+    					'phone' => 'required|unique:users',
+    					're_password'=> 'same:password'
     				], 
     				[
     					'password.required' => '密码不能为空',
     					'phone.required' => '手机号不能为空',
-    					'phone.unique' => '手机号已存在'
-
+    					'phone.unique' => '手机号已存在',
+    					're_password.same' => '两次输入的密码不一致'
     				]);
 
     			// 清除token
-    			$data = $request->except('_token', 'id');
+    			$data = $request->except('_token', 'id', 're_password');
 
     			// 密码加密
     			$data['password'] = encrypt($data['password']);
@@ -165,7 +168,45 @@ class UserController extends Controller
     	}
     	else
     	{
-    		return 222;
-    	}
+    		// // 判断是否修改手机号
+    		// if($arr->phone == $request->phone)
+    		// {	
+    		// 	// 验证密码
+    		// 	$this->validate($request, 
+    		// 		[
+    		// 			'password' => 'required',
+    		// 			'email' => 'required|unique:user|email',
+    		// 			're_password'=> 'same:password'
+    		// 		], 
+    		// 		[
+    		// 			'password.required' => '密码不能为空',
+    		// 			're_password.same' => '两次输入的密码不一致',
+    		// 			'email.required' => '邮箱不能为空',
+				  //   	'email.unique' => '该邮箱已存在',
+				  //   	'email.email' => '请正确输入邮箱'
+    		// 		]);
+
+    		// 	// 清除token
+    		// 	$data = $request->except('_token', 'id', 're_password');
+
+    		// 	// 密码加密
+    		// 	$data['password'] = encrypt($data['password']);
+
+    		// 	// 执行修改
+    		// 	$res = \DB::table('users')->where('id', $id)->update($data);
+
+    		// 	if($res)
+		    // 	{
+		    // 		return redirect('/admin/user/index')->with(['info' => '更新成功']);
+		    // 	}
+		    // 	else
+		    // 	{
+		    // 		return back()->with(['info' => '更新失败失败']);
+		    // 	}
+    		// }
+    		// else
+    		// {
+    			return 222;
+    		// }
     }
 }
