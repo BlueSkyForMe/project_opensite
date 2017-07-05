@@ -1,0 +1,531 @@
+/* 公共样式 */
+*,ul,li
+{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+ul
+{
+	list-style: none;
+}
+a
+{
+	text-decoration: none;
+}
+.l
+{
+	float: left;
+}
+.r
+{
+	float: right;
+}
+
+.s
+{
+  width: 0;
+  height: 0;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+  position: absolute;
+  top: 15px;
+  right: 14px;
+}
+
+
+/* 头部header */
+.header
+{
+	width: 100%;
+	height: 35px;
+	background: #ccc;
+}
+.container_wrap
+{
+	width: 1192px;
+	height: 35px;
+	background: #ccc;
+	margin: 0 auto;
+}
+.wrap
+{
+	position: absolute;
+	width: 1192px;
+	height: 35px;
+	background: #ccc;
+}
+
+.wrap_ul > li
+{
+	float: left;
+	line-height: 35px;	
+}
+.wrap_ul > li:hover
+{
+	background: #fff;
+}
+
+.wrap_ul div
+{
+	float: left;
+	line-height: 35px;
+}
+
+.wrap_ul div ul li
+{
+	text-align: center;
+	color: #6699cc;
+	background: #fff;
+}
+
+.wrap_ul span
+{
+	color: #6699cc;
+	padding-left: 14px;
+	padding-right: 12px;
+	border: 0px solid #3366cc;
+	border-left-width: 1px; 
+}
+.wrap_ul .first_span
+{
+	border-left-width: 0px; 
+}
+
+
+
+ 
+
+/* 主体main */
+.main
+{
+	width: 1192px;
+	height: 562px;
+	margin: 0 auto;
+}
+
+/* logo */
+#logo
+{
+	position: absolute;
+	top: 126px;
+	left: 514px;
+	width: 150px;
+	height: 76px;
+	background: url('../images/logo.png') no-repeat 12px 10px;
+}
+
+/* search */
+#search
+{
+	width: 566px;
+	height: 39px;
+	border: 1px solid #0066cc;
+	position: absolute;
+	top: 223px;
+	left: 301px;
+}
+.city
+{
+	width: 107px;
+	height: 39px;
+	border: 0px solid #999999;
+	border-right-width: 1px;
+	position: relative;
+	line-height: 39px;
+	
+}
+.city span
+{
+	font-size: 17px;
+	color: #333333;
+	padding-left: 24px; 
+}
+
+.search_ul li
+{
+	float: left;
+}
+
+.search_ul .inp
+{
+	width: 265px;
+	height: 37px;
+	border: none;
+	font-size: 17px;
+	padding-left: 16px;
+}
+
+.kw
+{
+	border: 0px solid #999999;
+	border-right-width: 1px;
+}
+
+.number select
+{
+	width: 124px;
+	height: 37px;
+	font-size: 17px;
+	padding-left: 16px;
+	border: none;
+}
+.number
+{
+	position: relative;
+}
+.dis_sel
+{
+	width: 104px;
+	height: 39px;
+	overflow: hidden;
+	float: left;
+	
+}
+
+.mar
+{
+	width: 20px;
+	height: 39px;
+	float: left;
+}
+
+.sear
+{
+	width: 51px;
+	height: 39px;
+	float: left;
+}
+#super_img
+{
+	position: absolute;
+	top: 286px;
+	left: 587px;
+}
+#super_sear
+{
+	width: 53px;
+	height: 14px;
+	position: absolute;
+	top: 305px;
+	left: 566px;
+}
+#super_sear span
+{
+	color: #0066cc;
+	font-size: 13px;
+}
+
+
+
+/* 尾部footer */
+.footer
+{
+	width: 1192px;
+	height: 91px;
+	margin: 0 auto;
+	color: #666;
+}
+.footer_wrap
+{
+	width: 418px;
+	height: 91px;
+	margin: 0 auto;
+}
+.about
+{
+	width: 100%;
+	height: 30px;
+	background: #fff;
+}
+.about li
+{
+	width: 60px;
+	height: 30px;
+	float: left;
+	line-height: 30px;
+}
+.about li:first-of-type
+{
+
+	width: 58px;
+}
+
+.about span
+{
+	padding-left: 5px;
+	padding-right: 5px; 
+	border: 0px solid #999;
+	border-left-width: 2px;
+	font-size: 10px;
+	color: #666;
+}
+
+#about_li
+{
+
+	border-left-width: 0px;
+}
+
+.copy
+{
+	width: 418px;
+	height: 19px;
+}
+.copy span
+{
+	padding-left: 12px;
+}
+
+.allow
+{
+	width: 418px;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 98px;
+	color: #666;
+}
+
+/* ==================登录div框的样式设置================== */
+#login_box
+{
+	width: 446px;
+	height: 432px;
+	background: #eee;
+	position: absolute;
+	top: 131px;
+	left: 370px;
+}
+
+.login_title
+{
+	width: 100%;
+	height: 42px;
+	background: #ccc;
+	line-height: 42px;
+	padding-left: 14px;
+
+}
+.login_title span
+{
+	font-size: 19px;
+	color: #0066cc;
+}
+
+.login_logo
+{
+	width: 100%;
+	height: 33px;
+	margin-top: 26px;
+	text-align: center;
+}
+
+.log_phon
+{
+	width: 314px;
+	height: 38px;
+	margin: 15px 0 33px 67px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.log_pass
+{
+	width: 314px;
+	height: 38px;
+	margin: 0 0 33px 67px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.log_code
+{
+	width: 113px;
+	height: 38px;
+	margin: 0 0 33px 67px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.log_reme
+{
+	width: 100%;
+	height: 16px;
+	padding-left: 67px;
+}
+
+.log_reme input
+{
+	width: 16px;
+	height: 16px;
+	font-size: 14px;	
+}
+
+.log_reme span
+{
+	font-size: 14px;
+	position: relative;
+	top: -4px;
+	font-weight: normal;
+}
+.log_reme a span
+{
+	font-size: 14px;
+	position: relative;
+	top: -4px;
+	font-weight: normal;
+	padding-left: 180px;
+}
+
+.log_subm
+{
+	width: 105px;
+	height: 30px;
+	margin: 0 0 18px 172px;
+}
+
+
+
+/* ==================注册div框的样式设置================== */
+#register_box
+{
+	width: 452px;
+	height: 550px;
+	background: #eee;
+	position: absolute;
+	top: 66px;
+	left: 368px;
+}
+.register_title
+{
+	width: 100%;
+	height: 42px;
+	background: #ccc;
+	line-height: 42px;
+	padding-left: 14px;
+
+}
+
+.register_title span
+{
+	font-size: 19px;
+	color: #0066cc;
+}
+
+.register_logo
+{
+	width: 100%;
+	height: 33px;
+	margin-top: 26px;
+	text-align: center;
+}
+
+.register_phon
+{
+	width: 314px;
+	height: 38px;
+	margin: 15px 0 33px 69px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.register_pass
+{
+	width: 314px;
+	height: 38px;
+	margin: 0 0 33px 69px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.register_name
+{
+	width: 314px;
+	height: 38px;
+	margin: 0 0 33px 69px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.register_code
+{
+	width: 113px;
+	height: 38px;
+	margin: 0 0 33px 69px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.phco
+{
+	width: 314px;
+	height: 38px;
+	background: pink;
+	margin: 0 0 33px 69px;
+
+
+}
+.register_phco
+{
+	width: 177px;
+	height: 38px;
+	font-size: 14px;
+	padding-left: 11px;
+}
+
+.phco div
+{
+	float: right;
+	width: 137px;
+	height: 38px;
+	background: #ccc;
+	text-align: center;
+	line-height: 38px;
+	letter-spacing: 2px;
+
+}
+
+ .phco div span
+ {
+ 	font-size: 18px;
+ 	color: #fff;
+
+ }
+
+
+.register_reme
+{
+	width: 100%;
+	height: 16px;
+	padding-left: 67px;
+}
+.register_reme input
+{
+	width: 16px;
+	height: 16px;
+	font-size: 14px;	
+}
+.register_reme input+span
+{
+	font-size: 14px;
+	position: relative;
+	top: -4px;
+	font-weight: normal;
+}
+
+.register_reme label+span
+{
+	font-size: 14px;
+	position: relative;
+	top: -4px;
+	font-weight: normal;
+	padding-left: 52px;
+}
+
+.register_subm
+{
+	width: 105px;
+	height: 30px;
+	margin: 0 0 18px 174px;
+}

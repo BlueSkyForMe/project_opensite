@@ -83,5 +83,5 @@ class LoginController extends Controller
 
     	return redirect('/admin/login')->with(['info' => '退出成功']);
     }
-    
+
 }

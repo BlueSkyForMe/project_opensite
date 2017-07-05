@@ -33,6 +33,18 @@ Route::group(['middleware' => 'adminlogin'], function()
 Route::get('/admin/login', 'Admin\LoginController@login');
 Route::post('/admin/dologin', 'Admin\LoginController@doLogin');
 Route::get('admin/logout', 'Admin\LoginController@logout');
-//验证码
+
+//后台验证码
 Route::get('/kit/captcha/{tmp}', 'Admin\KitController@captcha');
+
+//前台首页加载 前台用户注册
+Route::get('/home/index', 'Home\IndexController@index');
+Route::post('/home/register', 'Home\RegisterController@insert');
+
+Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
+
+//前台验证码
+// Route::get('/kit/captcha/{tmp}', 'Home\KitController@captcha');
+
+
 
