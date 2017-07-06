@@ -46,7 +46,7 @@ class ManageController extends Controller
 		    	'email.email' => '请正确输入邮箱',
 		    	'email.unique' => '该邮箱已存在',
 		    	'password.required' => '密码不能为空',
-		    	'password.min' => '密码能少于六个字符',
+		    	'password.min' => '密码不能少于六个字符',
 		    	'password.max' => '密码不能超过十八个字符',
 		    	're_password.same' => '两次输入的密码不一致',
 		    	'photo.image' => '请正确上传图片'
@@ -153,7 +153,7 @@ class ManageController extends Controller
 			    ],
 			    [
 			    	'password.required' => '密码不能为空',
-			    	'password.min' => '密码能少于六个字符',
+			    	'password.min' => '密码不能少于六个字符',
 			    	'password.max' => '密码不能超过十八个字符',
 			    	're_password.same' => '两次输入的密码不一致',
 			    	'photo.image' => '请正确上传图片'
@@ -174,7 +174,7 @@ class ManageController extends Controller
 			    	'email.email' => '请正确输入邮箱',
 			    	'email.unique' => '该邮箱已存在',
 			    	'password.required' => '密码不能为空',
-			    	'password.min' => '密码能少于六个字符',
+			    	'password.min' => '密码不能少于六个字符',
 			    	'password.max' => '密码不能超过十八个字符',
 			    	're_password.same' => '两次输入的密码不一致',
 			    	'photo.image' => '请正确上传图片'

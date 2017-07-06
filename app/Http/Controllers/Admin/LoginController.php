@@ -9,13 +9,48 @@ class LoginController extends Controller
 {
     // login 登录页面
     public function login()
-    {
+    {   
+        // 验证是否记住登录状态
+        $rememberMe = \Cookie::get('rememberMe');
+
+        if($rememberMe)
+        {
+            // 根据记住我的字段查询数据库
+            $admin = \DB::table('manage')->where('rememberToken', $rememberMe)->first();
+
+            $admin->password = decrypt($admin->password);
+
+            return view('admin.login.login', ['title' => '后台登录', 'data' => $admin]);
+        }
+
     	return view('admin.login.login', ['title' => '后台登录']);
     }
 
     // doLogin 执行登录
     public function doLogin(Request $request)
     {
+        // 验证是否记住我
+        $rememberMe = \Cookie::get('rememberMe');
+
+        if($rememberMe)
+        {   
+
+            // 根据记住我的字段查询数据库
+            $admin = \DB::table('manage')->where('rememberToken', $rememberMe)->first();
+
+            // 记录每次的登录时间
+            $arr['lastTime'] = date('Y-m-d H:i:s');
+
+            // 插入数据库
+            $tim = \DB::table('manage')->where('userName', $admin->userName)->update($arr);
+
+            // 存入session
+            session(['master' => $admin]);
+
+            // 跳转
+            return redirect('/admin/index')->with(['info' => '登录成功']);
+        }
+
     	// 消除token
     	$data = $request->except('_token');
 
@@ -65,6 +100,13 @@ class LoginController extends Controller
             // 将数据存入session
             session(['master' => $res]);
 
+            // 判断是否记住我
+            if($request->has('rememberMe'))
+            {
+                // 存入cookie；
+                \Cookie::queue('rememberMe', $res->rememberToken, 10);
+            }
+            
             // 跳转
             return redirect('/admin/index')->with(['info' => '登录成功']);
         }
