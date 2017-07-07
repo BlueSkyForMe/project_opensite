@@ -48,3 +48,4 @@ Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
 
 
 
+

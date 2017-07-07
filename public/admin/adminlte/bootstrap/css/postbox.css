@@ -1,0 +1,55 @@
+*
+{
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+.email
+{
+	margin-top: 80px;
+	width: 700px;
+	height: 300px;
+	border: 1px solid #ccc;
+}
+
+.email form
+{
+	margin: 0 auto;
+}
+
+.hezi
+{
+	
+	width: 300px;
+	height: 280px;
+	margin-top: 80px;
+}
+
+hr
+{
+	height: 2px;
+}
+
+.span
+{
+	font-size: 14px;
+}
+
+.fan
+{
+	float: right;
+	margin-right: 20px;
+	font-color: white;
+	font-size: 16px;
+	/*background: white;*/
+	margin-top: 18px;
+}
+a:visited
+{
+	color: white;
+}
+
+.la
+{
+	width: 80px;
+}
