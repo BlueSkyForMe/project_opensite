@@ -47,4 +47,13 @@ Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
 // Route::get('/kit/captcha/{tmp}', 'Home\KitController@captcha');
 
 
+// 前台添加商户
+Route::get('/home/merchant/register', 'Home\MerchantController@register');
+Route::post('/home/merchant/insert', 'Home\MerchantController@insert');
+Route::get('/home/merchant/fill', 'Home\MerchantController@fill');
+Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
+Route::get('/home/merchant/complete', 'Home\MerchantController@complete');
+Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
+
+
 
