@@ -96,7 +96,7 @@
       </div>
       @endif  
     </form>
-    <a href="#">忘记密码？</a><br>
+    <a href="{{ url('/admin/forgot') }}">忘记密码？</a><br>
 
   </div>
   <!-- /.login-box-body -->
