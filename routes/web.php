@@ -37,14 +37,34 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 //后台验证码
 Route::get('/kit/captcha/{tmp}', 'Admin\KitController@captcha');
 
-//前台首页加载 前台用户注册
-Route::get('/home/index', 'Home\IndexController@index');
-Route::post('/home/register', 'Home\RegisterController@insert');
 
+// 后台忘记密码功能
+Route::get('/admin/forgot', 'Admin\ForgotController@forgot');
+Route::post('/admin/sendEmail', 'Admin\ForgotController@sendEmail');
+Route::get('/admin/link/{token}', 'Admin\ForgotController@link');
+Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
+Route::get('/admin/info', 'Admin\ForgotController@info');
+Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
+
+
+
+
+
+
+//前台首页加载
+Route::get('/home/index', 'Home\IndexController@index');
+
+// 前台用户注册
+Route::post('/home/register', 'Home\RegisterController@insert');
 Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
 
-//前台验证码
-// Route::get('/kit/captcha/{tmp}', 'Home\KitController@captcha');
+//前台用户登录
+Route::post('/home/login', 'Home\LoginController@login');
+
+//前台用户退出
+Route::get('/home/logout', 'Home\LoginController@logout');
+
+
 
 
 
