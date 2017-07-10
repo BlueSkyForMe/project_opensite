@@ -44,12 +44,5 @@
 	  </div>
 	</form>
 
-	<!-- <form action="{{ url('/admin/updatepass') }}" method="post">
-	{{ csrf_field() }}
-		<input type="hidden" name="id" value="{{ $id }}">
-		密码：<input type="text" name="password"><br><br>
-		确认密码：<input type="text" name="repassword"><br>
-		<button>更改密码</button>
-	</form> -->
 </body>
 </html>

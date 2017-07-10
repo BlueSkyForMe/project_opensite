@@ -46,6 +46,13 @@ Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
 //前台验证码
 // Route::get('/kit/captcha/{tmp}', 'Home\KitController@captcha');
 
+// 忘记密码功能
+Route::get('/admin/forgot', 'Admin\ForgotController@forgot');
+Route::post('/admin/sendEmail', 'Admin\ForgotController@sendEmail');
+Route::get('/admin/link/{token}', 'Admin\ForgotController@link');
+Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
+Route::get('/admin/info', 'Admin\ForgotController@info');
+Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
 
 
 
