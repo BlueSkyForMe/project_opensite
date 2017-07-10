@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>开场租赁平台_登录</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<title>{{ config('app.name') }}</title>
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
+    <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>
     
 </head>
 <body>
@@ -22,7 +22,7 @@
 
 					<ul class="wrap_ul l">
 						<li><a href="#"><span class="first_span">全国</span></a></li>
-						<li><a href="#"><span>开场首页</span></a></li>
+						<li><a href="{{ asset('/home/index') }}"><span>开场首页</span></a></li>
 
 						@if(session('huserName'))
       						<li><a href="#"><span id="status">{{ session('huserName') }}</span></a></li>
@@ -39,7 +39,7 @@
 						<div>
 							<a href="#"><span class="first_span">我的开场</span></a>
 							<ul>
-								<li><a href="#">我的订单</a></li>
+								<li><a href="{{ asset('/home/order/myOrder') }}">我的订单</a></li>
 								<li><a href="#">我的足迹</a></li>
 							</ul>
 						</div>
@@ -56,7 +56,7 @@
 
 						<div><a href="#"><span>商家中心</span></a>
 							<ul>
-								<li><a href="#">添加商户</a></li>
+								<li><a href="{{ asset('/home/merchant/register') }}">添加商户</a></li>
 								<li><a href="#">用户中心</a></li>
 								<li><a href="#">商户认证</a></li>
 								<li><a href="#">我想合作</a></li>
@@ -133,40 +133,137 @@
 				
        		<!-- 高级搜索 -->
        		<div id="super_img"><img src="{{ asset('/images/jiantou.png') }}"></div>
-			<div id="super_sear"><a href="#"><span>高级搜索</span></a></div>
+			<div id="super_sear"><a onclick="javascript:superSearch();" ><span>高级搜索</span></a></div>
 
 		</div>
 		
 		
 		<!--  高级搜素选择部分开始  -->
-		
+
+			<div class="superSearcher" style="display: none;">
+
+				<form action="" method="">
+
+					<table>
+
+						<tr class="t_first">
+							<td class="title_style" style="padding-right: 8px;">会议规模:</td>
+							<td>
+								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+									<option>城市</option>
+								</select>
+								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+									<option>人数</option>
+									<option>人数不限</option>
+									<option>10-50人</option>
+									<option>50-100人</option>
+									<option>100-300人</option>
+									<option>300-500人</option>
+									<option>500-1000人</option>
+									<option>1000+人</option>
+								</select>
+								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+									<option>预算</option>
+									<option>3000以下</option>
+									<option>3-5千</option>
+									<option>5-8千</option>
+									<option>8千-1.2万</option>
+									<option>1.2万-1.5万</option>
+									<option>1.5万-2万</option>
+									<option>2万-3万</option>
+									<option>3万-5万</option>
+									<option>5万-8万</option>
+									<option>8万-12万</option>
+									<option>12万-20万</option>
+									<option>20万-30万</option>
+									<option>30万以上</option>
+								</select>
+							</td>
+						</tr>
+
+						<tr class="t_second">
+							<td class="title_style">场地类型:</td>
+							<td>
+								<label><input id="hotel" type="checkbox" name="type[]" value="1">酒店</label>
+								<label><input type="checkbox" name="type[]" value="2">会议中心</label>
+								<label><input type="checkbox" name="type[]" value="3">体育馆</label>
+								<label><input type="checkbox" name="type[]" value="4">展览馆</label>
+								<label><input type="checkbox" name="type[]" value="5">酒吧/餐厅/会所</label>
+								<label><input type="checkbox" name="type[]" value="6">艺术中心/剧院</label>
+								<label><input type="checkbox" name="type[]" value="7">咖啡厅/茶室</label>
+								<span>&nbsp;&nbsp;(可多选)</span>
+							</td>
+						</tr>
+
+						<tr class="t_three">
+							<td class="title_style">会议时长:</td>
+							<td>
+								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+									<option>会议时长</option>
+									<option>一晚</option>
+									<option>半天</option>
+									<option>一天</option>
+									<option>两天</option>
+									<option>3-4天</option>
+									<option>5-7天</option>
+									<option>7-14天</option>
+									<option>14天以上</option>
+								</select>
+								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+									<option>开始时间</option>
+								</select>
+							</td>
+						</tr>
+						
+						<tr class="t_four">
+							<td class="title_style" style="color: #ccc;">酒店星级:</td>
+							<td>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="1">三星以下</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="2">三星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="3">四星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="4">五星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="5">六星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="6">七星级</label>
+							</td>
+						</tr>
+
+					</table>
+
+					<div>
+						<input type="image" src="{{ asset('/images/search_super.png') }}">
+					</div>
+
+				</form>
+
+			</div>
+
 		<!--/ 高级搜索选择部分结束  -->
 
 		<!-- 尾部footer -->
-		<div class="footer">
-			<div class="footer_wrap">
-				<!-- <div class="about"> -->
-					<ul class="about">
-						<li><a href="#"><span id="about_li">关于我们</span></a></li>
-						<li><a href="#"><span>联系我们</span></a></li>
-						<li><a href="#"><span>联系客服</span></a></li>
-						<li><a href="#"><span>商家中心</span></a></li>
-						<li><a href="#"><span>手机开场</span></a></li>
-						<li><a href="#"><span>友情链接</span></a></li>
-						<li><a href="#"><span>隐私政策</span></a></li>
-					</ul>
-				<!-- </div> -->
+			<div class="footer">
+				<div class="footer_wrap">
+					<!-- <div class="about"> -->
+						<ul class="about">
+							<li><a href="#"><span id="about_li">关于我们</span></a></li>
+							<li><a href="#"><span>联系我们</span></a></li>
+							<li><a href="#"><span>联系客服</span></a></li>
+							<li><a href="#"><span>商家中心</span></a></li>
+							<li><a href="#"><span>手机开场</span></a></li>
+							<li><a href="#"><span>友情链接</span></a></li>
+							<li><a href="#"><span>隐私政策</span></a></li>
+						</ul>
+					<!-- </div> -->
 
-				<div class="copy">
-					<span> COPYRIGHT &copy; 2017 - 2013 ALL RIGHTS RESERVED 开场网 版权所有</span>
+					<div class="copy">
+						<span> COPYRIGHT &copy; 2017 - 2013 ALL RIGHTS RESERVED 开场网 版权所有</span>
+					</div>
+
+					<div class="allow">
+						<span>经营许可证编号:京ICP备17034971号</span>
+					</div>
 				</div>
 
-				<div class="allow">
-					<span>经营许可证编号:京ICP备17034971号</span>
-				</div>
 			</div>
-
-		</div>
 		<!-- 尾部结束 -->
 
 		
@@ -174,7 +271,7 @@
 	
 	<!-- 登录div 隐藏 -->
 		<div id="login_box" style="display: none;">
-			<div class="login_title"><span>用户登录</span></div>
+			<div class="login_title"><span>用户登录</span><span class="closer">×</span></div>
 			<div class="login_logo"><img src="/images/login.png"></div>
 			<div>
 				<form action="{{ url ('/home/login') }}" method="post">
@@ -195,7 +292,7 @@
 
 	<!-- 注册div 隐藏 -->
 		<div id="register_box" style="display: none;">
-			<div class="register_title"><span>用户注册</span></div>
+			<div class="register_title"><span>用户注册</span><span class="closer">×</span></div>
 			<div class="register_logo"><img src="/images/login.png"></div>
 			<div>
 
