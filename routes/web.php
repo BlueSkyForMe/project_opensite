@@ -46,15 +46,10 @@ Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
 Route::get('/admin/info', 'Admin\ForgotController@info');
 Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
 
-
-
-
-
-
 //前台首页加载
 Route::get('/home/index', 'Home\IndexController@index');
 
-// 前台用户注册
+//前台用户注册
 Route::post('/home/register', 'Home\RegisterController@insert');
 Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
 
@@ -64,9 +59,6 @@ Route::post('/home/login', 'Home\LoginController@login');
 //前台用户退出
 Route::get('/home/logout', 'Home\LoginController@logout');
 
-
-
-
 // 前台添加商户
 Route::get('/home/merchant/register', 'Home\MerchantController@register');
 Route::post('/home/merchant/insert', 'Home\MerchantController@insert');
@@ -74,6 +66,14 @@ Route::get('/home/merchant/fill', 'Home\MerchantController@fill');
 Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
 Route::get('/home/merchant/complete', 'Home\MerchantController@complete');
 Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
+
+
+
+
+
+
+//前台添加我的订单
+Route::get('/home/order/myOrder', 'Home\OrderController@index');
 
 
 
