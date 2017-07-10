@@ -64,8 +64,9 @@ Route::get('/admin/re/edit/{id}', 'Admin\ReController@edit');
 Route::post('/admin/re/update/{id}', 'Admin\ReController@update');
 Route::get('/admin/re/delete/{id}', 'Admin\ReController@delete');
 
-
-
+//普通用户信息管理列表
+Route::get('/admin/user/index', 'Admin\UserController@index');
+Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
 
 
 

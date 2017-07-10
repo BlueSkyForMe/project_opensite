@@ -370,7 +370,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 用户列表</a></li>
+              <li class="active"><a href="{{ asset('/admin/user/index') }}"><i class="fa fa-circle-o"></i> 用户列表</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> 商户列表</a></li>
             </ul>
           </li>
