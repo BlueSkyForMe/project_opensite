@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//============================后台路由部分============================
+
 // 路由群组访问中间件
 Route::group(['middleware' => 'adminlogin'], function()
 	{
@@ -37,7 +39,6 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 //后台验证码
 Route::get('/kit/captcha/{tmp}', 'Admin\KitController@captcha');
 
-
 // 后台忘记密码功能
 Route::get('/admin/forgot', 'Admin\ForgotController@forgot');
 Route::post('/admin/sendEmail', 'Admin\ForgotController@sendEmail');
@@ -46,17 +47,43 @@ Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
 Route::get('/admin/info', 'Admin\ForgotController@info');
 Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
 
+// 广告管理
+// 1.友情链接
+Route::get('/admin/ad/index', 'Admin\AdController@index');
+Route::get('/admin/ad/add', 'Admin\AdController@add');
+Route::post('/admin/ad/insert', 'Admin\AdController@insert');
+Route::get('/admin/ad/edit/{id}', 'Admin\AdController@edit');
+Route::post('/admin/ad/update/{id}', 'Admin\AdController@update');
+Route::get('/admin/ad/delete/{id}', 'Admin\AdController@delete');
+
+// 2.热门场地
+Route::get('/admin/re/index', 'Admin\ReController@index');
+Route::get('admin/re/add', 'Admin\ReController@add');
+Route::post('/admin/re/insert', 'Admin\ReController@insert');
+Route::get('/admin/re/edit/{id}', 'Admin\ReController@edit');
+Route::post('/admin/re/update/{id}', 'Admin\ReController@update');
+Route::get('/admin/re/delete/{id}', 'Admin\ReController@delete');
+
+
+
+
+
+
+
+
+
+
+
+
+//============================前台路由部分============================
+
 //前台首页加载
 Route::get('/home/index', 'Home\IndexController@index');
 
-//前台用户注册
+//前台用户注册 登录 退出
 Route::post('/home/register', 'Home\RegisterController@insert');
 Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
-
-//前台用户登录
 Route::post('/home/login', 'Home\LoginController@login');
-
-//前台用户退出
 Route::get('/home/logout', 'Home\LoginController@logout');
 
 // 前台添加商户
@@ -66,18 +93,6 @@ Route::get('/home/merchant/fill', 'Home\MerchantController@fill');
 Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
 Route::get('/home/merchant/complete', 'Home\MerchantController@complete');
 Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
-
-// 忘记密码功能
-Route::get('/admin/forgot', 'Admin\ForgotController@forgot');
-Route::post('/admin/sendEmail', 'Admin\ForgotController@sendEmail');
-Route::get('/admin/link/{token}', 'Admin\ForgotController@link');
-Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
-Route::get('/admin/info', 'Admin\ForgotController@info');
-Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
-
-
-
-
 
 //前台添加我的订单
 Route::get('/home/order/myOrder', 'Home\OrderController@index');
