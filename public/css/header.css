@@ -87,8 +87,9 @@ a
 .wrap_ul div
 {
 	float: left;
-	line-height: 35px;
-		z-index: 1000;
+	line-height: 33px;
+	z-index: 1000;
+	border: 1px solid #ccc;
 }
 
 .wrap_ul div ul li
@@ -464,6 +465,12 @@ a
 {
 	font-size: 19px;
 	color: #0066cc;
+}
+
+.closer
+{
+	padding-left: 330px;
+	cursor: pointer;
 }
 
 .register_logo

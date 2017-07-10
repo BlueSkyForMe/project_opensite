@@ -7,12 +7,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        后台管理
+        用户管理
         <small>查看列表</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="#">后台管理</a></li>
+        <li><a href="#">用户管理</a></li>
         <li class="active">查看列表</li>
       </ol>
     </section>
@@ -25,16 +25,19 @@
             <div class="box-header">
               <h3 class="box-title">快速查看列表</h3>
             </div>
-            @if (session('info'))
+
+            @if (session('userInfo'))
                 <div class="alert alert-danger">
-                  {{ session('info') }}
+                  {{ session('userInfo') }}
                 </div>
             @endif
+
             <form action="/admin/manage/index" method="GET">
                 <div class="col-md-2">
                   <div class="form-group">
                     <select name="num" class="form-control">
                       <option value="10" 
+
                         @if(!empty($request['num']) && $request['num'] == '10')
                           selected="selected" 
                         @endif
@@ -43,6 +46,7 @@
                         @if(!empty($request['num']) && $request['num'] == '20')
                           selected="selected" 
                         @endif
+
                       >20页</option>
                     </select>
                   </div>
@@ -50,7 +54,7 @@
               <div class="col-md-6"></div>
               <div class="col-md-4">
                 <div class="input-group">
-                  <input type="text" name="keywords" value="{{ $request['keywords'] or '' }}" class="form-control">
+                  <input type="text" placeholder="请输入要搜索的用户名" name="keywords" value="{{ $request['keywords'] or '' }}" class="form-control">
                   <span class="input-group-btn">
                     <button type="submit" class="btn btn-info btn-flat">搜索</button>
                   </span>
@@ -64,8 +68,7 @@
                 <tr>
                   <th>用户ID</th>
                   <th>用户名</th>
-                  <th>头像</th>                  
-                  <th>用户组</th>
+                  <th>手机号</th>                  
                   <th>邮箱</th>
                   <th>状态</th>
                   <th>创建时间</th>
@@ -76,17 +79,23 @@
                 <tbody>
               @foreach ($data as $key => $val)
                 <tr>
-                  <td class="uid">{{ $val->id }}</td>
+                  <td>{{ $val->id }}</td>
                   <td>{{ $val->userName }}</td>
-                  <td><img width="30" height="30" src="{{ asset('/uploads/photo') }}/{{ $val->photo }}"></td>
                   <td>
-                    @if ($val->auth == 1)
-                      超级管理员
-                    @else
-                      普通管理员    
-                    @endif
+                      @if($val->phone)
+                          {{ $val->phone }}
+                      @else
+                          无
+                      @endif
                   </td>
-                  <td>{{ $val->email }}</td>
+                  <td>
+                      @if($val->email)
+                          {{ $val->email }}
+                      @else
+                          无
+                      @endif
+
+                  </td>
                   <td>
                     @if ($val->status == 1)
                       正常
@@ -103,19 +112,19 @@
                     @endif
                   </td>
                   <td>
-                    <a href="{{ url('/admin/manage/edit') }}/{{ $val->id }}">编辑</a>|
                     @if ($val->status == 1)
-                    <a href="{{ url('/admin/manage/state') }}/{{ $val->id }}/{{ $val->status }}">禁用</a>|
+                    <a href="{{ url('/admin/user/state') }}/{{ $val->id }}/{{ $val->status }}">禁用</a>
                     @else
-                    <a href="{{ url('/admin/manage/state') }}/{{ $val->id }}/{{ $val->status }}">启用</a>|
+                    <a href="{{ url('/admin/user/state') }}/{{ $val->id }}/{{ $val->status }}">启用</a>
                     @endif
-                    <a class="del" data-toggle="modal" data-target="#myModal" href="#">删除</a>
                   </td>
                 </tr>
               @endforeach  
                 </tbody>
               </table>
+
               {{ $data->appends($request)->links() }}
+
             </div>
             <!-- /.box-body -->
           </div>
