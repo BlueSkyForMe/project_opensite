@@ -67,6 +67,13 @@ Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
 Route::get('/home/merchant/complete', 'Home\MerchantController@complete');
 Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
 
+// 忘记密码功能
+Route::get('/admin/forgot', 'Admin\ForgotController@forgot');
+Route::post('/admin/sendEmail', 'Admin\ForgotController@sendEmail');
+Route::get('/admin/link/{token}', 'Admin\ForgotController@link');
+Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
+Route::get('/admin/info', 'Admin\ForgotController@info');
+Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
 
 
 
