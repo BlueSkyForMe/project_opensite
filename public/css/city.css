@@ -1,0 +1,100 @@
+
+#place 
+{ 
+	width: 107px;
+	height: 39px;
+	border: 1px solid  #fff;
+	border-right-color: #336600;
+	font-size: 17px;
+	color: #333;
+	padding-left: 10px;
+	background: url(../images/dsfw.png) no-repeat 96% center; 
+}
+
+#in_city h1 
+{ 
+	padding: 10px 0; 
+	color: #333; 
+	text-indent: 3%;
+}
+
+#in_city 
+{ 
+	background: #ddd;
+	position: absolute;
+	z-index: 999;
+	border: solid 1px #d7d7d7;
+	background: #fff;
+	padding-bottom: 6px; 
+}
+.screen 
+{ 
+	overflow: hidden; 
+}
+.screen a 
+{ 
+	float: left;
+	color: #129ace;
+	padding: 1px 12.6px;
+	text-align: center;
+	border-bottom: solid 1px #ccc;
+}
+.screen a:hover 
+{ 
+	color: #c92436; 
+}
+.screen .shar 
+{ 
+	color: #404040;
+	border: solid 1px #ccc;
+	border-bottom: none; 
+}
+.city_a_le1 
+{ 
+	padding: 10px;
+	overflow: hidden; 
+}
+.city_a_le1 a 
+{ 
+	float: left;
+	width: 20%;
+	margin: 2px 0;
+}
+.Letter span 
+{ 
+	width: 12%;
+	float: left;
+	text-align: center;
+	padding: 2px 0;
+}
+.Letter div 
+{ 
+	width: 88%;
+	float: left; 
+}
+.city_a_le1 a:hover 
+{ 
+	color: #c92436; 
+}
+.Letter div a 
+{ 
+	width: 25%; 
+}
+#in_city h1 
+{ 
+	padding: 10px 0;
+	color: #ababab;
+	text-indent: 3%;
+}
+a:hover 
+{ 
+	opacity: 0.8;
+	filter:alpha(opacity=80); 
+	text-decoration: blink;
+}
+.clear 
+{
+	clear: both;
+}
+
+

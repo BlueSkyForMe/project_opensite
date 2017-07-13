@@ -5,8 +5,8 @@
 	<title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
-    <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>
-    
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/city.css') }}">
+    <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>   
 </head>
 <body>
 	
@@ -108,25 +108,30 @@
 			<div id="logo"></div>
 			
 			<div id="search">
-				<form action="" method="">
+				<form action=" {{ url('/home/search/general') }} " method="get">
 					<ul class="search_ul">
-						<li class="city"><span>北  京</span><div class="s"></div></li>
-						<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
-						<li class="number">
 						
+						<!-- 城市选择 -->
+						<li class="city"><input type="text" placeholder="北 京" id="place" name="city" value=""></li>
+						<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
+						
+						<!-- 关键字 -->
+						<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
+						
+						<!-- 可容纳人数 -->
+						<li class="number">
 							<div class="dis_sel" >
-							
 								<select name="number">
 									<option value="0">人数不限</option>
-									<option value="1">50-100</option>
-									<option value="2">100-200</option>
-									<option value="3">200-300</option>
-									<option value="4">300-400</option>
+									<option value="50-100">50-100</option>
+									<option value="100-200">100-200</option>
+									<option value="200-300">200-300</option>
+									<option value="300-400">300-400</option>
 								</select>
 							</div>
 							<div class="mar"><div class="s"></div></div>
 						</li>
-						<li class="sear"><a href="#"><img src="{{ asset('/images/search.png') }} "></a></li>
+						<li class="sear"><a href="#"><input type="image" src="{{ asset('/images/search.png') }} "></a></li>
 					</ul>
 				</form>
 			</div>
@@ -142,7 +147,7 @@
 
 			<div class="superSearcher" style="display: none;">
 
-				<form action="" method="">
+				<form action="{{ asset('/home/search/super') }}" method="get">
 
 					<table>
 
@@ -336,6 +341,10 @@
 	<script type="text/javascript" src="{{ asset('/js/home.index.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/home.index.ajax.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/home.index.autolog.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/cityTemplate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>
+	
+	
 
 </body>
 </html>
