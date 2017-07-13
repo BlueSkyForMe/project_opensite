@@ -8,6 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/registe.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/order.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('/css/search.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/city.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/result.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/nav.css') }}">
+
+
     <script type="text/javascript" src="{{ asset ('/js/jquery-3.2.1.min.js') }}"></script>
 </head>
 <body>
@@ -15,7 +21,7 @@
 	<!-- 页面容器 -->	
 	<div class="container_i">
 		
-		<!-- 头部header -->
+	<!-- 头部header -->
 		<div class="header">
 
 			<div class="container_wrap">
@@ -106,9 +112,14 @@
 				<div class="logo_sear_img"><img src="{{ asset ('/images/logo-1.png') }}"></div>
 				<!-- search -->
 				<div id="search">
-					<form action="" method="">
+					<form action=" {{ url('/home/search/general') }} " method="get">
 						<ul class="search_ul">
-							<li class="city"><span>北  京</span><div class="s"></div></li>
+							
+							<!-- 城市选择 -->
+							<li class="city"><input type="text" placeholder="北 京" id="place" name="city" value=""></li>
+							<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
+							
+							<!-- 关键字 -->
 							<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
 							<li class="number">
 							
@@ -124,19 +135,19 @@
 								</div>
 								<div class="mar"><div class="s"></div></div>
 							</li>
-							<li class="sear"><a href="#"><img src="{{ asset ('/images/search.png') }}"></a></li>
+							<li class="sear"><a href="#"><input type="image" src="{{ asset ('/images/search.png') }}"></a></li>
 						</ul>
 					</form>
 				</div>
 			</div>
 		</div>
-		<!-- /头部结束 -->
+	<!-- /头部结束 -->
 
 		<div class="bar"></div>
 		
 		@yield('content')
 
-		<!-- 尾部footer -->
+	<!-- 尾部footer -->
 		<div class="footer">
 			<div class="footer_wrap">
 				<!-- <div class="about"> -->
@@ -161,7 +172,173 @@
 			</div>
 
 		</div>
-		<!-- 尾部结束 -->
+	<!-- 尾部结束 -->
+
+
+	<!-- 侧边购物车 -->
+		<div class="J-global-toolbar">
+		    <div class="toolbar-wrap J-wrap">
+		        <div class="toolbar">
+		            <div class="toolbar-panels J-panel">
+		                <div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-cart toolbar-animate-out">
+		                    <h3 class="tbar-panel-header J-panel-header">
+		                        <a href="" class="title"><i></i><em class="title">购物车</em></a>
+		                        <span class="close-panel J-close"></span>
+		                    </h3>
+		                    <div class="tbar-panel-main">
+		                        <div class="tbar-panel-content J-panel-content">
+		                            <div id="J-cart-tips" class="tbar-tipbox hide">
+		                                <div class="tip-inner">
+		                                    <span class="tip-text">还没有登录，登录后商品将被保存</span>
+		                                    <a href="#none" class="tip-btn J-login">登录</a>
+		                                </div>
+		                            </div>
+		                            <div id="J-cart-render">
+		                                <div class="tbar-cart-list">
+		                                    <div class="tbar-cart-item" >
+		                                        <div class="jtc-item-promo">
+		                                            <em class="promo-tag promo-mz">满赠<i class="arrow"></i></em>
+		                                            <div class="promo-text">已购满600元，您可领赠品</div>
+		                                        </div>
+		                                        <div class="jtc-item-goods">
+		                                            <span class="p-img"><a href="#" target="_blank"><img src="http://img14.360buyimg.com/n5/g10/M00/00/14/rBEQWFEAilIIAAAAAACGm9ueTbUAAAH7gB8kskAAIaz106.jpg" alt="美的（Midea） BCD-206TM(E) 206升静音/省电/三门冰箱（闪白银）" height="50" width="50" /></a></span>
+		                                            <div class="p-name">
+		                                                <a href="#">美的（Midea） BCD-206TM(E)206升静音/省电/三门冰箱（闪白银）</a>
+		                                            </div>
+		                                            <div class="p-price"><strong>¥1398.00</strong>×1 </div>
+		                                            <a href="#none" class="p-del J-del">删除</a>
+		                                        </div>
+		                                    </div>
+		                                    <div class="tbar-cart-item">
+		                                        <div class="jtc-item-promo">
+		                                            <em class="promo-tag promo-mz">满赠<i class="arrow"></i></em>
+		                                            <div class="promo-text">已购满600元，您可领赠品</div>
+		                                        </div>
+		                                        <div class="jtc-item-goods">
+		                                            <span class="p-img">
+		                                                <a href="#" target="_blank"><img src="http://img14.360buyimg.com/n5/g10/M00/00/14/rBEQWFEAilIIAAAAAACGm9ueTbUAAAH7gB8kskAAIaz106.jpg" alt="美的（Midea） BCD-206TM(E) 206升静音/省电/三门冰箱（闪白银）" height="50" width="50" /></a>
+		                                            </span>
+		                                            <div class="p-name">
+		                                                <a href="#">美的（Midea） BCD-206TM(E)206升静音/省电/三门冰箱（闪白银）</a>
+		                                            </div>
+		                                            <div class="p-price"><strong>¥1398.00</strong>×1 </div>
+		                                            <a href="#none" class="p-del J-del">删除</a> 
+		                                        </div>
+		                                    </div>
+		                                    <div class="tbar-cart-item" >
+		                                        <div class="jtc-item-promo">
+		                                            <em class="promo-tag promo-mz">满赠<i class="arrow"></i></em>
+		                                            <div class="promo-text">已购满600元，您可领赠品</div>
+		                                        </div>
+		                                        <div class="jtc-item-goods">
+		                                            <span class="p-img"><a href="#" target="_blank"><img src="http://img14.360buyimg.com/n5/g10/M00/00/14/rBEQWFEAilIIAAAAAACGm9ueTbUAAAH7gB8kskAAIaz106.jpg" alt="美的（Midea） BCD-206TM(E) 206升静音/省电/三门冰箱（闪白银）" height="50" width="50" /></a></span>
+		                                            <div class="p-name"><a href="#">美的（Midea） BCD-206TM(E)206升静音/省电/三门冰箱（闪白银）</a> </div>
+		                                            <div class="p-price"> <strong>¥1398.00</strong>×1 </div>
+		                                            <a href="#none" class="p-del J-del">删除</a>
+		                                        </div>
+		                                    </div>
+		                                    <div class="tbar-cart-item" >
+		                                        <div class="jtc-item-promo">
+		                                            <em class="promo-tag promo-mz">满赠<i class="arrow"></i></em>
+		                                            <div class="promo-text">已购满600元，您可领赠品</div>
+		                                        </div>
+		                                        <div class="jtc-item-goods">
+		                                            <span class="p-img"><a href="#" target="_blank"><img src="http://img14.360buyimg.com/n5/g10/M00/00/14/rBEQWFEAilIIAAAAAACGm9ueTbUAAAH7gB8kskAAIaz106.jpg" alt="美的（Midea） BCD-206TM(E) 206升静音/省电/三门冰箱（闪白银）" height="50" width="50" /> </a> </span>
+		                                            <div class="p-name"><a href="#">美的（Midea） BCD-206TM(E)206升静音/省电/三门冰箱（闪白银）</a> </div>
+		                                            <div class="p-price"> <strong>¥1398.00</strong>×1 </div>
+		                                            <a href="#none" class="p-del J-del">删除</a>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="tbar-panel-footer J-panel-footer">
+		                        <div class="tbar-checkout">
+		                            <div class="jtc-number"> <strong class="J-count">0</strong>件商品 </div>
+		                            <div class="jtc-sum"> 共计：<strong class="J-total">¥113</strong> </div>
+		                            <a class="jtc-btn J-btn" href="#none" target="_blank">去购物车结算</a>
+		                        </div>
+		                    </div>
+		                </div>
+
+		                <div style="visibility: hidden;" data-name="follow" class="J-content toolbar-panel tbar-panel-follow">
+		                    <h3 class="tbar-panel-header J-panel-header">
+		                        <a href="#" target="_blank" class="title"> <i></i> <em class="title">我的关注</em> </a>
+		                        <span class="close-panel J-close"></span>
+		                    </h3>
+		                    <div class="tbar-panel-main">
+		                        <div class="tbar-panel-content J-panel-content">
+		                            <div class="tbar-tipbox2">
+		                                <div class="tip-inner"> <i class="i-loading"></i> </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="tbar-panel-footer J-panel-footer"></div>
+		                </div>
+		                
+		                <div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-history toolbar-animate-in">
+		                    <h3 class="tbar-panel-header J-panel-header">
+		                        <a href="#" target="_blank" class="title"> <i></i> <em class="title">我的足迹</em> </a>
+		                        <span class="close-panel J-close"></span>
+		                    </h3>
+		                    <div class="tbar-panel-main">
+		                        <div class="tbar-panel-content J-panel-content">
+		                            <div class="jt-history-wrap">
+		                                <ul>
+		                                    <li class="jth-item">
+		                                        <a href="#" class="img-wrap"> <img src="http://img10.360buyimg.com/n0/s100x100_g9/M03/0C/18/rBEHalCKCk8IAAAAAAD5nbR5xOAAACfgQENi_wAAPm1269.jpg" height="100" width="100" /> </a>
+		                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+		                                        <a href="#" target="_blank" class="price">￥498.00</a>
+		                                    </li>
+		                                    <li class="jth-item">
+		                                        <a href="#" class="img-wrap"> <img src="http://img10.360buyimg.com/n0/s100x100_g9/M03/0C/18/rBEHalCKCk8IAAAAAAD5nbR5xOAAACfgQENi_wAAPm1269.jpg" height="100" width="100" /></a>
+		                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+		                                        <a href="#" target="_blank" class="price">￥498.00</a>
+		                                    </li>
+		                                </ul>
+		                                <a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="tbar-panel-footer J-panel-footer"></div>
+		                </div>
+		            </div>
+		            
+		            <div class="toolbar-header"></div>
+		            
+		            <div class="toolbar-tabs J-tab">
+		                <div class="toolbar-tab tbar-tab-cart">
+		                    <i class="tab-ico"></i>
+		                    <em class="tab-text ">购物车</em>
+		                    <span class="tab-sub J-count ">1</span>
+		                </div>
+		                <div class=" toolbar-tab tbar-tab-follow">
+		                    <i class="tab-ico"></i>
+		                    <em class="tab-text">我的关注</em>
+		                    <span class="tab-sub J-count hide">0</span> 
+		                </div>
+		                <div class=" toolbar-tab tbar-tab-history ">
+		                    <i class="tab-ico"></i>
+		                    <em class="tab-text">我的足迹</em>
+		                    <span class="tab-sub J-count hide">0</span>
+		                </div>
+		            </div>
+		            
+		            <div class="toolbar-footer">
+		                <div class="toolbar-tab tbar-tab-top"> <a href="#"> <i class="tab-ico  "></i> <em class="footer-tab-text">顶部</em> </a> </div>
+		                <div class=" toolbar-tab tbar-tab-feedback"> <a href="#" target="_blank"> <i class="tab-ico"></i> <em class="footer-tab-text ">反馈</em> </a> </div>
+		            </div>
+		            
+		            <div class="toolbar-mini"></div>
+		            
+		        </div>
+		        
+		        <div id="J-toolbar-load-hook"></div>
+		        
+		    </div>
+		</div>
+	<!-- /侧边购物车 -->
 
 	</div>	
 
@@ -234,5 +411,10 @@
 	<script type="text/javascript" src="{{ asset('/js/home.index.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/home.index.ajax.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/home.index.autolog.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/cityTemplate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/nav.js') }}"></script>
+
+
 </body>
 </html>
