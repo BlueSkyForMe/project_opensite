@@ -29,6 +29,17 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::post('/admin/manage/update/{id}', 'Admin\ManageController@update');
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
+
+		// 后台商户审核管理
+		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
+		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
+		Route::get('/admin/merchant/check', 'Admin\MerchantController@check');
+		Route::get('/admin/merchant/merinfo/{id}', 'Admin\MerchantController@merinfo');
+		Route::post('/admin/merchant/noreason', 'Admin\MerchantController@noreason');
+		Route::get('/admin/merchant/pass/{uid}', 'Admin\MerchantController@pass');
+		Route::get('/admin/merchant/loser', 'Admin\MerchantController@loser');
+		Route::get('/admin/merchant/lookinfo/{id}', 'Admin\MerchantController@lookinfo');
+		Route::get('/admin/merchant/merdelete/{id}', 'Admin\MerchantController@merdelete');
 	});
 
 // 后台管理员登录
@@ -99,6 +110,17 @@ Route::get('/home/merchant/ajaxcity', 'Home\MerchantController@ajaxcity');
 
 //前台添加我的订单
 Route::get('/home/order/myOrder', 'Home\OrderController@index');
+
+
+
+
+
+
+
+//============================ 商户中心 ============================
+
+Route::get('/tenant/index', 'Tenant\IndexController@index');
+
 
 
 
