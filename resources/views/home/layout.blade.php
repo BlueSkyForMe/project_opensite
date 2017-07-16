@@ -409,7 +409,10 @@
 	  }
 	</script>	
 	<script type="text/javascript" src="{{ asset('/js/home.index.js') }}"></script>
+
 	<script type="text/javascript" src="{{ asset('/js/home.index.ajax.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/home.search.ajax.js') }}"></script>
+
 	<script type="text/javascript" src="{{ asset('/js/home.index.autolog.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/cityTemplate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>

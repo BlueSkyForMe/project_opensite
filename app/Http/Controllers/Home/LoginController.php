@@ -21,6 +21,8 @@ class LoginController extends Controller
     		//通过手机号字段, 查询数据库
     		$res = \DB::table('users')->where('phone', $data['phone'])->first();
 
+    		// dd($res);
+
     		//从查询结果中找出注册时的密码,并解密
     		$oldPassword = decrypt($res->password);
 
@@ -32,7 +34,7 @@ class LoginController extends Controller
     			\DB::table('users')->where('phone', $data['phone'])->update(['lastTime' => date('Y-m-d H:i:s')]);
 
     			//将用户信息存入session
-	    		session(['huserName' => $res->userName]);
+	    		session(['huser' => $res]);
 
 	    		 // 判断是否记住我
 	            if($request->has('rememberMe'))
@@ -46,6 +48,9 @@ class LoginController extends Controller
 	            {
 	            	//查询merchant表, 查看是否通过审核
 	            	$mer = \DB::table('merchant')->where('uid', $res->id)->first();
+
+	            		//将商户信息存入session
+	    				session(['hmer' => $mer]);
 
 	            	switch($mer->check)
 	            	{

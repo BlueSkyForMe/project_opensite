@@ -120,6 +120,8 @@ Route::get('/home/order/myOrder', 'Home\OrderController@index');
 Route::get('/home/search/general', 'Home\SearchController@search');
 Route::get('/home/search/super', 'Home\SearchController@superSearch');
 
+Route::get('/home/search/ajax', 'Home\SearchController@ajax');
+
 //前台详情
 Route::get('/home/detail/{id}', 'Home\DetailController@index');
 
