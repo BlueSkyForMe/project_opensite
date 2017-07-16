@@ -212,10 +212,14 @@ class MerchantController extends Controller
 
         // 拼接地址
         $data['address'] = $city->name.$county->name.$data['address'];
-
-        // 将包含的服务拼成字符串
-        $data['servers'] = implode(',', $data['servers']);
-
+        
+        // 判断是否添加服务
+        if($request->servers)
+        {
+            // 将包含的服务拼成字符串
+            $data['servers'] = implode(',', $data['servers']);
+        }
+        
         // 处理图片
         if($request->hasFile('img'))
         {
