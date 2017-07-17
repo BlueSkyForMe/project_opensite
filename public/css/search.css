@@ -166,7 +166,26 @@ ul li .float_l
 	/*margin-top: 25px;*/
 }
 
+.left_con_ajax
+{
+	padding-bottom: 5px;
+	color: #000;
+	font-weight: bold;
+	/*margin-top: 20px;*/
+	margin-top: 8px;
+	
+	/*margin-top: 25px;*/
+}
+
 .left_con ul li .float_one
+{
+	float: left;
+	width: 241px;
+	height: 195px;
+	margin-left: 5px;
+}
+
+.left_con_ajax ul li .float_one
 {
 	float: left;
 	width: 241px;

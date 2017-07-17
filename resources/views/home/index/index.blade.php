@@ -24,8 +24,8 @@
 						<li><a href="#"><span class="first_span">全国</span></a></li>
 						<li><a href="{{ asset('/home/index') }}"><span>开场首页</span></a></li>
 
-						@if(session('huserName'))
-      						<li><a href="#"><span id="status">{{ session('huserName') }}</span></a></li>
+						@if(session('huser'))
+      						<li><a href="#"><span id="status">{{ session('huser')->userName }}</span></a></li>
       						<li><a href="{{ url('/home/logout') }}"><span>退出</span></a></li>
 						@else
 							<li id="register"><a href="#"><span>注册</span></a></li>
@@ -154,20 +154,24 @@
 						<tr class="t_first">
 							<td class="title_style" style="padding-right: 8px;">会议规模:</td>
 							<td>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
-									<option>城市</option>
-								</select>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+
+								<!-- 城市选择 -->
+								<input type="text" placeholder="城市" id="destination" style="width: 80px; height: 25px; margin-right: 14px;" name="city" value="">
+								<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
+
+
+
+								<select name="supPerson" id="supPerson" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>人数</option>
 									<option>人数不限</option>
-									<option>10-50人</option>
-									<option>50-100人</option>
-									<option>100-300人</option>
-									<option>300-500人</option>
-									<option>500-1000人</option>
-									<option>1000+人</option>
+									<option>10-50</option>
+									<option>50-100</option>
+									<option>100-300</option>
+									<option>300-500</option>
+									<option>500-1000</option>
+					
 								</select>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+								<select name="budget" id="budget" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>预算</option>
 									<option>3000以下</option>
 									<option>3-5千</option>
@@ -189,13 +193,13 @@
 						<tr class="t_second">
 							<td class="title_style">场地类型:</td>
 							<td>
-								<label><input id="hotel" type="checkbox" name="type[]" value="1">酒店</label>
-								<label><input type="checkbox" name="type[]" value="2">会议中心</label>
-								<label><input type="checkbox" name="type[]" value="3">体育馆</label>
-								<label><input type="checkbox" name="type[]" value="4">展览馆</label>
-								<label><input type="checkbox" name="type[]" value="5">酒吧/餐厅/会所</label>
-								<label><input type="checkbox" name="type[]" value="6">艺术中心/剧院</label>
-								<label><input type="checkbox" name="type[]" value="7">咖啡厅/茶室</label>
+								<label><input id="hotel" type="checkbox" name="type[]" value="酒店">酒店</label>
+								<label><input type="checkbox" name="type[]" value="会议中心">会议中心</label>
+								<label><input type="checkbox" name="type[]" value="体育馆">体育馆</label>
+								<label><input type="checkbox" name="type[]" value="展览馆">展览馆</label>
+								<label><input type="checkbox" name="type[]" value="酒吧/餐厅/会所">酒吧/餐厅/会所</label>
+								<label><input type="checkbox" name="type[]" value="艺术中心/剧院">艺术中心/剧院</label>
+								<label><input type="checkbox" name="type[]" value="咖啡厅/茶室">咖啡厅/茶室</label>
 								<span>&nbsp;&nbsp;(可多选)</span>
 							</td>
 						</tr>
@@ -203,7 +207,7 @@
 						<tr class="t_three">
 							<td class="title_style">会议时长:</td>
 							<td>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+								<select name="meeting" id="meeting" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>会议时长</option>
 									<option>一晚</option>
 									<option>半天</option>
@@ -214,7 +218,7 @@
 									<option>7-14天</option>
 									<option>14天以上</option>
 								</select>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+								<select name="starTime" id="starTime" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>开始时间</option>
 								</select>
 							</td>
@@ -224,11 +228,11 @@
 							<td class="title_style" style="color: #ccc;">酒店星级:</td>
 							<td>
 								<label style="color: #ccc;"><input disabled type="radio" name="star" value="1">三星以下</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="2">三星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="3">四星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="4">五星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="5">六星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="6">七星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="三星级">三星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="四星级">四星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="五星级">五星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="六星级">六星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="七星级">七星级</label>
 							</td>
 						</tr>
 
