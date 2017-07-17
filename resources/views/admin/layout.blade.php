@@ -347,7 +347,7 @@
             <li class="header">主要 导航</li>
 
   <!-- 后台管理 -->
-          <li class="active treeview">
+          <li class="treeview">
             <a href="#">
               <i class="fa fa-dashboard"></i> <span>后台管理</span>
               <span class="pull-right-container">

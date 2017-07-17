@@ -30,7 +30,6 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
 
-<<<<<<< HEAD
 		// 后台商户审核管理
 		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
 		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
@@ -41,7 +40,7 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/merchant/loser', 'Admin\MerchantController@loser');
 		Route::get('/admin/merchant/lookinfo/{id}', 'Admin\MerchantController@lookinfo');
 		Route::get('/admin/merchant/merdelete/{id}', 'Admin\MerchantController@merdelete');
-=======
+
 		// 广告管理
 		// 1.友情链接
 		Route::get('/admin/ad/index', 'Admin\AdController@index');
@@ -62,9 +61,6 @@ Route::group(['middleware' => 'adminlogin'], function()
 		//普通用户信息管理列表
 		Route::get('/admin/user/index', 'Admin\UserController@index');
 		Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
-
-
->>>>>>> abfdde138316e4bf062f6c488b970ff350639b8b
 	});
 
 // 后台管理员登录
@@ -144,9 +140,14 @@ Route::get('/home/detail/{id}', 'Home\DetailController@index');
 
 
 //============================ 商户中心 ============================
-
 Route::get('/tenant/index', 'Tenant\IndexController@index');
-
+Route::get('/tenant/detail/complete', 'Tenant\DetailController@complete');
+Route::post('/tenant/detail/add', 'Tenant\DetailController@add');
+Route::get('/tenant/detail/edit/{uid}', 'Tenant\DetailController@edit');
+Route::post('tenant/detail/update/{uid}', 'Tenant\DetailController@update');
+Route::get('/tenant/mansite/add', 'Tenant\MansiteController@add');
+Route::post('/tenant/mansite/insert/{uid}', 'Tenant\MansiteController@insert');
+Route::get('/tenant/mansite/show/{uid}', 'Tenant\MansiteController@show');
 
 
 
