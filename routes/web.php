@@ -64,6 +64,9 @@ Route::get('/admin/re/edit/{id}', 'Admin\ReController@edit');
 Route::post('/admin/re/update/{id}', 'Admin\ReController@update');
 Route::get('/admin/re/delete/{id}', 'Admin\ReController@delete');
 
+// 评论管理
+Route::get('/admin/comment/index', 'Admin\CommentController@index');
+Route::get('/admin/comment/delete/{id}', 'Admin\CommentController@delete');
 
 
 
@@ -98,5 +101,16 @@ Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
 Route::get('/home/order/myOrder', 'Home\OrderController@index');
 
 
+// 前台我的开场
+Route::get('home/personal/index', 'Home\PersonalController@index');
+Route::post('home/personal/insert', 'Home\PersonalController@insert');
+
+// 前台我的开场修改密码
+Route::get('home/personal/amend', 'Home\PersonalController@amend');
+Route::get('/home/personal/ajax', 'Home\PersonalController@ajax');
+
+// 前台我的开场里面的收藏夹
+Route::get('home/personal/collect', 'Home\PersonalController@collect');
+Route::get('home/personal/merchant', 'Home\PersonalController@merchant');
 
 

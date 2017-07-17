@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/registe.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/order.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/bodyer.css') }}">
     <script type="text/javascript" src="{{ asset ('/js/jquery-3.2.1.min.js') }}"></script>
 </head>
 <body>
