@@ -104,11 +104,14 @@ Route::get('/home/logout', 'Home\LoginController@logout');
 Route::get('/home/merchant/register', 'Home\MerchantController@register');
 Route::post('/home/merchant/insert', 'Home\MerchantController@insert');
 Route::get('/home/merchant/fill/{id}', 'Home\MerchantController@fill');
+Route::get('/home/merchant/back/{id}', 'Home\MerchantController@back');
 Route::post('/home/merchant/add', 'Home\MerchantController@add');
 Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
 Route::get('/home/merchant/complete', 'Home\MerchantController@complete');
 Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
 Route::get('/home/merchant/ajaxcity', 'Home\MerchantController@ajaxcity');
+Route::post('/home/merchant/ajaxback', 'Home\MerchantController@ajaxback');
+Route::post('/home/merchant/userUpdate', 'Home\MerchantController@userUpdate');
 
 
 //前台商户审核路由(待审核)
@@ -147,9 +150,31 @@ Route::get('/tenant/detail/complete', 'Tenant\DetailController@complete');
 Route::post('/tenant/detail/add', 'Tenant\DetailController@add');
 Route::get('/tenant/detail/edit/{uid}', 'Tenant\DetailController@edit');
 Route::post('tenant/detail/update/{uid}', 'Tenant\DetailController@update');
-Route::get('/tenant/mansite/add', 'Tenant\MansiteController@add');
-Route::post('/tenant/mansite/insert/{uid}', 'Tenant\MansiteController@insert');
-Route::get('/tenant/mansite/show/{uid}', 'Tenant\MansiteController@show');
+Route::get('/tenant/mansite/siteAdd', 'Tenant\MansiteController@siteAdd');
+Route::post('/tenant/mansite/siteInsert/{uid}', 'Tenant\MansiteController@siteInsert');
+Route::get('/tenant/mansite/siteShow/{uid}', 'Tenant\MansiteController@siteShow');
+Route::get('/tenant/mansite/siteEdit/{id}', 'Tenant\MansiteController@siteEdit');
+Route::post('/tenant/mansite/siteUpdate/{id}', 'Tenant\MansiteController@siteUpdate');
+Route::get('/tenant/mansite/siteDelete/{id}', 'Tenant\MansiteController@siteDelete');
+Route::get('/tenant/mansite/guestAdd', 'Tenant\MansiteController@guestAdd');
+Route::post('/tenant/mansite/guestInsert/{uid}', 'Tenant\MansiteController@guestInsert');
+Route::get('/tenant/mansite/guestShow/{uid}', 'Tenant\MansiteController@guestShow');
+Route::get('/tenant/mansite/guestEdit/{id}', 'Tenant\MansiteController@guestEdit');
+Route::post('/tenant/mansite/guestUpdate/{id}', 'Tenant\MansiteController@guestUpdate');
+Route::get('/tenant/mansite/guestDelete/{id}', 'Tenant\MansiteController@guestDelete');
+Route::get('/tenant/mansite/restAdd', 'Tenant\MansiteController@restAdd');
+Route::post('/tenant/mansite/restInsert/{uid}', 'Tenant\MansiteController@restInsert');
+Route::get('/tenant/mansite/restShow/{uid}', 'Tenant\MansiteController@restShow');
+Route::get('/tenant/mansite/restEdit/{id}', 'Tenant\MansiteController@restEdit');
+Route::post('/tenant/mansite/restUpdate/{id}', 'Tenant\MansiteController@restUpdate');
+Route::get('/tenant/mansite/restDelete/{id}', 'Tenant\MansiteController@restDelete');
+Route::get('/tenant/mansite/avAdd', 'Tenant\MansiteController@avAdd');
+Route::post('/tenant/mansite/avInsert/{uid}', 'Tenant\MansiteController@avInsert');
+Route::get('/tenant/mansite/avShow/{uid}', 'Tenant\MansiteController@avShow');
+Route::get('/tenant/mansite/avEdit/{id}', 'Tenant\MansiteController@avEdit');
+Route::post('/tenant/mansite/avUpdate/{id}', 'Tenant\MansiteController@avUpdate');
+Route::get('/tenant/mansite/avDelete/{id}', 'Tenant\MansiteController@avDelete');
+
 
 
 

@@ -26,7 +26,7 @@
                         <div class="col-lg-1"></div>
                         <div class="col-lg-6">
                             <span id="serror" style="color:red;">注意：带*的信息为必填项</span>
-                            <form role="form" action="{{ url('/tenant/mansite/insert') }}/{{ session('hmer')->id }}" method="POST" enctype="multipart/form-data">
+                            <form role="form" action="{{ url('/tenant/mansite/siteInsert') }}/{{ session('hmer')->id }}" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label>*会场名称</label>
@@ -71,7 +71,7 @@
                                     <textarea style="resize:none;" class="form-control" name="activity" rows="3" placeholder="例：1、互联网大会；2、创业者大会……"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>上传场地照片</label>
+                                    <label>*上传会场照片</label>
                                     <input type="file" name="meetImg">
                                 </div>
                                 <button type="submit" class="btn btn-primary">添加</button>

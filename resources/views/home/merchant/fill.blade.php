@@ -137,7 +137,7 @@
 						<input id="subm" style="margin-left:330px;" type='image' src="{{ asset ('/images/next.png') }}">
 					</div>
 				</form>
-				<a href="#" ><img style="margin-top: -48px; margin-left:420px;" src="{{ asset ('/images/pre.png') }}"></a>
+				<a href="{{ url('/home/merchant/back') }}/{{ $uid }}" ><img style="margin-top: -48px; margin-left:420px;" src="{{ asset ('/images/pre.png') }}"></a>
 			</div>
 		</div>
 	</div>
