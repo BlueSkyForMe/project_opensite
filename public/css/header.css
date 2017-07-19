@@ -42,7 +42,7 @@ a
 	height: 35px;
 	background: #ccc;
 	position: fixed;
-		z-index: 1000;
+	z-index: 1000;
 }
 .wrap
 {

@@ -50,7 +50,7 @@
 									
 									</div>
 									<div class="left_con_rig">
-										<a href="{{ url('/home/detail') }}/{{ $val->id }}" id="Reservations" class="float_r"/><img src="{{ asset('/images/yuding.png') }}"></a>
+										<a href="{{ url('/home/detail') }}/{{ $val->id }}"><img src="{{ asset('/images/yuding.png') }}"></a>
 									</div>
 								</div>
 							</div>

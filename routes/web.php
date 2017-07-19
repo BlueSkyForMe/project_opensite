@@ -30,6 +30,10 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> ec1d0fb202ff6fbdedf1f2200e9e04aa3275cdcb
 		// 后台商户审核管理
 		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
 		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
@@ -61,6 +65,11 @@ Route::group(['middleware' => 'adminlogin'], function()
 		//普通用户信息管理列表
 		Route::get('/admin/user/index', 'Admin\UserController@index');
 		Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> ec1d0fb202ff6fbdedf1f2200e9e04aa3275cdcb
 	});
 
 // 后台管理员登录
@@ -97,8 +106,13 @@ Route::get('/home/index', 'Home\IndexController@index');
 //前台用户注册 登录 退出
 Route::post('/home/register', 'Home\RegisterController@insert');
 Route::get('/home/register/ajax', 'Home\RegisterController@ajax');
+
+// Route::get('/home/register/checkPhone', 'Home\RegisterController@checkPhone');
+
 Route::post('/home/login', 'Home\LoginController@login');
 Route::get('/home/logout', 'Home\LoginController@logout');
+
+
 
 // 前台添加商户
 Route::get('/home/merchant/register', 'Home\MerchantController@register');
@@ -136,9 +150,6 @@ Route::get('/home/search/ajax', 'Home\SearchController@ajax');
 
 //前台详情
 Route::get('/home/detail/{id}', 'Home\DetailController@index');
-
-
-
 
 
 
