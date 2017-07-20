@@ -5,6 +5,10 @@
 		var cd = 0;
 		var lcd = 0;
 		var lph = 0;
+		var flag = 0;
+		var phone = null;
+		var code = null;
+		var pd = 0;
 
 		//验证码是否正确
 		$('.register_code').blur(function(){
@@ -55,26 +59,26 @@
               	
               	//定义全局变量, errorMsg: 错误信息  flag: 内容合法
               	var errorMsg;
-              	var flag;
+
 
  				switch(data)
  				{
  					case 0: errorMsg = '输入内容格式不正确'; break;
  					case 1: errorMsg = '该手机已经注册'; break;
- 					case 2: flag = 1; errorMsg = '该手机号可用'; break;
+ 					case 2: flag = 2; errorMsg = '该手机号可用'; phone= content; break;
  					case 3: errorMsg = '该邮箱已经注册'; break;
- 					case 4: flag = 2; errorMsg = '该邮箱可用'; break;
+ 					case 4: flag = 3; errorMsg = '该邮箱可用'; break;
  				}
 
                 //将错误信息追加到页面中
                 $('.register_phon').next().css('display', 'block');
                 $('.register_phon').next().append("<span class='msg'>" + errorMsg + "</span>");
-                if(flag == 1)
+                if(flag == 2)
                 {
                 	$('.register_phon').next().css('color', 'green');
                 	ph = 1;
                 }
-                if(flag == 2)
+                if(flag == 3)
                 {
                 	$('.register_phon').next().css('color', 'green');
                 	$('.register_phon').attr('name', 'email');
@@ -131,20 +135,130 @@
  				switch(data)
  				{
  					case 5: errorMsg = '该用户名已经注册'; break;
- 					case 6: flag = 1; errorMsg = '该用户名可用'; break;
+ 					case 6: flag = 4; errorMsg = '该用户名可用'; break;
  					case 7: errorMsg = '请输入3 ~ 16位字符, 不能包含特殊字符'; break;
  				}
 
                 //将错误信息追加到页面中
                 $('.register_name').next().css('display', 'block');
                 $('.register_name').next().append("<span class='msg'>" + errorMsg + "</span>");
-                if(flag)
+                if(flag == 4)
                 {
                 	$('.register_name').next().css('color', 'green');
                 	na = 1;
                 }
              
             }, 'json');
+		});
+
+		//验证手机验证码
+		$('.getPhone').click(function(){
+
+			if(ph == 1 && na == 1 && cd == 1 && flag == 2)
+			{
+
+				var SMS_ACCOUNT = '15600279967';
+				var SMS_PASSWORD = 'sendmsg';
+
+				//随机数函数
+				function random(Min,Max)
+				{   
+				    var Range = Max - Min;   
+				    var Rand = Math.random();   
+				    return(Min + Math.round(Rand * Range));   
+				}
+
+				//调用函数
+				getSmsCode();
+
+				//发送手机验证码
+				function getSmsCode() {
+
+					//获取随机验证码
+					code = random(0000, 9999);
+
+					//请求接口
+				    var url = "http://sms.tehir.cn/code/sms/api/v1/send?srcSeqId=123&account="+SMS_ACCOUNT+"&password="+SMS_PASSWORD+"&mobile="+ phone +"&code="+ code +"&time=30";
+				    $.ajax({
+				        url: url,
+				        type: "get",
+				        dataType: "json",
+				        success: function (result) {
+				            if (result.success == false) {
+				                alert(result.info);
+				                return;
+				            } else {
+				                alert("短信验证码已经发送到您的手机！");
+				            }
+				        },
+				        // error: function (result) {
+				        //     alert(result);
+				        // },
+				        complete: function (XMLHttpRequest, textStatus) {
+				        }
+				    });
+				}
+
+				//倒计时
+				waitting();
+
+			    function waitting()
+			    {
+			    	num = 60;
+			    	$(this).find("span").html(num);
+
+	                var inte = setInterval(function(){
+	                    num--;
+	                    $('.getPhone').find("span").html(num);
+	                    if(num == 0)
+	                    {
+	                    	// 清除定时器。
+			                clearInterval(inte);
+			                $('.getPhone').find('span').html("获取验证码");
+			                return ;
+	                    }
+
+	                 }, 1000);
+			    }
+
+			}
+			else
+			{
+				alert("请先完善前面的选项");
+			}
+
+		});
+
+		//获取输入的手机验证码
+		$('.register_phco').blur(function(){
+
+			val = $(this).val();
+
+			//删除原有的错误信息提示
+			$('.getPhone').next().find('.msg').remove();
+
+			if(val == code)
+			{
+				var errorMsg;
+				errorMsg = "验证码正确";
+
+				//将错误信息追加到页面中
+                $('.getPhone').next().css('display', 'block');
+                $('.getPhone').next().append("<span class='msg'>" + errorMsg + "</span>");
+                $('.getPhone').next().css('color', 'green');
+                pd = 1;
+			}
+			else
+			{
+				var errorMsg;
+				errorMsg = "验证码不正确";
+
+				//将错误信息追加到页面中
+                $('.getPhone').next().css('display', 'block');
+                $('.getPhone').next().append("<span class='msg'>" + errorMsg + "</span>");
+                pd = 0;
+			}
+
 		});
 
 		//提交验证
@@ -173,7 +287,7 @@
                 return false;
 			}
 
-			if(ph == 1 && na == 1 && cd == 1 && ps)
+			if(ph == 1 && na == 1 && cd == 1 && ps && pd == 1)
 			{
 				return true;
 			}

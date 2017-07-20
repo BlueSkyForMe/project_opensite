@@ -15,6 +15,8 @@ class RegisterController extends Controller
     	//接收前台提交的数据,并去除无用信息
     	$data = $request->except('_token', 'x', 'y', 'code', 'phonecode');
 
+    	// dd($data);
+
     	//密码加密
     	$data['password'] = encrypt($data['password']);
 
@@ -28,8 +30,9 @@ class RegisterController extends Controller
 
     	if($res)
     	{
-    		//将用户信息存入session
-    		session(['huserName' => $data['userName']]);
+    		
+    		// 将用户信息存入session
+    		session(['huser' => $data]);
 
     		//自动跳转到首页
     		return redirect('/home/index');
@@ -41,6 +44,7 @@ class RegisterController extends Controller
     	}
 		
     }
+
 
     //ajax验证
     public function ajax(Request $request)
@@ -149,9 +153,6 @@ class RegisterController extends Controller
 	    	}
 
     	}
-
-
-	    	
 
     	echo json_encode($code);
 

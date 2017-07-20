@@ -17,38 +17,21 @@
 									<td>
 						
 										<!-- 城市选择 -->
-										<input type="text" placeholder=" {{ $postData['city'] }} " id="destination" style="width: 80px; height: 25px; margin-right: 14px;" name="city" value="{{ session('city') }}">
+										<input type="text" placeholder=" 城市 " id="destination" style="width: 80px; height: 25px; margin-right: 14px;" name="city" value="">
 										<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
-										
+
 										<select name="s_person" id="s_person" style="width: 80px; height: 25px; margin-right: 14px;">
-											<option>
-												@if(session('supPerson'))
-													{{ session('supPerson') }}
-												@else
-													人数
-												@endif
-											</option>
+											<option>人数</option>
 											<option>人数不限</option>
 											<option>10-50</option>
 											<option>50-100</option>
 											<option>100-300</option>
 											<option>300-500</option>
 											<option>500-1000</option>
-											<!-- <option>1000+</option> -->
+									
 										</select>
 										<select name="s_budget" id="s_budget" style="width: 80px; height: 25px; margin-right: 14px;">
-											<option>
-												@if(session('budget'))
-													@if(session('budget') == 30000000)
-														预算不限
-													@else
-														{{ session('budget') }}
-													@endif
-												@else
-													预算
-												@endif
-
-											</option>
+											<option>预算</option>
 											<option>3000以下</option>
 											<option>3-5千</option>
 											<option>5-8千</option>
@@ -69,13 +52,13 @@
 								<tr class="t_second">
 									<td class="title_style">场地类型:</td>
 									<td>
-										<label><input class="siteType" type="checkbox"  name="type[]" value="酒店">酒店</label>
-										<label><input class="siteType" type="checkbox" name="type[]" value="会议中心">会议中心</label>
-										<label><input class="siteType" type="checkbox" name="type[]" value="体育馆">体育馆</label>
-										<label><input class="siteType" type="checkbox" name="type[]" value="展览馆">展览馆</label>
-										<label><input class="siteType" type="checkbox" name="type[]" value="酒吧/餐厅/会所">酒吧/餐厅/会所</label>
-										<label><input class="siteType" type="checkbox" name="type[]" value="艺术中心/剧院">艺术中心/剧院</label>
-										<label><input class="siteType" type="checkbox" name="type[]" value="咖啡厅/茶室">咖啡厅/茶室</label>
+										<label><input id="hotel" type="checkbox"  name="type[]" value="1">酒店</label>
+										<label><input id="huiyi" type="checkbox" name="type[]" value="2">会议中心</label>
+										<label><input id="tiyu" type="checkbox" name="type[]" value="3">体育馆</label>
+										<label><input id="zhanlan" type="checkbox" name="type[]" value="4">展览馆</label>
+										<label><input id="jiuba" type="checkbox" name="type[]" value="5">酒吧/餐厅/会所</label>
+										<label><input id="juyuan" type="checkbox" name="type[]" value="6">艺术中心/剧院</label>
+										<label><input id="chashi" type="checkbox" name="type[]" value="7">咖啡厅/茶室</label>
 										<span>&nbsp;&nbsp;(可多选)</span>
 									</td>
 								</tr>
@@ -85,15 +68,7 @@
 									<td>
 										<select name="s_meeting" id="s_meeting" style="width: 80px; height: 25px; margin-right: 14px;">
 										
-											<option>
-												@if(session('meetTime'))
-													{{ session('meetTime') }}
-												@else
-													会议时长
-												@endif
-
-											</option>
-									
+											<option>会议时长</option>
 											<option>一晚</option>
 											<option>半天</option>
 											<option>一天</option>
@@ -104,14 +79,7 @@
 											<option>14天以上</option>
 										</select>
 										<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
-											<option>
-												@if(session('starTime'))
-													{{ session('starTime') }}
-												@else
-													开始时间
-												@endif
-
-											</option>
+											<option>开始时间</option>
 										</select>
 									</td>
 								</tr>
@@ -119,7 +87,7 @@
 								<tr class="t_four">
 									<td class="title_style" style="color: #ccc;">酒店星级:</td>
 									<td>
-										<label style="color: #ccc;"><input disabled type="radio" id="zone" name="star" value="三星以下">三星以下</label>
+										<label style="color: #ccc;"><input disabled type="radio" id="zone" name="star" value="0">三星以下</label>
 										<label style="color: #ccc;"><input disabled type="radio" id="star_three" name="star" value="三星级">三星级</label>
 										<label style="color: #ccc;"><input disabled type="radio" id="star_foue" name="star" value="四星级">四星级</label>
 										<label style="color: #ccc;"><input disabled type="radio" id="star_five" name="star" value="五星级">五星级</label>
@@ -201,7 +169,7 @@
 									</div>
 									<div class="float_cont_r">
 									<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
-										<span class="float_cont_rmb"><sup>¥</sup><b>{{ $val->meetPrice }}</b>起</span>
+										<span class="float_cont_rmb"><sup>¥</sup><b>xxxx</b>起</span>
 									</div>
 								</div>
 								<div class="left_con_two_bom">

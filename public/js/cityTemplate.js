@@ -205,6 +205,16 @@ inCity.cityClick = function ($this) {
         var a_city = $(this).text();  //当前选择的城市
         $(inCity.id).hide();  //隐藏城市选择框 
         placeThis.val(a_city);  //赋值
+    
+
+        //当更换城市时,调用ajax获取这个城市相关的数据
+        $.get('/home/search/ajax', {"city": a_city}, function(data){
+
+            $(".left_con").remove();
+            $(".left").append(data);    
+     
+         }, 'html');
+
         return false;
     })
 }

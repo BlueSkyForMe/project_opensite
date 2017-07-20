@@ -50,25 +50,7 @@
 			});
 		}
 
-	//===============高级搜索酒店=======================
-		var number = 0;
-		$("#hotel").on('click', function(){
 
-			number ++;
-			if(number%2 == 1)
-			{
-				$(".t_four").find('input').removeAttr('disabled');
-				$(".t_four").find('label').css('color', '#333');
-				$(".t_four").find('.title_style').css('color', '#333');
-			}
-			else
-			{
-				$(".t_four").find('input').attr('disabled', 'disabled');
-				$(".t_four").find('label').css('color', '#ccc');
-				$(".t_four").find('.title_style').css('color', '#ccc');
-			}
-
-		});
 
 
 
