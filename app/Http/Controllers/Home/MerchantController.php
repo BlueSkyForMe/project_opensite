@@ -161,11 +161,11 @@ class MerchantController extends Controller
     	$data['lastTime'] = date('Y-m-d H:i:s');
 
     	// 执行插入数据库
-    	$res = \DB::table('users')->insert($data);
+    	$id = \DB::table('users')->insertGetId($data);
 
-    	if($res)
+    	if($id)
     	{
-    		return redirect('/home/merchant/fill');
+    		return redirect('/home/merchant/fill/'.$id);
     	}
     	else
     	{
@@ -178,8 +178,81 @@ class MerchantController extends Controller
     }
 
     // fill 填写商户信息
-    public function fill()
+    public function fill($uid)
     {
-    	return view('home.merchant.fill', ['title' => '填写商户信息']);
+        // 查询城市、区县
+        $cdata = \DB::table('district')->where('level', '1')->get();
+
+        // 份配视图
+    	return view('home.merchant.fill', ['title' => '填写商户信息', 'uid' => $uid, 'cdata' => $cdata]);
+    }
+
+    // ajaxcity 城市联动
+    public function ajaxcity(Request $request)
+    {
+        // 获取upid
+        $upid = $request->upid;
+
+        // 查询数据库
+        $data = \DB::table('district')->where('upid', $upid)->get();
+
+        // 以json返回
+        return response()->json($data);
+    }
+
+    // add 添加商户信息
+    public function add(Request $request)
+    {
+        // 去除冗余
+        $data = $request->except('_token', 'city', 'county', 'x', 'y');
+
+        // 查询省市和城市
+        $city = \DB::table('district')->where('id', $request->city)->first();
+        $county = \DB::table('district')->where('id', $request->county)->first();
+
+        // 拼接地址
+        $data['address'] = $city->name.$county->name.$data['address'];
+        
+        // 判断是否添加服务
+        if($request->servers)
+        {
+            // 将包含的服务拼成字符串
+            $data['servers'] = implode(',', $data['servers']);
+        }
+        
+        // 处理图片
+        if($request->hasFile('img'))
+        {
+            if($request->file('img')->isValid())
+            {
+                // 生成图像名称
+                $extension = $request->file('img')->extension();
+                $fliename = time().mt_rand(100000,999999).'.'.$extension;
+
+                // 移动图片
+                $request -> file('img') -> move('./uploads/img', $fliename);
+
+                $data['img'] = $fliename;
+            }
+        }
+
+        // 添加至数据库
+        $res = \DB::table('merchant')->insert($data);
+
+        if($res)
+        {
+            return redirect("/home/merchant/attest");
+        }
+        else
+        {
+            return "<script>alert('添加失败，请核对！');location.href='/home/merchant/register'</script>";
+        }
+    }
+
+    // attest 认证中
+    public function attest()
+    {
+        // 加载页面
+        return view('home.merchant.attest', ['title' => '信息审核中']);
     }
 }

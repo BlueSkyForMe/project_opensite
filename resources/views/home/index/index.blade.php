@@ -5,8 +5,8 @@
 	<title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
-    <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>
-    
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/city.css') }}">
+    <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>   
 </head>
 <body>
 	
@@ -24,8 +24,8 @@
 						<li><a href="#"><span class="first_span">全国</span></a></li>
 						<li><a href="{{ asset('/home/index') }}"><span>开场首页</span></a></li>
 
-						@if(session('huserName'))
-      						<li><a href="#"><span id="status">{{ session('huserName') }}</span></a></li>
+						@if(session('huser'))
+      						<li><a href="#"><span id="status">{{ session('huser')->userName }}</span></a></li>
       						<li><a href="{{ url('/home/logout') }}"><span>退出</span></a></li>
 						@else
 							<li id="register"><a href="#"><span>注册</span></a></li>
@@ -108,25 +108,30 @@
 			<div id="logo"></div>
 			
 			<div id="search">
-				<form action="" method="">
+				<form action=" {{ url('/home/search/general') }} " method="get">
 					<ul class="search_ul">
-						<li class="city"><span>北  京</span><div class="s"></div></li>
-						<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
-						<li class="number">
 						
+						<!-- 城市选择 -->
+						<li class="city"><input type="text" placeholder="北 京" id="place" name="city" value=""></li>
+						<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
+						
+						<!-- 关键字 -->
+						<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
+						
+						<!-- 可容纳人数 -->
+						<li class="number">
 							<div class="dis_sel" >
-							
 								<select name="number">
 									<option value="0">人数不限</option>
-									<option value="1">50-100</option>
-									<option value="2">100-200</option>
-									<option value="3">200-300</option>
-									<option value="4">300-400</option>
+									<option value="50-100">50-100</option>
+									<option value="100-200">100-200</option>
+									<option value="200-300">200-300</option>
+									<option value="300-400">300-400</option>
 								</select>
 							</div>
 							<div class="mar"><div class="s"></div></div>
 						</li>
-						<li class="sear"><a href="#"><img src="{{ asset('/images/search.png') }} "></a></li>
+						<li class="sear"><a href="#"><input type="image" src="{{ asset('/images/search.png') }} "></a></li>
 					</ul>
 				</form>
 			</div>
@@ -142,27 +147,31 @@
 
 			<div class="superSearcher" style="display: none;">
 
-				<form action="" method="">
+				<form action="{{ asset('/home/search/super') }}" method="get">
 
 					<table>
 
 						<tr class="t_first">
 							<td class="title_style" style="padding-right: 8px;">会议规模:</td>
 							<td>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
-									<option>城市</option>
-								</select>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+
+								<!-- 城市选择 -->
+								<input type="text" placeholder="城市" id="destination" style="width: 80px; height: 25px; margin-right: 14px;" name="city" value="">
+								<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
+
+
+
+								<select name="supPerson" id="supPerson" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>人数</option>
 									<option>人数不限</option>
-									<option>10-50人</option>
-									<option>50-100人</option>
-									<option>100-300人</option>
-									<option>300-500人</option>
-									<option>500-1000人</option>
-									<option>1000+人</option>
+									<option>10-50</option>
+									<option>50-100</option>
+									<option>100-300</option>
+									<option>300-500</option>
+									<option>500-1000</option>
+					
 								</select>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+								<select name="budget" id="budget" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>预算</option>
 									<option>3000以下</option>
 									<option>3-5千</option>
@@ -184,13 +193,13 @@
 						<tr class="t_second">
 							<td class="title_style">场地类型:</td>
 							<td>
-								<label><input id="hotel" type="checkbox" name="type[]" value="1">酒店</label>
-								<label><input type="checkbox" name="type[]" value="2">会议中心</label>
-								<label><input type="checkbox" name="type[]" value="3">体育馆</label>
-								<label><input type="checkbox" name="type[]" value="4">展览馆</label>
-								<label><input type="checkbox" name="type[]" value="5">酒吧/餐厅/会所</label>
-								<label><input type="checkbox" name="type[]" value="6">艺术中心/剧院</label>
-								<label><input type="checkbox" name="type[]" value="7">咖啡厅/茶室</label>
+								<label><input id="hotel" type="checkbox" name="type[]" value="酒店">酒店</label>
+								<label><input type="checkbox" name="type[]" value="会议中心">会议中心</label>
+								<label><input type="checkbox" name="type[]" value="体育馆">体育馆</label>
+								<label><input type="checkbox" name="type[]" value="展览馆">展览馆</label>
+								<label><input type="checkbox" name="type[]" value="酒吧/餐厅/会所">酒吧/餐厅/会所</label>
+								<label><input type="checkbox" name="type[]" value="艺术中心/剧院">艺术中心/剧院</label>
+								<label><input type="checkbox" name="type[]" value="咖啡厅/茶室">咖啡厅/茶室</label>
 								<span>&nbsp;&nbsp;(可多选)</span>
 							</td>
 						</tr>
@@ -198,7 +207,7 @@
 						<tr class="t_three">
 							<td class="title_style">会议时长:</td>
 							<td>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+								<select name="meeting" id="meeting" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>会议时长</option>
 									<option>一晚</option>
 									<option>半天</option>
@@ -209,7 +218,7 @@
 									<option>7-14天</option>
 									<option>14天以上</option>
 								</select>
-								<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+								<select name="starTime" id="starTime" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>开始时间</option>
 								</select>
 							</td>
@@ -219,11 +228,11 @@
 							<td class="title_style" style="color: #ccc;">酒店星级:</td>
 							<td>
 								<label style="color: #ccc;"><input disabled type="radio" name="star" value="1">三星以下</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="2">三星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="3">四星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="4">五星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="5">六星级</label>
-								<label style="color: #ccc;"><input disabled type="radio" name="star" value="6">七星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="三星级">三星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="四星级">四星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="五星级">五星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="六星级">六星级</label>
+								<label style="color: #ccc;"><input disabled type="radio" name="star" value="七星级">七星级</label>
 							</td>
 						</tr>
 
@@ -336,6 +345,10 @@
 	<script type="text/javascript" src="{{ asset('/js/home.index.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/home.index.ajax.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/home.index.autolog.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/cityTemplate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>
+	
+	
 
 </body>
 </html>

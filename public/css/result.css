@@ -43,8 +43,10 @@
 {
 	float: left;
 	width: 460px;
-	height: 38px;
+	height: 56px;
 }
+
+
 .hotel_name
 {
 	line-height: 38px;
@@ -531,10 +533,11 @@
 
 
 
+<<<<<<< HEAD
 /* ++++++++++发表评论版块++++++++++ */
 .pingl
 {
-	height:220px;
+	height:400px;
 	width:1196px;
 	margin:0 auto;
 }
@@ -570,6 +573,11 @@
 	/* float:right;  */
 	position:absolute 10px 10px;
 }
+=======
+
+
+
+>>>>>>> df05bbd636c481321a992bcf5a3d5755d06b47fa
 
 /*== 评论版块 ==*/
 #review

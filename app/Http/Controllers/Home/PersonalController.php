@@ -11,9 +11,18 @@ class PersonalController extends Controller
     // 加载我的开场
     public function index()
     {
-    
-    	//解析前台页面模板
-    	return view('home.personal.index', ['title' => '我的开场']);
+        $data = session('huser');
+        // dd($data);
+        if(!$data)
+        {
+            echo "<script>alert('你还未登录,请登录后再来');location.href='/home/index'</script>";
+        }else
+        {
+            //解析前台页面模板
+        return view('home.personal.index', ['title' => '我的开场']);
+        }
+
+    	
     }
 
     // 加载我的开场修改密码页

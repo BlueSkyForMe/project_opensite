@@ -7,12 +7,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        用户管理
+        后台管理
         <small>查看列表</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="#">用户管理</a></li>
+        <li><a href="#">后台管理</a></li>
         <li class="active">查看列表</li>
       </ol>
     </section>

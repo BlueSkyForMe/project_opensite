@@ -370,11 +370,26 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 用户列表</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> 商户列表</a></li>
+              <li class="active"><a href="{{ url ('/admin/user/index') }}"><i class="fa fa-circle-o"></i> 用户列表</a></li>
+              <li><a href="{{ url ('/admin/merchant/index') }}"><i class="fa fa-circle-o"></i> 商户列表</a></li>
             </ul>
           </li>
   <!-- /用户管理 -->
+
+  <!-- 商户审核 -->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa  fa-hourglass"></i> <span>商户审核</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ url ('/admin/merchant/check') }}"><i class="fa fa-hourglass-1"></i> 待审核商户</a></li>
+              <li><a href="{{ url ('/admin/merchant/loser') }}"><i class="fa fa-hourglass-o"></i> 审核未通过</a></li>
+            </ul>
+          </li>
+  <!-- /商户审核 -->
 
   <!-- 订单管理 -->
           <li class="treeview">
