@@ -30,10 +30,6 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ec1d0fb202ff6fbdedf1f2200e9e04aa3275cdcb
 		// 后台商户审核管理
 		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
 		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
@@ -65,11 +61,7 @@ Route::group(['middleware' => 'adminlogin'], function()
 		//普通用户信息管理列表
 		Route::get('/admin/user/index', 'Admin\UserController@index');
 		Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
-<<<<<<< HEAD
 
-
-=======
->>>>>>> ec1d0fb202ff6fbdedf1f2200e9e04aa3275cdcb
 	});
 
 // 后台管理员登录
@@ -120,20 +112,21 @@ Route::post('/home/merchant/insert', 'Home\MerchantController@insert');
 Route::get('/home/merchant/fill/{id}', 'Home\MerchantController@fill');
 Route::get('/home/merchant/back/{id}', 'Home\MerchantController@back');
 Route::post('/home/merchant/add', 'Home\MerchantController@add');
-Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
-Route::get('/home/merchant/complete', 'Home\MerchantController@complete');
 Route::post('/home/merchant/ajaxrename', 'Home\MerchantController@ajaxrename');
 Route::get('/home/merchant/ajaxcity', 'Home\MerchantController@ajaxcity');
 Route::post('/home/merchant/ajaxback', 'Home\MerchantController@ajaxback');
 Route::post('/home/merchant/userUpdate', 'Home\MerchantController@userUpdate');
+Route::get('/home/merchant/fillEdit/{uid}', 'Home\MerchantController@fillEdit');
+Route::post('/home/merchant/fillUpdate/{uid}', 'Home\MerchantController@fillUpdate');
+
 
 
 //前台商户审核路由(待审核)
-Route::get('/home/merchant/attest', 'Home\MerchantController@attest');
+Route::get('/home/merchant/attest/{uid}', 'Home\MerchantController@attest');
 //前台商户审核路由(审核通过)
-Route::get('/home/merchant/checked', 'Home\MerchantController@checked');
+Route::get('/home/merchant/checked/{uid}', 'Home\MerchantController@checked');
 //前台商户审核路由(审核未通过)
-Route::get('/home/merchant/notchecked', 'Home\MerchantController@notchecked');
+Route::get('/home/merchant/notchecked/{uid}', 'Home\MerchantController@notchecked');
 
 
 
@@ -185,6 +178,7 @@ Route::get('/tenant/mansite/avShow/{uid}', 'Tenant\MansiteController@avShow');
 Route::get('/tenant/mansite/avEdit/{id}', 'Tenant\MansiteController@avEdit');
 Route::post('/tenant/mansite/avUpdate/{id}', 'Tenant\MansiteController@avUpdate');
 Route::get('/tenant/mansite/avDelete/{id}', 'Tenant\MansiteController@avDelete');
+Route::get('/tenant/logout', 'Tenant\LoginController@logout');
 
 
 

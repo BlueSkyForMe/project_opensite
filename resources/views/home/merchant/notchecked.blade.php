@@ -20,8 +20,8 @@
 		<div class="shower">
 			<div class="shanghu"><span>开场商户版</span></div>
 			<div class="shuoming">
-				<p>开场正在对您上传的相关信息进行审核</p>
-				<p>一般需要1~3个工作日，请稍后登录查看</p>
+				<p style="color:red">尊敬的商户您好，您的审核信息未通过</p>
+				<p style="color:red">原因：{{ $data->content }}！请重新上传审核</p>
 			</div>
 			<div class="upload">
 				<a href="#">
@@ -85,6 +85,12 @@
 							@else
 								有
 							@endif
+						</td>
+					</tr>
+					<tr>
+						<td align="center" width="100">审核失败原因 :&nbsp;&nbsp;</td>
+						<td align="center" width="300" style="height:50px;" colspan="3">
+							<span style="color:red;">{{ $data->content }}</span>
 						</td>
 					</tr>
 					<tr>

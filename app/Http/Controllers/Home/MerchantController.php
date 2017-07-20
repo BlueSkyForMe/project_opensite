@@ -441,7 +441,7 @@ class MerchantController extends Controller
 
         if($res)
         {
-            return redirect("/home/merchant/attest");
+            return redirect("/home/merchant/attest/".$data['uid']);
         }
         else
         {
@@ -449,10 +449,123 @@ class MerchantController extends Controller
         }
     }
 
-    // attest 认证中
-    public function attest()
+    // attest 审核中
+    public function attest(Request $request)
     {
+        // 定义uid
+        $uid = $request->uid;
+
+        // 查询数据库
+        $data = \DB::table('users')
+                ->join('merchant', 'users.id', '=', 'merchant.uid')
+                ->select('users.userName', 'merchant.*')
+                ->where('merchant.uid', $uid)
+                ->first();        
+
         // 加载页面
-        return view('home.merchant.attest', ['title' => '信息审核中']);
+        return view('home.merchant.attest', ['title' => '信息审核', 'data' => $data]);
     }
+
+    // fillEdit 修改商户信息界面
+    public function fillEdit($uid)
+    {
+        // 查询数据库
+        $data = \DB::table('merchant')
+                ->join('users', 'users.id', '=', 'merchant.uid')
+                ->select('merchant.*', 'users.userName')
+                ->where('merchant.uid', $uid)->first();
+
+        // 将servers字段拆成数组
+        $servers = explode(',', $data->servers);
+
+        // 加载视图
+        return view('home.merchant.fillEdit', ['title' => '编辑商户信息', 'data' => $data, 'servers' => $servers, 'uid' => $uid]);
+    }
+
+    // fillUpdate 执行修改
+    public function fillUpdate(Request $request)
+    {
+        // 定义uid
+        $uid = $request->uid;
+
+        // 去除冗余
+        $data = $request->except('_token');
+
+        // 判断是否修改服务
+        if($request->servers)
+        {
+            // 将包含的服务拼成字符串
+            $data['servers'] = implode(',', $data['servers']);
+        }
+
+        // 判断是否更换图片
+        if($request->hasFile('img'))
+        {
+            // 处理图片
+            if($request->file('img')->isValid())
+            {
+                // 生成唯一的图像名称
+                $extension = $request->file('img')->extension();
+                do{
+                    $fliename = time().mt_rand(100000,999999).'.'.$extension;
+                }while(file_exists('./uploads/img/'.$fliename)); 
+                
+                // 移动图片
+                $request -> file('img')->move('./uploads/img', $fliename);
+
+                // 获取原图片名称
+                $oldname = \DB::table('merchant')->where('uid', $uid)->first()->img;
+
+                // 删除图片
+                if(file_exists('./uploads/img/'.$oldname))
+                {
+                    // 删除原图片
+                    unlink('./uploads/img/'.$oldname);
+                }
+
+                $data['img'] = $fliename;
+            }
+        }
+
+        // 待审核状态
+        $data['check'] = 0;
+
+        // 执行修改
+        $res = \DB::table('merchant')->where('uid', $uid)->update($data);
+
+        if($res)
+        {
+            return "<script>alert('修改成功！');location.href='/home/merchant/attest/{$uid}'</script>";
+        }
+        else
+        {
+            return "<script>alert('修改失败，请核对！');location.href='/home/merchant/attest/{$uid}'</script>";
+        }
+    }
+
+    // checked 审核通过
+    public function checked(Request $request)
+    {
+        // 加载视图
+        return view('home.merchant.checked', ['title' => '商户审核']);
+    }
+
+    // notchecked 审核未通过
+    public function notchecked(Request $request)
+    {
+         // 定义uid
+        $uid = $request->uid;
+
+        // 查询数据库
+        $data = \DB::table('users')
+                ->join('merchant', 'users.id', '=', 'merchant.uid')
+                ->join('reason', 'users.id', '=', 'reason.uid')
+                ->select('users.userName', 'reason.content', 'merchant.*')
+                ->where('merchant.uid', $uid)
+                ->first();           
+
+        // 加载页面
+        return view('home.merchant.notchecked', ['title' => '信息审核', 'data' => $data]);
+    }
+
 }
