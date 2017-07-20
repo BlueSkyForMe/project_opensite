@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>{{ config('app.name') }} | {{ $title }}</title>
-
     <!-- Bootstrap Core CSS -->
-    <link href="{{ asset ('/tenant//bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <link href="{{ asset ('/tenant/bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="{{ asset ('/tenant//bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
-
+    <link href="{{ asset ('/tenant/bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
     <!-- Timeline CSS -->
-    <link href="{{ asset ('/tenant//dist/css/timeline.css') }}" rel="stylesheet">
-
+    <link href="{{ asset ('/tenant/dist/css/timeline.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{ asset ('/tenant//dist/css/sb-admin-2.css') }}" rel="stylesheet">
-
+    <link href="{{ asset ('/tenant/dist/css/sb-admin-2.css') }}" rel="stylesheet">
     <!-- Morris Charts CSS -->
-    <link href="{{ asset ('/tenant//bower_components/morrisjs/morris.css') }}" rel="stylesheet">
-
+    <link href="{{ asset ('/tenant/bower_components/morrisjs/morris.css') }}" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="{{ asset ('/tenant//bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset ('/tenant/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -275,80 +262,50 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-folder-open fa-fw"></i> 基本信息<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#"><i class="fa fa-folder-open fa-fw"></i>基本信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="{{ url ('/tenant/index') }}">查看信息</a>
+                                    <a href="{{ url('/tenant/detail/complete') }}">完善信息</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url ('/tenant/index') }}">完善信息</a>
+                                    <a href="{{ url('/tenant/detail/edit') }}/{{ session('hmer')->id }}">修改信息</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 会场信息<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>场地管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="{{ url ('/tenant/index') }}"> 查看信息</a>
+                                    <a href="{{ url('/tenant/mansite/add') }}">添加会场</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url ('/tenant/index') }}"> 完善信息</a>
+                                    <a href="{{ url('/tenant/mansite/show') }}/{{ session('hmer')->id }}">会场信息</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/index') }}">客房信息</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/index') }}">茶歇信息</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>交易管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse in">
                                 <li>
-                                    <a href="{{ url ('/tenant/index') }}">Panels and Wells</a>
+                                    <a href="{{ url('/tenant/index') }}">订单管理</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/index') }}">档期管理</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/index') }}">评价管理</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
+                    </ul>     
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -361,21 +318,21 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="{{ asset ('/tenant//bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset ('/tenant/bower_components/jquery/dist/jquery.min.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ asset ('/tenant//bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset ('/tenant/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{ asset ('/tenant//bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
+    <script src="{{ asset ('/tenant/bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="{{ asset ('/tenant//bower_components/raphael/raphael-min.js') }}"></script>
-    <script src="{{ asset ('/tenant//bower_components/morrisjs/morris.min.js') }}"></script>
-    <script src="{{ asset ('/tenant//js/morris-data.js') }}"></script>
-
+    <script src="{{ asset ('/tenant/bower_components/raphael/raphael-min.js') }}"></script>
+   
     <!-- Custom Theme JavaScript -->
-    <script src="{{ asset ('/tenant//dist/js/sb-admin-2.js') }}"></script>
+    <script src="{{  ('/tenant/dist/js/sb-admin-2.js') }}"></script>
+
+    @yield('js')
 
 </body>
 
