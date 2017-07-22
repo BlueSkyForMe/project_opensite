@@ -25,7 +25,7 @@
 						<li><a href="{{ asset('/home/index') }}"><span>开场首页</span></a></li>
 
 						@if(session('huser'))
-      						<li><a href="#"><span id="status">{{ session('huser')->userName }}</span></a></li>
+      						<li><a href="#"><span id="status">{{ session('huser')['userName'] }}</span></a></li>
       						<li><a href="{{ url('/home/logout') }}"><span>退出</span></a></li>
 						@else
 							<li id="register"><a href="#"><span>注册</span></a></li>
@@ -317,7 +317,8 @@
 
 					<div class="phco">
 						<input class="register_phco" type="text" name="phonecode" value="" placeholder="请输入收到的验证码">
-						<div><a href="#"><span>获取验证码</span></a></div>
+						<div class="getPhone"><span style="cursor: pointer;">获取验证码</span></div>
+						<span style="display: none; position: absolute; top: 442px; left: 84px; color: red; font-wieght: blod;"></span>
 					</div>
 
 					<div class="register_reme" >

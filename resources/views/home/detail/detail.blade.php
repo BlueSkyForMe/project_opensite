@@ -80,8 +80,15 @@
 					</div>
 				@endif
 				</div>
-				<div class="intro_right">
-					<img src="{{ asset('/images/replace_img.gif') }}">
+				
+				<div class="intro_right" style="overflow: hidden;position: relative;width:624px;">
+					<ul class="lunbotu" style="width:2496px;position: absolute;">
+						<li style="float: left;"><img src="{{ asset('/images/replace_img.gif') }}"></li>
+						<li style="float: left;"><img src="{{ asset('/images/replace_img.gif') }}"></li>
+						<li style="float: left;"><img src="{{ asset('/images/replace_img.gif') }}"></li>
+						<li style="float: left;"><img src="{{ asset('/images/replace_img.gif') }}"></li>
+					</ul>
+					
 				</div>
 			</div>
 
@@ -116,9 +123,19 @@
 									<p>会场面积: {{ $mee->meetArea }}&nbsp;&nbsp;&nbsp;&nbsp;最多容纳人数{{ $mee->meetPerson }}</p>
 									<p>曾举办活动 : <a href="#">{{ $mee->activity }}</a>&nbsp;&nbsp;&nbsp;&nbsp;会场配置 : 会议纸笔、免费茶水、免费wifi</p>
 									<p>价格 : <sup style="color:red;">￥</sup><span class="de_con-char_price">{{ $mee->meetPrice }}</span><sub style="color:red;">/天</sub></p>				
-									<p>会议时长 : <select name=""><option>请选择</option></select> , 共____天</p>
-									<p>会议日期 : <select name=""><option>请选择</option></select></p>
-								@endif
+									<p>会议时长 : <select name="">
+									<option value="0">请选择</option>
+									<option value="1">1天</option>
+									<option value="2">2天</option>
+									<option value="3">3天</option>
+									<option value="4">4天</option>
+									<option value="5">5天</option>
+									<option value="6">6天</option>
+									<option value="7">7天</option>
+									</select> , 共____天</p>
+									<p>会议日期 :<input type="text" id="J-xl" placeholder="开始时间" name="startTime" value="" style="width: 80px; height: 25px; margin-right: 14px;"></p>
+									<!-- <p>会议日期 : <select name=""><option>请选择</option></select></p> -->
+								@endif 
 								</div>
 								<div class="de_con-tag">
 									<p class="de_con_tag_char">场地方正</p>
@@ -135,19 +152,18 @@
 
 											<div>会议茶歇: </div>
 
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>中式</option>
-													<option>西式</option>
-												</select>
-											</div>
 
 											<div>
-												<select name="" id="">
+												<select name="restTypes" id="rest">
+													<option>类型</option>
+													<option value="1">中式</option>
+													<option value="2">西式</option>
+												</select>
+											</div>
+										
+											<div>
+												<select name="" id="restPrice">
 													<option>价格</option>
-													<option>中式</option>
-													<option>西式</option>
 												</select>
 											</div>
 
@@ -159,22 +175,21 @@
 											<div>会务客房:</div>
 
 											<div>
-												<select name="" id="">
+												<select name="guestType" id="guest">
 													<option>类型</option>
-													<option>单人间</option>
-													<option>标准间(双床)</option>
-													<option>双人间</option>
-													<option>套间客房</option>
-													<option>公寓式客房</option>
-													<option>总统套房</option>
-													<option>特色客房</option>
+													<option value="1">单人间</option>
+													<option value="2">标准间(双床)</option>
+													<option value="3">双人间</option>
+													<option value="4">套间客房</option>
+													<option value="5">公寓式客房</option>
+													<option value="6">总统套房</option>
+													<option value="7">特色客房</option>
 												</select>
 											</div>
 
 											<div>
-												<select name="" id="">
+												<select name="" id="guestPrice">
 													<option>价格</option>
-													<option>商家自定</option>
 												</select>
 											</div>
 
@@ -193,18 +208,17 @@
 											
 											<div>AV设备:</div>
 											<div>
-												<select name="" id="">
+												<select name="" id="av">
 													<option>类型</option>
-													<option>音响设备</option>
-													<option>麦克风</option>
-													<option>投影仪</option>
+													<option value="1">音响设备</option>
+													<option value="2">麦克风</option>
+													<option value="3">投影仪</option>
 												</select>
 											</div>
 
 											<div>
-												<select name="" id="">
+												<select name="" id="avPrice">
 													<option>价格</option>
-													<option>商家自定</option>
 												</select>
 											</div>
 
@@ -304,7 +318,36 @@
 
 <script type="text/javascript">
 
-	//=============点击大宴会厅,收起或放下内容=============
+// =============轮播图===============================
+		var os = '-';
+        var inte = null;
+        
+        setInterval(function(){
+                // 获取 left
+                var left = $('.lunbotu').position().left;
+                
+                
+                // 判断
+                if(left <= -1872)
+                {
+                    os = '+';
+                    // console.log('ok');
+                }
+
+                if(left >= 0)
+                {
+                    os = '-';
+                    // console.log(os);
+                }
+
+                $('ul').animate({
+                    'left': os+'=624px'
+                }, 1000);
+
+            }, 3000);
+     
+
+//=============点击大宴会厅,收起或放下内容=============
 	var flag = null;
 
 	$('.details_header_char').on('click', function(){
@@ -323,6 +366,80 @@
 			$(this).parent().next().css('display', 'none');
 			$(this).prev().find('img').attr('src', "{{ asset('/images/jiaobiao.png') }}");
 		}
+
+	});
+
+
+// =======================点击茶歇,客房,设备============================
+
+		$('#rest').on('change', function(){
+
+			// alert('ok');
+			var value = $(this).val();
+			// alert(value);
+			$.get('/home/details/ajax', {"value": value}, function(data){
+
+				// alert(data);
+				$('#restPrice').find('option').remove();
+				$('#restPrice').append("<option>"+ data +"</option>");
+
+			}, 'json');
+		
+		});
+
+// ===========点击客房=============	
+
+	$('#guest').on('change',function(){
+
+		var value = $(this).val();
+		// alert(value);
+		$.get('/home/details/ajax',{"guest": value},function(data){
+
+			$('#guestPrice').find('option').remove();
+			$('#guestPrice').append("<option>"+ data +"</option>");
+
+		}, 'json');
+
+	});
+
+
+// ==========点击设备时======================
+
+	$('#av').on('change', function(){
+
+		var value = $(this).val();
+
+		$.get('/home/details/ajax', {"av": value}, function(data){
+
+			$('#avPrice').find('option').remove();
+			$('#avPrice').append("<option>"+ data +"</option>");
+
+		}, 'json');
+
+	});
+
+
+
+// ===============数量点击事件================================
+
+	$('.add').on('click', function(){
+
+		var value = $(this).next().html();
+
+		value ++;
+
+		$(this).next().html(value);
+
+	});
+
+	$('.reduce').on('click', function(){
+		var value = $(this).prev().html();
+
+		if(value > 1)
+		{
+			value --;
+		}
+		$(this).prev().html(value);
 
 	});
 
