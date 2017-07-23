@@ -10,16 +10,15 @@ class IndexController extends Controller
     // index 商户中心主页
     public function index()
     {
-    	// =================== 模拟session ======================
-
-    	$res = \DB::table('users')->where('id', '11')->first();
-
-    	session(['hmer' => $res]);
-
-    	// ======================================================
-        
+    	    
         // 定义uid
-        $uid = session('hmer')->id; 
+        $uid = session('hmer')->id;
+
+        // 重新定义check
+        $data['check'] = 3;
+
+        // 修改check字段
+        \DB::table('merchant')->where('uid', $uid)->update($data); 
 
     	// 查询数据库merchant表
     	$mer = \DB::table('merchant')->where('uid', $uid)->select('class', 'address', 'servers')->first();

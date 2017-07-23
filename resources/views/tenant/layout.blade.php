@@ -238,7 +238,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                        <li><a href="{{ url('/tenant/logout') }}"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -276,16 +276,28 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>场地管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="{{ url('/tenant/mansite/add') }}">添加会场</a>
+                                    <a href="{{ url('/tenant/mansite/siteAdd') }}">添加会场</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/tenant/mansite/show') }}/{{ session('hmer')->id }}">会场信息</a>
+                                    <a href="{{ url('/tenant/mansite/siteShow') }}/{{ session('hmer')->id }}">会场信息</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/tenant/index') }}">客房信息</a>
+                                    <a href="{{ url('/tenant/mansite/guestAdd') }}">添加客房</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/tenant/index') }}">茶歇信息</a>
+                                    <a href="{{ url('/tenant/mansite/guestShow') }}/{{ session('hmer')->id }}">客房信息</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/mansite/restAdd') }}">添加茶歇</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/mansite/restShow') }}/{{ session('hmer')->id }}">茶歇信息</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/mansite/avAdd') }}">添加设备</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/mansite/avShow') }}/{{ session('hmer')->id }}">AV设备</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

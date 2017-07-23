@@ -30,7 +30,7 @@
 }
 
 
-.show
+.shower
 {
 	width: 1164px;
 	height: 262px;
@@ -253,4 +253,10 @@
 	margin-left: 544px;
 }
 
+.big-img
+{
+	width: 100px;
+	height: 200px;
+	background-color: red;
+}
 
