@@ -17,15 +17,35 @@
 									<td>
 						
 										<!-- 城市选择 -->
-										<input type="text" placeholder=" {{ $postData['city'] }} " id="destination" style="width: 80px; height: 25px; margin-right: 14px;" name="city" value="{{ session('city') }}">
+										<input type="text" placeholder=" 城 市 " id="destination" style="width: 80px; height: 25px; margin-right: 14px;" name="city" value="{{ session('city') }}">
 										<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
 										
 										<select name="s_person" id="s_person" style="width: 80px; height: 25px; margin-right: 14px;">
 											<option>
 												@if(session('supPerson'))
-													{{ session('supPerson') }}
+												
+													@if(session('supPerson') == 50)
+														10-50
+													@endif
+
+													@if(session('supPerson') == 100)
+														50-100
+													@endif
+
+													@if(session('supPerson') == 300)
+														100-300
+													@endif
+
+													@if(session('supPerson') == 500)
+														300-500
+													@endif
+
+													@if(session('supPerson') == 1000)
+														500-1000
+													@endif
+
 												@else
-													人数
+													人数不限
 												@endif
 											</option>
 											<option>人数不限</option>
@@ -39,13 +59,66 @@
 										<select name="s_budget" id="s_budget" style="width: 80px; height: 25px; margin-right: 14px;">
 											<option>
 												@if(session('budget'))
-													@if(session('budget') == 30000000)
-														预算不限
-													@else
-														{{ session('budget') }}
+
+													@if(session('budget') == 3000)
+														3000以下
 													@endif
+
+													@if(session('budget') == 5000)
+														3-5千
+													@endif
+
+													@if(session('budget') == 8000)
+														5-8千
+													@endif
+
+													@if(session('budget') == 12000)
+														8千-1.2万
+													@endif
+
+													@if(session('budget') == 15000)
+														1.2万-1.5万
+													@endif
+
+													@if(session('budget') == 20000)
+														1.5万-2万
+													@endif
+
+													@if(session('budget') == 30000)
+														2万-3万
+													@endif
+
+													@if(session('budget') == 50000)
+														3万-5万
+													@endif
+
+													@if(session('budget') == 80000)
+														5万-8万
+													@endif
+
+													@if(session('budget') == 120000)
+														8万-12万
+													@endif
+
+													@if(session('budget') == 200000)
+														12万-20万
+													@endif
+
+													@if(session('budget') == 300000)
+														20万-30万
+													@endif
+
+													@if(session('budget') == 300000000)
+														30万以上
+													@endif
+
+													@if(session('budget') == 30000000)
+														不限预算
+													@endif
+
 												@else
-													预算
+													不限预算
+												
 												@endif
 
 											</option>
@@ -103,16 +176,24 @@
 											<option>7-14天</option>
 											<option>14天以上</option>
 										</select>
-										<select name="" id="" style="width: 80px; height: 25px; margin-right: 14px;">
+
+					<!-- 					<select name="s_startTime" id="s_startTime" style="width: 80px; height: 25px; margin-right: 14px;">
 											<option>
-												@if(session('starTime'))
-													{{ session('starTime') }}
+												@if(session('startTime'))
+													{{ session('startTime') }}
 												@else
 													开始时间
 												@endif
 
 											</option>
-										</select>
+										</select> -->
+
+										<input type="text" id="J-xl" placeholder="开始时间" name="startTime" value="{{ session('startTime') }}" style="width: 80px; height: 25px; margin-right: 14px;">
+
+
+
+
+
 									</td>
 								</tr>
 								
@@ -147,18 +228,29 @@
 				<div class="content">
 					<div class="left">
 						<div class="left_tit">
-							<select>
+
+							<select name="" id="">
 							  <option>综合排名</option>
 							</select>
-							<select>
+
+							<select name="" id="s_popularity">
 							  <option>人气</option>
+							  <option value="0">从低到高</option>
+							  <option value="1">从高到低</option>
 							</select>
-							<select>
+
+							<select name="" id="s_price">
 							  <option>价格</option>
+							  <option value="0">从低到高</option>
+							  <option value="1">从高到低</option>
 							</select>
-							<select>
+
+							<select name="" id="s_kredit">
 							  <option>信用度</option>
+							  <option value="0">从低到高</option>
+							  <option value="1">从高到低</option>
 							</select>
+
 							<span class="float_l inp1"><input type="checkbox" name="slect[]" value="酒店" class="float_l" /><b>酒店</b></span>
 							<span class="float_l inp1"><input type="checkbox" name="slect[]" value="含餐点" class="float_l" /><b>含餐点</b></span>
 							<span class="float_l inp1"><input type="checkbox" name="slect[]" value="可预订" class="float_l" /><b>可预订</b></span>
@@ -173,10 +265,11 @@
 				<div class="left_con_one">
 					<ul>
 						<li>
-							<img src="{{ asset('/images/merchant.png') }}" class="float_one" />
+							<img src="{{ asset('/uploads/meetimg/') }}/{{ $val->meetImg }}" width="241" height="195" class="float_one" />
 							<div class="left_con_two">
 
 								<div class="left_con_two_tit">
+									<input type="hidden" name="merchantID" value="{{ $val->id }}" id="merchantID">
 									<span class="span_a" ><a href="{{ url('/home/detail') }}/{{ $val->id }}">{{ $val->userName }}</a></span><br>
 									<span class="span_b" >
 										@if($val->star != '0')

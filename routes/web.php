@@ -30,10 +30,7 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
 
-<<<<<<< HEAD
 
-=======
->>>>>>> ec1d0fb202ff6fbdedf1f2200e9e04aa3275cdcb
 		// 后台商户审核管理
 		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
 		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
@@ -65,12 +62,9 @@ Route::group(['middleware' => 'adminlogin'], function()
 		//普通用户信息管理列表
 		Route::get('/admin/user/index', 'Admin\UserController@index');
 		Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
-<<<<<<< HEAD
 
-
-=======
->>>>>>> ec1d0fb202ff6fbdedf1f2200e9e04aa3275cdcb
 	});
+
 
 // 后台管理员登录
 Route::get('/admin/login', 'Admin\LoginController@login');
@@ -87,15 +81,6 @@ Route::get('/admin/link/{token}', 'Admin\ForgotController@link');
 Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
 Route::get('/admin/info', 'Admin\ForgotController@info');
 Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
-
-
-
-
-
-
-
-
-
 
 
 //============================前台路由部分============================
@@ -148,7 +133,8 @@ Route::get('/home/search/ajax', 'Home\SearchController@ajax');
 //前台详情
 Route::get('/home/detail/{id}', 'Home\DetailController@index');
 
-
+//前台收藏 与 取消收藏
+Route::post('/home/collect', 'Home\SearchController@collect');
 
 
 
@@ -161,7 +147,3 @@ Route::post('tenant/detail/update/{uid}', 'Tenant\DetailController@update');
 Route::get('/tenant/mansite/add', 'Tenant\MansiteController@add');
 Route::post('/tenant/mansite/insert/{uid}', 'Tenant\MansiteController@insert');
 Route::get('/tenant/mansite/show/{uid}', 'Tenant\MansiteController@show');
-
-
-
-
