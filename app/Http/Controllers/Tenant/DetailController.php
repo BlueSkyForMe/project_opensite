@@ -101,4 +101,117 @@ class DetailController extends Controller
     		return redirect('/tenant/index')->with(['info' => '修改失败']);
     	}
     }
+
+    // addImg 上传商户展示图
+    public function addImg($uid)
+    {   
+        // 判断是否已上传过
+        $res = \DB::table('merImg')->where('uid', $uid)->get();
+
+        if(!$res->isEmpty())
+        {
+            // 已上传过
+            return redirect('/tenant/index')->with(['info' => '您已上传过展示图，如需更新，请点击更新']);
+        }
+
+        return view('tenant.detail.addImg', ['title' => '展示图上传', 'uid' => $uid]);
+    }
+
+    // insertImg  执行添加
+    public function insertImg(Request $request)
+    {
+        $file = $request->file('img');
+
+        // 遍历上传
+        foreach ($file as $key => $value) 
+        {       
+           //public 文件夹下面建 /uploads/merimg 文件夹 
+           $destinationPath = './uploads/merimg/';   
+
+           // 获取后缀名
+           $extension = $value->getClientOriginalExtension();
+
+           // 重命名  
+           $fliename = time().mt_rand(100000,999999).'.'.$extension;
+
+           // 移动图片 
+           $value->move($destinationPath, $fliename);  
+
+           // 定义字段
+           $data['img'] = $fliename;
+           $data['uid'] = $request->uid;
+
+           // 插入数据库
+           \DB::table('merImg')->insert($data);                        
+         }
+
+         return redirect('/tenant/index')->with(['info' => '上传成功']);
+    }
+
+    // editImg 更新展示图
+    public function editImg($uid)
+    {
+        // 判断是否已上传过
+        $res = \DB::table('merImg')->where('uid', $uid)->get();
+
+        if($res->isEmpty())
+        {
+            // 没有上传过图片
+            return redirect('/tenant/index')->with(['info' => '您还没有上传展示图']);
+        }
+
+        return view('tenant.detail.editImg', ['title' => '更新展示图', 'uid' => $uid]);
+    }
+
+    // updateImg 执行修改
+    public function updateImg(Request $request)
+    {
+        // 定义uid
+        $uid = $request->uid;
+
+        // 根据uid 查出所有的原图
+        $oldimg = \DB::table('merImg')->where('uid', $uid)->get();
+
+        // 遍历删除原图
+        foreach($oldimg as $key => $value)
+        {
+            // 判断是否存在于目录中
+            if(file_exists('./uploads/merimg/'.$value->img))
+            {   
+                // 删除原图片
+                unlink('./uploads/merimg/'.$value->img);
+            } 
+        }
+
+        // 删除数据
+        \DB::table('merImg')->where('uid', $uid)->delete();
+        
+        // 定义文件
+        $file = $request->file('img');
+
+        // 遍历上传
+        foreach ($file as $key => $value) 
+        {       
+           //public 文件夹下面建 /uploads/merimg 文件夹 
+           $destinationPath = './uploads/merimg/';   
+
+           // 获取后缀名
+           $extension = $value->getClientOriginalExtension();
+
+           // 重命名  
+           $fliename = time().mt_rand(100000,999999).'.'.$extension;
+
+           // 移动图片 
+           $value->move($destinationPath, $fliename);  
+
+           // 定义字段
+           $data['img'] = $fliename;
+           $data['uid'] = $request->uid;
+
+           // 插入数据库
+           \DB::table('merImg')->insert($data);                        
+         }
+
+        return redirect('/tenant/index')->with(['info' => '更新成功']);        
+    }
 }

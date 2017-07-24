@@ -62,7 +62,7 @@
 						<td align="center" width="100">出租凭证 :&nbsp;&nbsp;</td>
 						<td align="center" width="300" style="height:80px;" colspan="3">
 							<img width="60" height="60" src="{{ asset('/uploads/img') }}/{{ $data->img }}"><br/>
-							<a href="#">查看大图</a>
+							<a id="show-big-img" href="#">查看大图</a>
 						</td>
 					</tr>
 					<tr>
@@ -103,7 +103,12 @@
 			</div>
 		</div>
 
-		<div class="big-img">sdfghjhgfd</div>
+		<div class="big-img">
+			<div class="occlude">
+				<span>×</span>
+			</div>
+			<img id="show-images" width="498" height="598" src="">
+		</div>
 	</div>
 
 @endsection
@@ -130,6 +135,40 @@
 
 				// 显示审核信息
 				$(".shower").css("display", "block");
+			});
+
+		// 点击查看大图事件
+		$("#show-big-img").on("click", function()
+			{	
+				// 获取当前图片的src
+				var imgSrc = $(this).prev().prev().attr("src");
+
+				// 设置图片路径
+				$(".big-img").find("#show-images").attr("src", imgSrc);
+
+				// 显示大图
+				$(".big-img").css("display", "block");
+
+				// 禁止文档滚动
+				$(document.body).css(
+					{
+						"overflow-x":"hidden",
+						"overflow-y":"hidden"
+					});
+			});
+
+		// 点击关闭大图
+		$(".occlude").on("click", function()
+			{
+				// 关闭显示
+				$(".big-img").css("display", "none");
+
+				// 启用滚动条
+				$(document.body).css(
+					{
+					   "overflow-x":"auto",
+					   "overflow-y":"auto"
+					});
 			});
 
 	</script>	

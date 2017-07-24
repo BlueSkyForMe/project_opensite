@@ -54,7 +54,7 @@
                   <tr>
                     <td>酒店星级 :</td>
                     <td>
-                      @if ($data->star == 0)
+                      @if ($data->star == "0")
                         无
                       @else
                         {{ $data->star }} 

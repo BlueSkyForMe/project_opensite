@@ -684,7 +684,6 @@
 <script src="{{ asset ('/admin/adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- Morris.js charts -->
 <script src="{{ asset ('/admin/adminlte/bootstrap/js/raphael-min.js') }}"></script>
-<script src="{{ asset ('/admin/adminlte/plugins/morris/morris.min.js') }}"></script>
 <!-- Sparkline -->
 <script src="{{ asset ('/admin/adminlte/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap -->
@@ -705,8 +704,6 @@
 <script src="{{ asset ('/admin/adminlte/plugins/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset ('/admin/adminlte/dist/js/app.min.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset ('/admin/adminlte/dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset ('/admin/adminlte/dist/js/demo.js') }}"></script>
 

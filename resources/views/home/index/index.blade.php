@@ -57,7 +57,7 @@
 						<div><a href="#"><span>商家中心</span></a>
 							<ul>
 								<li><a href="{{ asset('/home/merchant/register') }}">添加商户</a></li>
-								<li><a href="#">用户中心</a></li>
+								<li><a href="{{ url('/tenant/index') }}">商户中心</a></li>
 								<li><a href="#">商户认证</a></li>
 								<li><a href="#">我想合作</a></li>
 							</ul>

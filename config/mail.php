@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'php_kaichang@sina.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'dahai@mail.tuatua.top'),
         'name' => env('MAIL_FROM_NAME', '开场'),
     ],
 

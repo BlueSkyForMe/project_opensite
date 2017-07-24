@@ -128,8 +128,11 @@ class LoginController extends Controller
 	//前台退出功能
 	public function logout(Request $request)
 	{
-		// 清空session
+		// 清空用户 session 
     	$request->session()->forget('huser');
+
+    	// 清空m商户 session
+    	$request->session()->forget('hmer');
 
     	return redirect('/home/index');
 	}
