@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/city.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/laydate.css') }}">
+    <link rel="stylesheet" type="text/css" id="layDateSkin" href="{{ asset('/css/laydate_skin.css') }}">
+
+
     <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>   
 </head>
 <body>
@@ -193,13 +198,13 @@
 						<tr class="t_second">
 							<td class="title_style">场地类型:</td>
 							<td>
-								<label><input id="hotel" type="checkbox" name="type[]" value="酒店">酒店</label>
-								<label><input type="checkbox" name="type[]" value="会议中心">会议中心</label>
-								<label><input type="checkbox" name="type[]" value="体育馆">体育馆</label>
-								<label><input type="checkbox" name="type[]" value="展览馆">展览馆</label>
-								<label><input type="checkbox" name="type[]" value="酒吧/餐厅/会所">酒吧/餐厅/会所</label>
-								<label><input type="checkbox" name="type[]" value="艺术中心/剧院">艺术中心/剧院</label>
-								<label><input type="checkbox" name="type[]" value="咖啡厅/茶室">咖啡厅/茶室</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="酒店">酒店</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="会议中心">会议中心</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="体育馆">体育馆</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="展览馆">展览馆</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="酒吧/餐厅/会所">酒吧/餐厅/会所</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="艺术中心/剧院">艺术中心/剧院</label>
+								<label><input class="starShow" type="checkbox" name="type[]" value="咖啡厅/茶室">咖啡厅/茶室</label>
 								<span>&nbsp;&nbsp;(可多选)</span>
 							</td>
 						</tr>
@@ -218,9 +223,18 @@
 									<option>7-14天</option>
 									<option>14天以上</option>
 								</select>
+<!-- 
 								<select name="starTime" id="starTime" style="width: 80px; height: 25px; margin-right: 14px;">
 									<option>开始时间</option>
-								</select>
+								</select> -->
+								
+				
+
+        						<input type="text" id="J-xl" placeholder="开始时间" name="startTime" value="" style="width: 80px; height: 25px; margin-right: 14px;">
+
+    	
+
+
 							</td>
 						</tr>
 						
@@ -348,8 +362,16 @@
 	<script type="text/javascript" src="{{ asset('/js/home.index.autolog.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/cityTemplate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>
-	
-	
+	<script type="text/javascript" src="{{ asset('/js/laydate.dev.js') }}"></script>
+    <script type="text/javascript">
 
+        laydate({
+
+            elem: '#J-xl'
+
+        });
+
+    </script>
+	
 </body>
 </html>

@@ -26,10 +26,12 @@ class RegisterController extends Controller
     	$data['lastTime'] = date('Y-m-d H:i:s');
 
     	//将注册信息存入数据库
-    	$res = \DB::table('users')->insert($data);
+    	$id = \DB::table('users')->insertGetId($data);
 
-    	if($res)
+    	if($id)
     	{
+    		//将id放入数组, 一起存到session中
+    		$data['id'] = $id;
     		
     		// 将用户信息存入session
     		session(['huser' => $data]);
@@ -141,15 +143,17 @@ class RegisterController extends Controller
     	{
     		//判断验证码是否正确
 	    	$code = session('code');
-	    	if($cod != $code)
-	    	{
-	    		//验证码错误
-	    		$code = 8;
-	    	}
-	    	else
+
+	    	if($cod == $code)
 	    	{
 	    		//验证码正确
 	    		$code = 9;
+	    	}
+	    	else
+	    	{
+	    		//验证码错误
+	    		$code = 8;
+	    		
 	    	}
 
     	}

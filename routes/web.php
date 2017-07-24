@@ -30,6 +30,10 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 63defbd2af83191b71cc9abcd5ff32630d57a44d
 		// 后台商户审核管理
 		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
 		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
@@ -64,6 +68,7 @@ Route::group(['middleware' => 'adminlogin'], function()
 
 	});
 
+
 // 后台管理员登录
 Route::get('/admin/login', 'Admin\LoginController@login');
 Route::post('/admin/dologin', 'Admin\LoginController@doLogin');
@@ -79,15 +84,6 @@ Route::get('/admin/link/{token}', 'Admin\ForgotController@link');
 Route::get('/admin/newpass/{id}', 'Admin\ForgotController@newPass');
 Route::get('/admin/info', 'Admin\ForgotController@info');
 Route::post('/admin/updatepass', 'Admin\ForgotController@updatePass');
-
-
-
-
-
-
-
-
-
 
 
 //============================前台路由部分============================
@@ -146,7 +142,8 @@ Route::get('/home/search/ajax', 'Home\SearchController@ajax');
 //前台详情
 Route::get('/home/detail/{id}', 'Home\DetailController@index');
 
-
+//前台收藏 与 取消收藏
+Route::post('/home/collect', 'Home\SearchController@collect');
 
 
 
@@ -155,11 +152,20 @@ Route::get('/tenant/index', 'Tenant\IndexController@index');
 Route::get('/tenant/detail/complete', 'Tenant\DetailController@complete');
 Route::post('/tenant/detail/add', 'Tenant\DetailController@add');
 Route::get('/tenant/detail/edit/{uid}', 'Tenant\DetailController@edit');
+<<<<<<< HEAD
 Route::post('/tenant/detail/update/{uid}', 'Tenant\DetailController@update');
 Route::get('/tenant/detail/addImg/{uid}', 'Tenant\DetailController@addImg');
 Route::post('/tenant/detail/insertImg/{uid}', 'Tenant\DetailController@insertImg');
 Route::get('/tenant/detail/editImg/{uid}', 'Tenant\DetailController@editImg');
 Route::post('/tenant/detail/updateImg/{uid}', 'Tenant\DetailController@updateImg');
+=======
+Route::post('tenant/detail/update/{uid}', 'Tenant\DetailController@update');
+<<<<<<< HEAD
+Route::get('/tenant/mansite/add', 'Tenant\MansiteController@add');
+Route::post('/tenant/mansite/insert/{uid}', 'Tenant\MansiteController@insert');
+Route::get('/tenant/mansite/show/{uid}', 'Tenant\MansiteController@show');
+=======
+>>>>>>> c11ddd5e5fa392a92e2490a9d53a00a650ae5f7f
 Route::get('/tenant/mansite/siteAdd', 'Tenant\MansiteController@siteAdd');
 Route::post('/tenant/mansite/siteInsert/{uid}', 'Tenant\MansiteController@siteInsert');
 Route::get('/tenant/mansite/siteShow/{uid}', 'Tenant\MansiteController@siteShow');
@@ -190,3 +196,4 @@ Route::get('/tenant/logout', 'Tenant\LoginController@logout');
 
 
 
+>>>>>>> 63defbd2af83191b71cc9abcd5ff32630d57a44d

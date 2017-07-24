@@ -27,4 +27,9 @@ class DetailController extends Controller
     	return view('home.detail.detail',  ['title' => '企业详情', 'ad' => $ad]);
 
     }
+
+
+
+
+
 }

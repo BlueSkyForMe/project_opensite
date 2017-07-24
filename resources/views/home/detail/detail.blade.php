@@ -119,17 +119,17 @@
 											<div>会议茶歇: </div>
 
 											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>中式</option>
-													<option>西式</option>
+												<select name="rest" id="rest">
+													<option value="0">类型</option>
+													<option value="1">中式</option>
+													<option value="2">西式</option>
 												</select>
 											</div>
 
 											<div>
 												<select name="" id="">
+													<option>100元</option>
 													<option>价格</option>
-													<option>中式</option>
 													<option>西式</option>
 												</select>
 											</div>

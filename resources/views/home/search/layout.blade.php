@@ -82,17 +82,41 @@
 
 @section('js')
 <script>
-	var num = 0;
+
 	$('.float_cont_r').find('img').on('click', function(){
-		num ++;
-		if(num%2 == 1)
-		{
-			$(this).attr('src', "{{ asset('/images/collect_blue.png') }}");
-		}
-		else
-		{
-			$(this).attr('src', "{{ asset('/images/collect.png') }}");
-		}
+
+		//$(this)指向的是上一个$
+		var t = $(this);
+
+		//获取用户的id 和 企业的 id, 将这些信息存入数据表collect中
+		var userID = $('.wrap_ul').find('#userID').val();
+		var merchantID = $('.left_con_one').find('#merchantID').val();
+
+		$.ajaxSetup({
+		    headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    }
+		});
+
+		//使用ajax将数据传到后台, 查询数据库,如果存在,删除,返回状态码 0; 如果不存在,添加, 返回状态码 1;
+		$.post('/home/collect', {"userID": userID, "merchantID": merchantID}, function(data){
+
+			if(data == 1)
+			{
+				alert('收藏成功');
+				
+				//收藏, 更换显示样式
+				t.attr('src', "{{ asset('/images/collect_blue.png') }}");
+			}
+			else
+			{
+				alert('取消收藏成功');
+
+				//取消收藏, 更换成普通显示样式
+				t.attr('src', "{{ asset('/images/collect.png') }}");
+			}
+		});
+
 	});
 </script>
 
