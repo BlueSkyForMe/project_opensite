@@ -9,24 +9,38 @@ class IndexController extends Controller
 {
     // index 商户中心主页
     public function index()
-    {
-        // 判断商户是否已登录
+    {	 
+        // 判断 session
         if(!session('hmer'))
         {
-            return "<script>alert('请先登录');location.href='/home/index'</script>";
+            return "<script>alert('请先登录商户');location.href='/home/index'</script>";
         }
-    	    
+
         // 定义uid
         $uid = session('hmer')->id;
+
+        // 查询数据库merchant表
+        $mer = \DB::table('merchant')->where('uid', $uid)->select('class', 'address', 'servers', 'check')->first();
+
+        // 判断
+        if($mer)
+        {
+            //判断是否审核通过
+            if($mer->check != 1)
+            {
+                return "<script>alert('请先通过商户审核');location.href='".$_SERVER['HTTP_REFERER']."'</script>";
+            }
+        }
+        else
+        {
+            return "<script>alert('请先通过商户审核');location.href='".$_SERVER['HTTP_REFERER']."'</script>";
+        }
 
         // 重新定义check
         $data['check'] = 3;
 
         // 修改check字段
         \DB::table('merchant')->where('uid', $uid)->update($data); 
-
-    	// 查询数据库merchant表
-    	$mer = \DB::table('merchant')->where('uid', $uid)->select('class', 'address', 'servers')->first();
 
         // 查询基本信息数据表sitebase
         $site = \DB::table('sitebase')->where('uid', $uid)->first();

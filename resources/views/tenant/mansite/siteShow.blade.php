@@ -41,7 +41,7 @@
                                     <td>{{ $val->meetName }}</td>
                                     <td>
                                     	<img width="60px" height="50px" src="{{ asset('/uploads/meetimg') }}/{{ $val->meetImg }}"><br/>
-                                    	<a href="#">查看大图</a>
+                                    	<a class="site_show_bigimg" href="javascript:" data-toggle="modal" data-target=".bs-example-modal-sm">查看大图</a>
                                     </td>
                                     <td>{{ $val->meetArea }}</td>
                                     <td>{{ $val->meetPerson }}</td>
@@ -65,5 +65,23 @@
         <!-- /.col-lg-12 -->
     </div>
 </div>
+
+@endsection
+
+@section('js')
+
+    <script type="text/javascript">
+
+        // 点击查看大图
+        $(".site_show_bigimg").on("click", function()
+            {
+                // 获取图片路径
+                var site_bigimg = $(this).prev().prev().attr("src");
+
+                // 找到模态框赋值路径
+                $(this).parents("body").find("#modal_reveal_bigimg").attr("src", site_bigimg);
+            });
+
+    </script>
 
 @endsection

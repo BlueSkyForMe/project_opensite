@@ -131,7 +131,7 @@
                     // 提示错误信息
                     sub.parent().find("#img_one").next().css('display', 'block');
                     sub.parent().find("#img_one").next().css('color', 'red');
-                    sub.parent().find("#img_one").next().html('×请正确上传图片');
+                    sub.parent().find("#img_one").next().html('×支持格式（jpg,gif,png）');
 
                     // 阻止提交
                     return false;
@@ -161,7 +161,7 @@
                     // 提示错误信息
                     sub.parent().find("#img_two").next().css('display', 'block');
                     sub.parent().find("#img_two").next().css('color', 'red');
-                    sub.parent().find("#img_two").next().html('×请正确上传图片');
+                    sub.parent().find("#img_two").next().html('×支持格式（jpg,gif,png）');
 
                     // 阻止提交
                     return false;
@@ -191,7 +191,7 @@
                     // 提示错误信息
                     sub.parent().find("#img_three").next().css('display', 'block');
                     sub.parent().find("#img_three").next().css('color', 'red');
-                    sub.parent().find("#img_three").next().html('×请正确上传图片');
+                    sub.parent().find("#img_three").next().html('×支持格式（jpg,gif,png）');
 
                     // 阻止提交
                     return false;
@@ -221,7 +221,7 @@
                     // 提示错误信息
                     sub.parent().find("#img_four").next().css('display', 'block');
                     sub.parent().find("#img_four").next().css('color', 'red');
-                    sub.parent().find("#img_four").next().html('×请正确上传图片');
+                    sub.parent().find("#img_four").next().html('×支持格式（jpg,gif,png）');
 
                     // 阻止提交
                     return false;

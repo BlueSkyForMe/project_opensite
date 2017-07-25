@@ -126,7 +126,7 @@ class MerchantController extends Controller
         $code = mt_rand(000000, 999999);
 
         // cookie存储验证码
-        \Cookie::queue('hmerCode', $code, 2);
+        \Cookie::queue('hmerCode', $code, 1);
 
         // 验证是否是手机号
         $patt = "/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/";
@@ -216,10 +216,6 @@ class MerchantController extends Controller
     // insert 插入数据库
     public function insert(Request $request)
     {
-    	// dd($request->all());
-
-    	// =========== 需要验证验证码 ===============
-
     	// 剔除冗余
     	$data = $request->only('userName', 'password');
     	
@@ -262,6 +258,20 @@ class MerchantController extends Controller
 
     	if($id)
     	{
+            // 将本条插入的信息查出存入session
+            $mer = \DB::table('users')->where('id', $id)->first();
+
+            // 将对象转成数组
+            $user = [];
+            foreach($mer as $key => $value) 
+            {
+                $user[$key] = $value;
+            }
+
+            // 存储session
+            session(['hmer' => $mer]);
+            session(['huser' => $user]);
+
     		return redirect('/home/merchant/fill/'.$id);
     	}
     	else

@@ -285,7 +285,7 @@ $("#send-code").on("click", function()
 		var contval = scode.parents("form").find("#register_mer_contact").val();
 
 		// 只能点击一次
-		var status = status = scode.find("span").attr('status');
+		var status = scode.find("span").attr('status');
 
 		// 判断是否为空
 		if(!contval || conta != 1)
@@ -320,6 +320,9 @@ $("#send-code").on("click", function()
 
 		// 设置已点击
     	scode.find("span").attr('status', 1);
+
+    	// 设置呈灰色
+    	scode.parent().css("background-color", "#ccc");
     	
     	//倒计时
     	num = 60;
@@ -334,6 +337,9 @@ $("#send-code").on("click", function()
             	// 清除定时器。
                 clearInterval(inte);
                 scode.find('span').html("重新获取验证码");
+                // 设置呈蓝色
+    			scode.parent().css("background-color", "#0066cc");
+    			// 可再次点击
                 scode.find("span").attr('status', 0);
                 return ;
             }

@@ -83,14 +83,23 @@
 @section('js')
 <script>
 
-	$('.float_cont_r').find('img').on('click', function(){
+	//因为是整段追加,因此绑定事件时需要注意, 寻找第一次加载就存在的类名, 使用on()方式绑定
+	//on()事件新用法: on('事件', '绑定对象', '匿名函数')
+	$('.content').on('click','.xin_a', function(){
 
 		//$(this)指向的是上一个$
 		var t = $(this);
 
 		//获取用户的id 和 企业的 id, 将这些信息存入数据表collect中
 		var userID = $('.wrap_ul').find('#userID').val();
-		var merchantID = $('.left_con_one').find('#merchantID').val();
+		var merchantID = $(this).parent().parent().prev().find('.merid').html();
+
+		//如果用户未登录, 提示登录
+		if(userID == undefined)
+		{
+			alert('如需收藏, 请先登录!');
+			return ;
+		}
 
 		$.ajaxSetup({
 		    headers: {
@@ -108,13 +117,22 @@
 				//收藏, 更换显示样式
 				t.attr('src', "{{ asset('/images/collect_blue.png') }}");
 			}
-			else
+			
+			if(data == 0)
 			{
 				alert('取消收藏成功');
 
 				//取消收藏, 更换成普通显示样式
 				t.attr('src', "{{ asset('/images/collect.png') }}");
 			}
+
+			if(data == 2)
+			{
+				alert('系统繁忙, 请稍后重试!');
+			}
+
+
+
 		});
 
 	});

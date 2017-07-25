@@ -308,6 +308,9 @@
 		  		
 		  		// 标识已点击
 		    	scode.find("span").attr('status', 1);
+
+		    	// 设置呈灰色
+    			scode.parent().css("background-color", "#ccc");
 				
 		    	//倒计时
 		    	num = 60;
@@ -322,7 +325,8 @@
 		            	// 清除定时器。
 		                clearInterval(inte);
 		                scode.find('span').html("重新获取验证码");
-
+		                // 设置呈蓝色
+    					scode.parent().css("background-color", "#0066cc");
 		                // 标识可以重新获取
 		                scode.find("span").attr('status', 0);
 		                return ;
