@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 //前台注册控制器
 class RegisterController extends Controller
 {
+	
     //检测注册信息是否合格, 合法则存入数据库
     public function insert(Request $request)
     {

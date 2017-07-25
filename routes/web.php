@@ -30,10 +30,7 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/manage/delete/{id}', 'Admin\ManageController@delete');
 		Route::get('/admin/manage/state/{id}/{status}', 'Admin\ManageController@state');
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 63defbd2af83191b71cc9abcd5ff32630d57a44d
 		// 后台商户审核管理
 		Route::get('/admin/merchant/index', 'Admin\MerchantController@index');
 		Route::get('/admin/merchant/state/{id}/{status}', 'Admin\MerchantController@state');
@@ -143,6 +140,9 @@ Route::get('/home/detail/{id}', 'Home\DetailController@index');
 //前台收藏 与 取消收藏
 Route::post('/home/collect', 'Home\SearchController@collect');
 
+//
+Route::get('/home/login/ajax', 'Home\LoginController@ajax');
+
 
 
 //============================ 商户中心 ============================
@@ -151,11 +151,11 @@ Route::get('/tenant/detail/complete', 'Tenant\DetailController@complete');
 Route::post('/tenant/detail/add', 'Tenant\DetailController@add');
 Route::get('/tenant/detail/edit/{uid}', 'Tenant\DetailController@edit');
 Route::post('tenant/detail/update/{uid}', 'Tenant\DetailController@update');
-<<<<<<< HEAD
+
 Route::get('/tenant/mansite/add', 'Tenant\MansiteController@add');
 Route::post('/tenant/mansite/insert/{uid}', 'Tenant\MansiteController@insert');
 Route::get('/tenant/mansite/show/{uid}', 'Tenant\MansiteController@show');
-=======
+
 Route::get('/tenant/mansite/siteAdd', 'Tenant\MansiteController@siteAdd');
 Route::post('/tenant/mansite/siteInsert/{uid}', 'Tenant\MansiteController@siteInsert');
 Route::get('/tenant/mansite/siteShow/{uid}', 'Tenant\MansiteController@siteShow');
@@ -186,4 +186,4 @@ Route::get('/tenant/logout', 'Tenant\LoginController@logout');
 
 
 
->>>>>>> 63defbd2af83191b71cc9abcd5ff32630d57a44d
+

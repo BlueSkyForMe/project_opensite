@@ -8,10 +8,11 @@ use App\Http\Controllers\Controller;
 //前台登录控制器
 class LoginController extends Controller
 {
+
 	//前台登录功能
 	public function login(Request $request)
 	{
-
+		
 		//接收前台提交的数据,并去除无用信息
     	$data = $request->except('_token', 'x', 'y', 'code');
 
@@ -49,7 +50,7 @@ class LoginController extends Controller
 	            if($request->has('rememberMe'))
 	            {
 	                // 存入cookie；
-	                \Cookie::queue('rememberMe', $res->rememberToken, 10*6*24*30);
+	                \Cookie::queue('hRememberMe', $res->rememberToken, 10*6*24*30);
 	            }
 
 	            //判断登陆者的身份类别
@@ -87,7 +88,6 @@ class LoginController extends Controller
 	            	
 	            }
 
-
 	    		//普通用户自动跳转到首页
 	    		return redirect('/home/index');
     		}
@@ -123,6 +123,38 @@ class LoginController extends Controller
 	    		}
 	    	}
     	}	
+	}
+
+	//获取记住密码信息
+	public function ajax(Request $request)
+	{
+		  $rememberMe = \Cookie::get('hRememberMe');
+
+		  if($rememberMe)
+		{
+			// 根据记住我的字段查询数据库
+            $admin = \DB::table('users')->where('rememberToken', $rememberMe)->first();
+
+            $admin->password = decrypt($admin->password);
+
+
+            $phone = $admin->phone;
+            $email = $admin->email;
+            $code = session('code');
+
+            if($phone != null)
+            {
+            	$str = $phone."@".$admin->password."@".$code."@phone";
+            }
+            else
+            {
+            	$str = $email."@".$admin->password."@".$code."@email";
+            }
+         
+		}
+
+
+		  echo json_encode($str);
 	}
 
 	//前台退出功能

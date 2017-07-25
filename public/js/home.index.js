@@ -4,6 +4,29 @@
 		
 			$('#login_box').css('display', 'block');
 
+			$.get('/home/login/ajax', {}, function(data){
+
+				if(data != null)
+				{
+
+					var arr = data.split('@');
+
+					console.log(arr);
+
+					var phone = arr[0].slice(1);
+					var password = arr[1].slice(0);
+					var code = arr[2];
+					var ty = arr[3].slice(0, -1);
+
+					$('.log_phon').val(phone);
+					$('.log_pass').val(password);
+					$('.log_code').val(code);
+					$('.log_reme').find('input').attr('checked', 'checked');
+				}
+				
+			});
+
+
 		});
 
 	//===============注册功能部分=======================

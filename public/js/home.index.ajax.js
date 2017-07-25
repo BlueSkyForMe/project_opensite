@@ -42,7 +42,7 @@
 
 	 				switch(data)
 	 				{
-	 					case 8: flag = 0;  errorMsg = '验证码错误'; break;
+	 					case 8: flag = 0;  errorMsg = '验证码错误, 请点击图片刷新后重试'; break;
 	 					case 9: flag = 1;  errorMsg = '验证码正确'; break;
 	 					
 	 				}
@@ -336,33 +336,72 @@
 			var inputCode = $(this).val();
 
 			//删除原有的错误信息提示
-			$('.log_code').next().find('.msg').remove();
+			if(inputCode.length < 5)
+			{
+				$('.log_code').next().find('.msg').remove();
+				fla = 1;
+			}
 
-			// 书写 ajax, 验证手机号或邮箱是否合法,是否可用
-            $.get('/home/register/ajax', {"cod": inputCode}, function(data){
-              	
-              	//定义全局变量, errorMsg: 错误信息  flag: 内容合法
-              	var errorMsg;
-              	var flag;
 
- 				switch(data)
- 				{
- 					case 8: errorMsg = '验证码错误'; break;
- 					case 9: flag = 1;  errorMsg = '验证码正确'; break;
- 					
- 				}
+			if(inputCode.length == 5 && fla == 1)
+			{
+				fla = 0;
 
-                //将错误信息追加到页面中
-                $('.log_code').next().css('display', 'block');
-                $('.log_code').next().append("<span class='msg'>" + errorMsg + "</span>");
-                if(flag)
-                {
-                	$('.log_code').next().css('color', 'green');
-                	lcd = 1;
-                }
-             
-            }, 'json');
-		});
+				$('.log_code').next().find('.msg').remove();
+
+				// 书写 ajax, 验证手机号或邮箱是否合法,是否可用
+	            $.get('/home/register/ajax', {"cod": inputCode}, function(data){
+
+	            	// alert(data);
+	              	
+	              	//定义全局变量, errorMsg: 错误信息  
+	              	var errorMsg;
+
+	 				switch(data)
+	 				{
+	 					case 8: flag = 0;  errorMsg = '验证码错误, 请点击图片刷新后重试'; break;
+	 					case 9: flag = 1;  errorMsg = '验证码正确'; break;
+	 					
+	 				}
+
+	                //将错误信息追加到页面中
+	                $('.log_code').next().css('display', 'block');
+	                $('.log_code').next().append("<span class='msg'>" + errorMsg + "</span>");
+	                if(flag == 1)
+	                {
+	                	$('.log_code').next().css('color', 'green');
+	                	lcd = 1;
+	                }
+	                if(flag == 0)
+
+	                {
+	                	$('.log_code').next().css('color', 'red');
+	                }
+	             
+	            }, 'json');
+			}
+
+
+		}).keyup(function(){
+
+            //triggerHandler 防止事件执行完后，浏览器自动为标签获得焦点
+            $(this).triggerHandler("blur");
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		//验证手机号或邮箱
 		$('.log_phon').blur(function(){
@@ -396,13 +435,13 @@
                 if(flag == 1)
                 {
                 	$('.log_phon').next().css('color', 'green');
-                	lph = 1;
+                	// lph = 1;
                 }
                 if(flag == 2)
                 {
                 	$('.log_phon').next().css('color', 'green');
                 	$('.log_phon').attr('name', 'email');
-                	lph = 1;
+                	// lph = 1;
                 }
              
             }, 'json');
@@ -426,7 +465,7 @@
                 return false;
 			}
 
-			if(lcd == 1 && lph == 1 && ps)
+			if(lcd == 1 && ps)
 			{
 				return true;
 			}
