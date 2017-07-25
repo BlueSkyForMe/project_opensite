@@ -26,7 +26,7 @@ class IndexController extends Controller
         if($mer)
         {
             //判断是否审核通过
-            if($mer->check != 1)
+            if($mer->check == 0 || $mer->check == 2)
             {
                 return "<script>alert('请先通过商户审核');location.href='".$_SERVER['HTTP_REFERER']."'</script>";
             }

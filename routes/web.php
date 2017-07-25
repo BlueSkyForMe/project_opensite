@@ -63,6 +63,9 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/user/index', 'Admin\UserController@index');
 		Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
 
+		//订单管理列表
+		Route::get('/admin/order/index', 'Admin\OrderController@index');
+
 	});
 
 
@@ -143,6 +146,9 @@ Route::post('/home/collect', 'Home\SearchController@collect');
 
 //
 Route::get('/home/login/ajax', 'Home\LoginController@ajax');
+
+//
+Route::get('/home/register/sendEmail', 'Home\RegisterController@sendEmail');
 
 
 
