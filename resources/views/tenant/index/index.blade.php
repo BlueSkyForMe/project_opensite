@@ -41,7 +41,13 @@
                                     <tr class="danger">
                                         <td width="200px">最近装修时间：</td>
                                         @if (isset($site))
-                                        <td>{{ $site->fitmentTime }}年</td>
+                                        <td>
+                                            @if ($site->fitmentTime == null)
+                                              无
+                                            @else
+                                              {{ $site->fitmentTime }}年
+                                            @endif    
+                                        </td>
                                         @else
                                         <td></td>
                                         @endif
@@ -55,7 +61,13 @@
                                     <tr class="success">
                                         <td>客房数量：</td>
                                         @if (isset($site))
-                                        <td>{{ $site->guestRoom }}个</td>
+                                        <td>
+                                            @if ($site->guestRoom == null)
+                                              无
+                                            @else
+                                              {{ $site->guestRoom }}个
+                                            @endif  
+                                        </td>
                                         @else
                                         <td></td>
                                         @endif
@@ -98,9 +110,19 @@
                                     </tr>
                                     <tr class="warning">
                                         <td>轮播图：</td>
+                                        @if (isset($merimg))
+                                        <td>
+                                        @foreach ($merimg as $key => $val)
+                                          <img style="margin-left:10px;" width="60px" height="50px" src="{{ asset('/uploads/merimg') }}/{{ $val->img }}" title="点击查看大图">
+                                        @endforeach
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        @else
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        @endif
                                     </tr>
                                 </tbody>
                             </table>

@@ -33,9 +33,9 @@
                                             <span style="color:green;">例：1998</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>*最近装修时间</label>
+                                            <label>最近装修时间</label>
                                             <input id="ft" class="form-control" name="fitmentTime" value="{{ $data->fitmentTime }}" placeholder="最近装修时间:单位/年">
-                                            <span style="color:green;">例：2010</span>
+                                            <span style="color:green;">选填！例：2010</span>
                                         </div>
                                         <div class="form-group">
                                             <label>*会场数量</label>
@@ -43,9 +43,9 @@
                                             <span style="color:green;">例：5</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>*客房数量</label>
+                                            <label>客房数量</label>
                                             <input id="gr" class="form-control" name="guestRoom" value="{{ $data->guestRoom }}" placeholder="客房数量:单位/个">
-                                            <span style="color:green;">例：200</span>
+                                            <span style="color:green;">选填！例：200</span>
                                         </div>
                                         <div class="form-group">
                                             <label>*最大会场面积</label>
@@ -60,29 +60,29 @@
                                         <div class="form-group">
                                             <label>可提供配套服务</label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="0" 
-                                                 @if(array_key_exists('0', $support))
+                                                <input class="sup" type="checkbox" name="support[]" value="茶歇" 
+                                                 @if(in_array('茶歇', $support))
                                                    checked="checked" 
                                                  @endif   
                                                 >茶歇
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="1"
-                                                @if(array_key_exists('1', $support))
+                                                <input class="sup" type="checkbox" name="support[]" value="客房"
+                                                @if(in_array('客房', $support))
                                                    checked="checked" 
                                                  @endif 
                                                 >客房
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="2"
-                                                @if(array_key_exists('2', $support))
+                                                <input class="sup" type="checkbox" name="support[]" value="AV设备"
+                                                @if(in_array('AV设备', $support))
                                                    checked="checked" 
                                                  @endif 
                                                 >AV设备
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="3"
-                                                @if(array_key_exists('3', $support))
+                                                <input class="sup" type="checkbox" name="support[]" value="停车场"
+                                                @if(in_array('停车场', $support))
                                                    checked="checked" 
                                                  @endif 
                                                 >停车场
@@ -133,6 +133,14 @@
     
     <script type="text/javascript">
 
+        // 定义全局变量用于标识
+        var otCode = 1;
+        var ftCode = 1;
+        var snCode = 1;
+        var grCode = 1;
+        var maaCode = 1;
+        var mapCode = 1;
+
         // 获取开业时间input焦点事件
         $("#ot").on("focus", function()
             {
@@ -161,6 +169,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：1998");
                     $(this).next().css("color", "red");
+                    // 标识
+                    otCode = 0;
                 }
             });
 
@@ -173,9 +183,15 @@
             });
         // 最近装修时间input失去焦点事件
         $("#ft").on("blur", function()
-            {
-                // 正则匹配
+            {   
+                // 判断是否填写信息
                 var val = $(this).val();
+                if(!val)
+                {
+                    return;
+                }
+
+                // 正则匹配
                 var reg = /^[0-9]{4,4}$/;
                 var res = reg.test(val);
                 // 判断
@@ -192,6 +208,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：2010");
                     $(this).next().css("color", "red");
+                    // 标识
+                    ftCode = 0;
                 }
             });
 
@@ -223,6 +241,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：5");
                     $(this).next().css("color", "red");
+                    // 标识
+                    snCode = 0;
                 }
             });
 
@@ -236,8 +256,14 @@
         // 客房数量input失去焦点事件
         $("#gr").on("blur", function()
             {
-                // 正则匹配
+                // 判断是否填写信息
                 var val = $(this).val();
+                if(!val)
+                {
+                    return;
+                }
+
+                // 正则匹配
                 var reg = /^[0-9]{1,}$/;
                 var res = reg.test(val);
                 // 判断
@@ -254,6 +280,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：200");
                     $(this).next().css("color", "red");
+                    // 标识
+                    grCode = 0;
                 }
             });
 
@@ -285,6 +313,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：2000");
                     $(this).next().css("color", "red");
+                    // 标识
+                    maaCode = 0;
                 }
             });
 
@@ -316,6 +346,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：20000");
                     $(this).next().css("color", "red");
+                    // 标识
+                    mapCode = 0;
                 }
             });
 
@@ -338,18 +370,6 @@
                     return false;
                 }
 
-                // 获取最近装修时间value值
-                var ftVal = sub.parent().find("#ft").val();
-                // 判断
-                if(!ftVal)
-                {   
-                    // 提示
-                    sub.parent().find("#ft").next().html("×请填写最近装修时间");
-                    sub.parent().find("#ft").next().css("color", "red");
-                    // 阻止默认行为
-                    return false;
-                }
-
                 // 获取会场数量value值
                 var snVal = sub.parent().find("#sn").val();
                 // 判断
@@ -358,18 +378,6 @@
                     // 提示
                     sub.parent().find("#sn").next().html("×请填写会场数量");
                     sub.parent().find("#sn").next().css("color", "red");
-                    // 阻止默认行为
-                    return false;
-                }
-
-                // 获取客房数量value值
-                var grVal = sub.parent().find("#gr").val();
-                // 判断
-                if(!grVal)
-                {   
-                    // 提示
-                    sub.parent().find("#gr").next().html("×请填写客房数量");
-                    sub.parent().find("#gr").next().css("color", "red");
                     // 阻止默认行为
                     return false;
                 }
@@ -395,6 +403,18 @@
                     sub.parent().find("#map").next().html("×请填大会场面积");
                     sub.parent().find("#map").next().css("color", "red");
                     // 阻止默认行为
+                    return false;
+                }
+
+                // 判断标识
+                if(otCode == 1 && ftCode == 1 && snCode == 1 && grCode == 1 && maaCode == 1 && mapCode == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    // 提示填写信息有误
+                    alert("输入信息有误，请仔细核对");
                     return false;
                 }
 

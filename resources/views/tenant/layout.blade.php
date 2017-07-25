@@ -39,8 +39,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ url ('/tenant/index') }}">商户中心</a>
+                <ul class="nav navbar-nav">
+                  <li class="hidden-sm hidden-md">
+                    <a href="{{ url('/home/index') }}">开场首页</a>
+                  </li>
+                </ul>
             </div>
-            <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
@@ -268,7 +272,13 @@
                                     <a href="{{ url('/tenant/detail/complete') }}">完善信息</a>
                                 </li>
                                 <li>
+                                    <a href="{{ url('/tenant/detail/addImg') }}/{{ session('hmer')->id }}">上传展示图</a>
+                                </li>
+                                <li>
                                     <a href="{{ url('/tenant/detail/edit') }}/{{ session('hmer')->id }}">修改信息</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/tenant/detail/editImg') }}/{{ session('hmer')->id }}">更新展示图</a>
                                 </li>
                             </ul>
                         </li>

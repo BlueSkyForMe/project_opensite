@@ -5,7 +5,7 @@
 <div id="page-wrapper" style="min-height: 255px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">完善信息</h1>
+                    <h4 class="page-header">完善信息</h4>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -34,9 +34,9 @@
                                             <span style="color:green;">例：1998</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>*最近装修时间</label>
+                                            <label>最近装修时间</label>
                                             <input id="ft" class="form-control" name="fitmentTime" placeholder="最近装修时间:单位/年">
-                                            <span style="color:green;">例：2010</span>
+                                            <span style="color:green;">选填！例：2010</span>
                                         </div>
                                         <div class="form-group">
                                             <label>*会场数量</label>
@@ -44,9 +44,9 @@
                                             <span style="color:green;">例：5</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>*客房数量</label>
+                                            <label>客房数量</label>
                                             <input id="gr" class="form-control" name="guestRoom" placeholder="客房数量:单位/个">
-                                            <span style="color:green;">例：200</span>
+                                            <span style="color:green;">选填！例：200</span>
                                         </div>
                                         <div class="form-group">
                                             <label>*最大会场面积</label>
@@ -61,16 +61,16 @@
                                         <div class="form-group">
                                             <label>可提供配套服务</label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="0">茶歇
+                                                <input class="sup" type="checkbox" name="support[]" value="茶歇">茶歇
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="1">客房
+                                                <input class="sup" type="checkbox" name="support[]" value="客房">客房
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="2">AV设备
+                                                <input class="sup" type="checkbox" name="support[]" value="AV设备">AV设备
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input class="sup" type="checkbox" name="support[]" value="3">停车场
+                                                <input class="sup" type="checkbox" name="support[]" value="停车场">停车场
                                             </label>
                                             <label style="color:green;" class="checkbox-inline">
                                             	可多选
@@ -113,9 +113,9 @@
 
         // 定义全局变量用于标识
         var otCode = 0;
-        var ftCode = 0;
+        var ftCode = 1;
         var snCode = 0;
-        var grCode = 0;
+        var grCode = 1;
         var maaCode = 0;
         var mapCode = 0;
 
@@ -159,9 +159,15 @@
             });
         // 最近装修时间input失去焦点事件
         $("#ft").on("blur", function()
-            {
-                // 正则匹配
+            {   
+                // 判断是否填写信息
                 var val = $(this).val();
+                if(!val)
+                {
+                    return;
+                }
+
+                // 正则匹配
                 var reg = /^[0-9]{4,4}$/;
                 var res = reg.test(val);
                 // 判断
@@ -178,6 +184,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：2010");
                     $(this).next().css("color", "red");
+                    // 标识
+                    ftCode = 0;
                 }
             });
 
@@ -222,8 +230,14 @@
         // 客房数量input失去焦点事件
         $("#gr").on("blur", function()
             {
-                // 正则匹配
+                // 判断是否填写信息
                 var val = $(this).val();
+                if(!val)
+                {
+                    return;
+                }
+
+                // 正则匹配
                 var reg = /^[0-9]{1,}$/;
                 var res = reg.test(val);
                 // 判断
@@ -240,6 +254,8 @@
                     // 错误提示
                     $(this).next().html("×输入有误，例：200");
                     $(this).next().css("color", "red");
+                    // 标识
+                    grCode = 0;
                 }
             });
 
@@ -324,18 +340,6 @@
                     return false;
                 }
 
-                // 获取最近装修时间value值
-                var ftVal = sub.parent().find("#ft").val();
-                // 判断
-                if(!ftVal)
-                {   
-                    // 提示
-                    sub.parent().find("#ft").next().html("×请填写最近装修时间");
-                    sub.parent().find("#ft").next().css("color", "red");
-                    // 阻止默认行为
-                    return false;
-                }
-
                 // 获取会场数量value值
                 var snVal = sub.parent().find("#sn").val();
                 // 判断
@@ -344,18 +348,6 @@
                     // 提示
                     sub.parent().find("#sn").next().html("×请填写会场数量");
                     sub.parent().find("#sn").next().css("color", "red");
-                    // 阻止默认行为
-                    return false;
-                }
-
-                // 获取客房数量value值
-                var grVal = sub.parent().find("#gr").val();
-                // 判断
-                if(!grVal)
-                {   
-                    // 提示
-                    sub.parent().find("#gr").next().html("×请填写客房数量");
-                    sub.parent().find("#gr").next().css("color", "red");
                     // 阻止默认行为
                     return false;
                 }
