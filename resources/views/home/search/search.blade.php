@@ -301,20 +301,24 @@
 
 														@if(session('huser')['id'])
 
-															@foreach($collect as $k => $v)
+															@if(!$collect->isEmpty())
 
-																@if($v->mid == $val->uid && $v->uid == session('huser')['id'])
-																	<img src="{{ asset('/images/collect_blue.png') }}" class="xin_a" />
+																@foreach($collect as $k => $v)
 
-																@break
-																@else
-																	<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+																	@if($v->mid == $val->uid && $v->uid == session('huser')['id'])
+																		<img src="{{ asset('/images/collect_blue.png') }}" class="xin_a" />
 
-																
-																@endif
+																	@break
+																	@else
+																		<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+																	@endif
 
-															@endforeach
+																@endforeach
+															@else
 
+																<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+															
+															@endif
 														@else
 
 															<img src="{{ asset('/images/collect.png') }}" class="xin_a" />

@@ -12,8 +12,6 @@ class KitController extends Controller
     public function captcha($tmp)
     {
 
-        // echo '程序走到这了';
-
     	// 清除缓冲区内容
     	ob_get_clean();
 

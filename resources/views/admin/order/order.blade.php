@@ -7,12 +7,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        用户管理
+        订单管理
         <small>查看列表</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="#">用户管理</a></li>
+        <li><a href="#">订单管理</a></li>
         <li class="active">查看列表</li>
       </ol>
     </section>
@@ -32,7 +32,7 @@
                 </div>
             @endif
 
-            <form action="/admin/user/index" method="GET">
+            <form action="/admin/order/index" method="GET">
                 <div class="col-md-2">
                   <div class="form-group">
                     <select name="num" class="form-control">
@@ -54,7 +54,7 @@
               <div class="col-md-6"></div>
               <div class="col-md-4">
                 <div class="input-group">
-                  <input type="text" placeholder="请输入要搜索的用户名" name="keywords" value="{{ $request['keywords'] or '' }}" class="form-control">
+                  <input type="text" placeholder="请输入要搜索的酒店名" name="keywords" value="{{ $request['keywords'] or '' }}" class="form-control">
                   <span class="input-group-btn">
                     <button type="submit" class="btn btn-info btn-flat">搜索</button>
                   </span>
@@ -66,64 +66,39 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>用户ID</th>
+                  <th>订单ID</th>
                   <th>用户名</th>
-                  <th>手机号</th>                  
-                  <th>邮箱</th>
-                  <th>状态</th>
-                  <th>创建时间</th>
-                  <th>最后登录时间</th>
-                  <th>操作</th>
+                  <th>酒店名</th>                  
+                  <th>会场名</th>
+                  <th>会议时间</th>
+                  <th>总价</th>
+        
                 </tr>
                 </thead>
                 <tbody>
+
               @foreach ($data as $key => $val)
                 <tr>
                   <td>{{ $val->id }}</td>
                   <td>{{ $val->userName }}</td>
+                  <td>{{ $val->merchantName }}</td>
+                  <td>{{ $val->meetName }}</td>
                   <td>
-                      @if($val->phone)
-                          {{ $val->phone }}
-                      @else
-                          无
-                      @endif
-                  </td>
-                  <td>
-                      @if($val->email)
-                          {{ $val->email }}
+                      @if($val->time_quantum)
+                          {{ $val->time_quantum }}
                       @else
                           无
                       @endif
 
                   </td>
-                  <td>
-                    @if ($val->status == 1)
-                      正常
-                    @else
-                      禁用  
-                    @endif
-                  </td>
-                  <td>{{ $val->created_at }}</td>
-                  <td>
-                    @if ($val->lastTime == 0)
-                      尚未登陆过
-                    @else
-                      {{ $val->lastTime }}
-                    @endif
-                  </td>
-                  <td>
-                    @if ($val->status == 1)
-                    <a href="{{ url('/admin/user/state') }}/{{ $val->id }}/{{ $val->status }}">禁用</a>
-                    @else
-                    <a href="{{ url('/admin/user/state') }}/{{ $val->id }}/{{ $val->status }}">启用</a>
-                    @endif
-                  </td>
+                  <td>{{ $val->money }}</td>
+               
                 </tr>
               @endforeach  
                 </tbody>
               </table>
 
-              {{ $data->appends($request)->links() }}
+             {{ $data->appends($request)->links() }}
 
             </div>
             <!-- /.box-body -->

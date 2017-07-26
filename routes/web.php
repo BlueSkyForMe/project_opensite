@@ -63,6 +63,9 @@ Route::group(['middleware' => 'adminlogin'], function()
 		Route::get('/admin/user/index', 'Admin\UserController@index');
 		Route::get('/admin/user/state/{id}/{status}', 'Admin\UserController@state');
 
+		//订单管理列表
+		Route::get('/admin/order/index', 'Admin\OrderController@index');
+
 	});
 
 
@@ -145,6 +148,9 @@ Route::post('/home/collect', 'Home\SearchController@collect');
 //
 Route::get('/home/login/ajax', 'Home\LoginController@ajax');
 
+//
+Route::get('/home/register/sendEmail', 'Home\RegisterController@sendEmail');
+
 
 
 //============================ 商户中心 ============================
@@ -152,24 +158,22 @@ Route::get('/tenant/index', 'Tenant\IndexController@index');
 Route::get('/tenant/detail/complete', 'Tenant\DetailController@complete');
 Route::post('/tenant/detail/add', 'Tenant\DetailController@add');
 Route::get('/tenant/detail/edit/{uid}', 'Tenant\DetailController@edit');
-<<<<<<< HEAD
+
 Route::post('/tenant/detail/update/{uid}', 'Tenant\DetailController@update');
 Route::get('/tenant/detail/addImg/{uid}', 'Tenant\DetailController@addImg');
 Route::post('/tenant/detail/insertImg/{uid}', 'Tenant\DetailController@insertImg');
 Route::get('/tenant/detail/editImg/{uid}', 'Tenant\DetailController@editImg');
 Route::post('/tenant/detail/updateImg/{uid}', 'Tenant\DetailController@updateImg');
-=======
+
 Route::post('tenant/detail/update/{uid}', 'Tenant\DetailController@update');
 
 Route::get('/tenant/mansite/add', 'Tenant\MansiteController@add');
 Route::post('/tenant/mansite/insert/{uid}', 'Tenant\MansiteController@insert');
 Route::get('/tenant/mansite/show/{uid}', 'Tenant\MansiteController@show');
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> c11ddd5e5fa392a92e2490a9d53a00a650ae5f7f
->>>>>>> c8c2477c9786c5fda3fe8cb9d30c0f2845348fd4
+
+
+
 Route::get('/tenant/mansite/siteAdd', 'Tenant\MansiteController@siteAdd');
 Route::post('/tenant/mansite/siteInsert/{uid}', 'Tenant\MansiteController@siteInsert');
 Route::get('/tenant/mansite/siteShow/{uid}', 'Tenant\MansiteController@siteShow');

@@ -126,17 +126,19 @@
 							<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
 							
 							<!-- 关键字 -->
-							<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
+							<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地关键字"></li>
 							<li class="number">
 							
 								<div class="dis_sel" >
 								
 									<select name="number">
-										<option value="0">人数不限</option>
-										<option value="1">50-100</option>
-										<option value="2">100-200</option>
-										<option value="3">200-300</option>
-										<option value="4">300-400</option>
+										<option value="人数">人数</option>
+										<option value="人数不限">人数不限</option>
+										<option value="10-50">10-50</option>
+										<option value="50-100">50-100</option>
+										<option value="100-300">100-300</option>
+										<option value="300-500">300-500</option>
+										<option value="500-1000">500-1000</option>
 									</select>
 								</div>
 								<div class="mar"><div class="s"></div></div>
@@ -389,7 +391,7 @@
 
 					<div class="phco">
 						<input class="register_phco" type="text" name="phonecode" value="" placeholder="请输入收到的验证码">
-						<div class="getPhone"><span style="cursor: pointer;">获取验证码</span></div>
+						<div class="getPhone" style="background: #0066cc;"><span style="cursor: pointer;">获取验证码</span></div>
 						<span style="display: none; position: absolute; top: 442px; left: 84px; color: red; font-wieght: blod;"></span>
 					</div>
 

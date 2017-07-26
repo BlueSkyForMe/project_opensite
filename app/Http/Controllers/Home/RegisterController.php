@@ -163,6 +163,29 @@ class RegisterController extends Controller
 
     }
 
+
+    //sendEmail
+    public function sendEmail(Request $request)
+    {
+    	// 定义邮箱的联系方式
+        $contact = $request->contact;
+
+        // $code = '3729';
+
+        $code = mt_rand(0000, 9999);
+        
+        session(['emailCode' => $code]);
+
+        // 发送邮箱
+	    \Mail::send('home.index.email', ['code' => $code], function($message) use($contact)
+	        {
+	            $message->to($contact);
+	            $message->subject('开场用户注册邮箱验证码');
+	        });
+
+	    echo json_encode($code);
+    }
+
 }
 
 

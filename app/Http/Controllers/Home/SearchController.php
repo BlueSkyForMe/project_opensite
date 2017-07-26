@@ -15,34 +15,66 @@ class SearchController extends Controller
     	//获取用户提交的搜索数据
     	$data = $request->except('x', 'y');
 
+        // dd($data);
+
     	//查询的城市, 关键字, 可容纳人数
     	$city = $data['city'];
     	$keywords = $data['keywords'];
-    	$number = $data['number'];
+        $person = $data['number'];
+
+        //城市
+        if($city != null)
+        {
+            session(['city' => $city]);
+        }
+
+
+        //人数
+        if($person == "人数" || $person == "人数不限" || $person == "0")
+        {
+            $person = "0";
+            session(['supPerson' => $person]);
+        }
+        else
+        {
+            //选最大值
+            $person = explode('-', $person);
+            $person = $person[1];
+            session(['supPerson' => $person]);
+
+        }
+
+        session(['budget' => 30000000]);
 
     	//查询数据表 merchant 和 users, 找到搜索的城市
-    	$res = \DB::table('merchant')
+    	$result = \DB::table('merchant')
     				->join('users', 'merchant.uid', '=', 'users.id')
                     ->join('sitebase', 'merchant.uid', '=', 'sitebase.uid')
                     ->join('meeting', 'merchant.uid', '=', 'meeting.uid')
-                    ->where('merchant.address', 'like', '%'. $city .'%')
+                    ->where('address', 'like', '%'. $city .'%')
+                    ->where('sitebase.maxPerson', '>=', $person)
     				->where('users.userName', 'like', '%'. $keywords .'%')
-                    ->orWhere('merchant.address', 'like', '%'. $keywords .'%')
     				->get();
-    	// dd($res);
+        // dd($result);
 
-        // 查询数据表 collect, 找到收藏信息
-    	$collect = \DB::table('collect')->get();
-
-    	// dd($collect);
+        if(session('huser')['id'])
+        {
+            // 查询数据表 collect, 找到收藏信息
+            $collect = \DB::table('collect')->where('uid', session("huser")["id"])->get();
+        }
+        else
+        {
+            $collect = null;
+        }
 
     	//查询数据表 ad, 找到友情链接
     	$ad = \DB::table('ad')->get();
 
 		//查询数据表 hot, 找到热门广告
     	$hot = \DB::table('hot')->get();
+
     	
-    	return view('home.search.search', ['title' => '搜索结果', 'data' => $res, 'collect' => $collect, 'ad' => $ad, 'hot' => $hot]);		
+    	return view('home.search.search', ['title' => '搜索结果', 'data' => $result, 'collect' => $collect, 'ad' => $ad, 'hot' => $hot]);		
     }
 
 
@@ -52,13 +84,10 @@ class SearchController extends Controller
     	//获取用户提交的搜索数据
         $data = $request->except('x', 'y');
 
-        // dd($data);
-
         //提取搜索选项
         $city = $data['city'];
         $person = $data['supPerson'];
         $budget = $data['budget'];
-
 
         //会议时长和开始时间
         $meetTime = $data['meeting'];
@@ -66,8 +95,15 @@ class SearchController extends Controller
 
         session(['meetTime' => $meetTime]);
 
-        // 查询数据表 collect, 找到收藏信息
-    	$collect = \DB::table('collect')->get();
+        if(session('huser')['id'])
+        {
+            // 查询数据表 collect, 找到收藏信息
+            $collect = \DB::table('collect')->where('uid', session("huser")["id"])->get();
+        }
+        else
+        {
+            $collect = null;
+        }
 
 
         //城市
@@ -270,8 +306,11 @@ class SearchController extends Controller
         	// 查询数据表 collect, 找到收藏信息
     		$collect = \DB::table('collect')->where('uid', session("huser")["id"])->get();
 
-    		 // dd($collect);
     	}
+        else
+        {
+            $collect = null;
+        }
 
       
 

@@ -39,25 +39,31 @@
 									</div>
 									<div class="float_cont_r">
 
-										@if(session('huser')['id'])
+									@if(session('huser')['id'])
+
+										@if(!$collect->isEmpty())
 
 											@foreach($collect as $k => $v)
 
-												@if($v->mid == $val->uid)
+												@if($v->mid == $val->uid && $v->uid == session('huser')['id'])
 													<img src="{{ asset('/images/collect_blue.png') }}" class="xin_a" />
-													@break	
+
+												@break
 												@else
 													<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
-
 												@endif
 
 											@endforeach
-
 										@else
 
 											<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
-
+										
 										@endif
+									@else
+
+										<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+
+									@endif
 
 
 										<span class="float_cont_rmb"><sup>¥</sup><b>{{ $val->meetPrice }}</b>起</span>
