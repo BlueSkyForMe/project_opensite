@@ -66,6 +66,9 @@ Route::group(['middleware' => 'adminlogin'], function()
 		//订单管理列表
 		Route::get('/admin/order/index', 'Admin\OrderController@index');
 
+		//评论管理
+		Route::get('/admin/comment/index', 'Admin\CommentController@index');
+
 	});
 
 

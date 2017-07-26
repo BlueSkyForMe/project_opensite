@@ -45,7 +45,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">查看详情 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('admin/order/index') }}" class="small-box-footer">查看详情 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -101,7 +101,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">查看详情 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/admin/comment/index') }}" class="small-box-footer">查看详情 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
