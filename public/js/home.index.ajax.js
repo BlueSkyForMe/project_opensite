@@ -186,7 +186,7 @@
 			// 定义$(this)
 			var ts = $(this);
 
-			ts.css('background', '#ccc');
+
 
 			if(ph == 1 && na == 1 && cd == 1 && phoneFlag == 1)
 			{
@@ -244,6 +244,8 @@
 				// 设置已点击
 		    	ts.find("span").attr('status', 1);
 
+		    	ts.css('background', '#ccc');
+
 
 				//倒计时
 				waitting();
@@ -297,6 +299,8 @@
 
 				// 设置已点击
 		    	ts.find("span").attr('status', 1);
+
+		    	ts.css('background', '#ccc');
 
 		    	//倒计时
 				waitting();

@@ -93,7 +93,51 @@ class SearchController extends Controller
         $meetTime = $data['meeting'];
         $startTime = $data['startTime'];
 
-        session(['meetTime' => $meetTime]);
+        // dd($data);
+
+        //===================会议时间处理函数========================================
+        function orderTime($meetTime, $startTime)
+        {
+
+            //拆分开始时间
+            $res = explode('-', $startTime);
+
+            //将开始时间转化为时间戳
+            $newTime = mktime('0', '0', '0', $res[1], $res[2], $res[0]);
+
+            //将时间戳加上会议时长的秒数
+            $dangqi = $newTime + ($meetTime * 24 * 60 * 60);
+
+
+            //将开始时间和结束时间拼接字符串
+            $str = $newTime." @ ".$dangqi;
+
+            return $str;
+
+        }
+
+        if($meetTime != '会议时长' && $startTime != null)
+        {
+
+            session(['meetTime' => $meetTime]);
+            session(['startTime' => $startTime]);
+
+            //需求的时间范围
+            $orderTime = orderTime($meetTime, $startTime);
+
+            //将这个范围从放到session中
+            session(['orderTime' => $orderTime]);
+
+            // dd(session('orderTime'));
+        }
+        else
+        {
+            session(['meetTime' => null]);
+            session(['startTime' => null]);
+            session(['orderTime' => null]);
+        }
+        //=================会议时间处理函数结束========================================
+
 
         if(session('huser')['id'])
         {
@@ -180,9 +224,9 @@ class SearchController extends Controller
                                 ->where('address', 'like', '%'. $city .'%')
                                 ->where('sitebase.maxPerson', '>=', $person)
                                  ->where('meeting.meetPrice', '<=', $budget)
-
                                 ->where('star', '=', $star)
                                 ->get(); ; 
+
 
                     //没有查到数据,则发送相似的推荐信息
                     if($res->isEmpty())
@@ -300,6 +344,11 @@ class SearchController extends Controller
 
         $sorkPopular = $request->s_popular;
         $sorkPrice = $request->s_price;
+
+        $request->session()->forget('meetTime');
+        $request->session()->forget('startTime');
+        $request->session()->forget('orderTime');
+
 
         if(session('huser')['id'])
         {
@@ -1096,5 +1145,91 @@ class SearchController extends Controller
 
             echo json_encode($code);
         }
+    }
+
+
+    //判断档期
+    public function dq(Request $request)
+    {
+        if(session('orderTime'))
+        {
+            $orderTime = session('orderTime');
+
+            $userName = $request->userName;
+
+            $res = \DB::table('indent')
+                        ->where([
+                                    ['userName', $userName],
+                                    ['pay', '1'],
+                                ])
+
+                        ->get();
+
+            if(!$res->isEmpty())
+            {
+                foreach($res as $key => $val)
+                {
+                    $str = $val->time_quantum;
+
+                    //2017-07-28 / 2017-07-29
+                    $old = explode('/', $str);
+
+                    // 2017 07 28
+                    $o1 = explode('-', $old[0]);
+
+                    // 2017 07 29
+                    $o2 = explode('-', $old[1]);
+
+                    $new = explode('@', $orderTime);
+
+                    if($old)
+                    {
+                        $minOld = (int)mktime('0', '0', '0', $o1[1], $o1[2], $o1[0]);
+
+                        // dd($minOld);
+
+                        $maxOld = (int)mktime('0', '0', '0', $o2[1], $o2[2], $o2[0]);
+
+                         // dd($maxOld);
+
+                        $minNew = (int)$new[0];
+
+                        // dd($minNew);
+
+                        $maxNew = (int)$new[1];
+
+                        // var_dump($minNew);
+
+                        if(($minNew > $minOld && $minNew < $maxOld) || ($maxNew > $minOld && $maxNew < $maxOld))
+                        {
+                            echo json_encode('1');
+                        }
+                        else
+                        {
+                            echo json_encode('0');
+                        }
+
+                    }
+                    else
+                    {
+                        echo json_encode('0');
+                    }
+    
+                }
+
+            }
+            else
+            {
+                //没有限制
+                echo json_encode('0');
+            }
+
+        }
+        else
+        {
+            //没有添加档期条件
+            echo json_encode('0');
+        }
+
     }
 }

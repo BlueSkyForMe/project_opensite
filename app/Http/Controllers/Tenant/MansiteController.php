@@ -10,17 +10,26 @@ class MansiteController extends Controller
     // siteAdd 添加会场
     public function siteAdd()
     {   
+        // 定义uid
+        $uid = session('hmer')->id;
+
         // 判断是否以完善信息
-        $res = \DB::table('sitebase')->where('uid', session('hmer')->id)->get();
+        $res = \DB::table('sitebase')->where('uid', $uid)->get();
+        $merimg = \DB::table('merimg')->where('uid', $uid)->get();
         
-        if($res->isEmpty())
+        // 判断是否为空
+        if(!$res->isEmpty() && !$merimg->isEmpty())
+        {
+            // 加载视图
+            return view('tenant.mansite.siteAdd', ['title' => '添加会场']);
+        }
+        else
         {
             // 信息未完善
-            return redirect('/tenant/index')->with(['info' => '请先完善基本信息']);
+            return redirect('/tenant/index')->with(['info' => '请先完善基本信息,并上传展示图']);
         }
 
-        // 加载视图
-    	return view('tenant.mansite.siteAdd', ['title' => '添加会场']);
+        
     }
 
     // siteInsert 将会场信息插入数据库
@@ -183,17 +192,25 @@ class MansiteController extends Controller
     // guestAdd 添加客房
     public function guestAdd()
     {
+        // 定义uid
+        $uid = session('hmer')->id;
+
         // 判断是否以完善信息
-        $res = \DB::table('sitebase')->where('uid', session('hmer')->id)->get();
+        $res = \DB::table('sitebase')->where('uid', $uid)->get();
+        $merimg = \DB::table('merimg')->where('uid', $uid)->get();
         
-        if($res->isEmpty())
+        // 判断是否为空
+        if(!$res->isEmpty() && !$merimg->isEmpty())
+        {
+            // 加载视图
+            return view('tenant.mansite.guestAdd', ['title' => '添加客房']);
+        }
+        else
         {
             // 信息未完善
-            return redirect('/tenant/index')->with(['info' => '请先完善基本信息']);
+            return redirect('/tenant/index')->with(['info' => '请先完善基本信息,并上传展示图']);
         }
         
-        // 视图
-        return view('tenant.mansite.guestAdd', ['title' => '添加客房']);
     }
 
     // guestInsert 客房信息插入数据库
@@ -343,17 +360,25 @@ class MansiteController extends Controller
     // restAdd 添加茶歇
     public function restAdd()
     {
+        // 定义uid
+        $uid = session('hmer')->id;
+
         // 判断是否以完善信息
-        $res = \DB::table('sitebase')->where('uid', session('hmer')->id)->get();
+        $res = \DB::table('sitebase')->where('uid', $uid)->get();
+        $merimg = \DB::table('merimg')->where('uid', $uid)->get();
         
-        if($res->isEmpty())
+        // 判断是否为空
+        if(!$res->isEmpty() && !$merimg->isEmpty())
+        {
+            // 加载视图
+            return view('tenant.mansite.restAdd', ['title' => '添加茶歇']);
+        }
+        else
         {
             // 信息未完善
-            return redirect('/tenant/index')->with(['info' => '请先完善基本信息']);
+            return redirect('/tenant/index')->with(['info' => '请先完善基本信息,并上传展示图']);
         }
-        
-        // 加载视图
-        return view('tenant.mansite.restAdd', ['title' => '添加茶歇']);
+             
     }
 
     // restInsert 茶歇信息插入数据库
@@ -503,17 +528,24 @@ class MansiteController extends Controller
     // avAdd 添加av设备
     public function avAdd()
     {
+        // 定义uid
+        $uid = session('hmer')->id;
+
         // 判断是否以完善信息
-        $res = \DB::table('sitebase')->where('uid', session('hmer')->id)->get();
+        $res = \DB::table('sitebase')->where('uid', $uid)->get();
+        $merimg = \DB::table('merimg')->where('uid', $uid)->get();
         
-        if($res->isEmpty())
+        // 判断是否为空
+        if(!$res->isEmpty() && !$merimg->isEmpty())
+        {
+            // 加载视图
+            return view('tenant.mansite.avAdd', ['title' => '添加设备']);
+        }
+        else
         {
             // 信息未完善
-            return redirect('/tenant/index')->with(['info' => '请先完善基本信息']);
+            return redirect('/tenant/index')->with(['info' => '请先完善基本信息,并上传展示图']);
         }
-        
-        // 加载视图
-        return view('tenant.mansite.avAdd', ['title' => '添加设备']);
     }
 
     // avInsert AV设备插入数据库
