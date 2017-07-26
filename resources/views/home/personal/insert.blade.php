@@ -17,11 +17,10 @@
 			
 		</div>
 		<div class="zhu_body">
-		@if($users)
 			<div class="ge_left">
 				<div class="ge_left_a">
 					<img src="{{ asset('/images/1.jpg') }}" class="left_img" alt="">
-					<div class="left_name">{{ $users->userName }}</div>
+					<div class="left_name">先生/女士</div>
 					<div class="left_kong"></div>
 					<a href="#" class="left_xinxi">完善信息</a>
 				</div>
@@ -35,42 +34,31 @@
 				</div>
 			</div>
 			<div class="ge_right">
-			<!-- <form action="{{ url('/home/personal/insert') }}" method="post"> -->
+			<form action="{{ url('/home/personal/insert') }}" method="post">
 				<div class="ge_right_a">
-				
 					<div class="ge_right_a_top">
-						基本信息
+						个人信息
 					</div>
 					{{ csrf_field() }}
 					<ul>
+					
+						@if($users->phone)
 						<li class="il">
-							<span style="width: 80px;float: left;text-align: right;margin-right: 20px;">用户名：</span>
-							<input type="email" style="border:none" name="postcode" placeholder="{{ $users->userName }}">
+							<span>电子邮箱</span>
+							<input type="email" name="postcode" placeholder="请输入">
 						</li>
-
+						@else
 						<li class="il">
-							<span style="">电话号码</span>
-							<input type="tesx" style="border:none" name="postcode" 
-							placeholder="@if($phone)
-							{{ $phone }}
-							@endif">
-							
+							<span>电话号码</span>
+							<input type="text" name="phone" placeholder="请输入">
 						</li>
+						@endif
+						
+						
 						<li class="il">
-							<span style="width: 80px;float: left;text-align: right;margin-right: 20px;">电子邮箱</span>
-							<input type="email" style="border:none" name="postcode" placeholder="@if(@users)
-							{{ $users->email }}
-							@endif">
-							@if(@users)
-							{{ $users->email }}
-							@endif
-							</span>
-						</li>
-						<li class="il">
-							<button class="btn">修改</button>
+							<button class="btn">保存</button>
 						</li>
 					</ul>
-					
 					<div class="kong"></div>
 				</div>
 				</form>
@@ -80,8 +68,6 @@
 					</div>
 				</div>
 			</div>
-			@endif
-			
 		</div>
 	</div>			
 	<div class="clearer"></div>
@@ -101,3 +87,23 @@
 	</script>
 
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

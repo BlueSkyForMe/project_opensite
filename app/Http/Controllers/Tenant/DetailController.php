@@ -54,6 +54,15 @@ class DetailController extends Controller
     // edit 修改信息视图
     public function edit($uid)
     {
+        // 判断是否以完善信息
+        $res = \DB::table('sitebase')->where('uid', session('hmer')->id)->get();
+        
+        if($res->isEmpty())
+        {
+            // 信息已完善
+            return redirect('/tenant/index')->with(['info' => '请先完善信息']);
+        }
+
     	// 根据uid查询数据库
     	$data = \DB::table('sitebase')->where('uid', $uid)->first();
 

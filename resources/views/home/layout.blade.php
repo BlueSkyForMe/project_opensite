@@ -16,6 +16,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/city.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/result.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/nav.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('/css/laydate.css') }}">
+    <link rel="stylesheet" type="text/css" id="layDateSkin" href="{{ asset('/css/laydate_skin.css') }}">
+
 
 
 <!-- >>>>>>> df05bbd636c481321a992bcf5a3d5755d06b47fa -->
@@ -37,7 +40,10 @@
 						<li><a href="#"><span class="first_span">全国</span></a></li>
 						<li><a href="{{ asset('/home/index') }}"><span>开场首页</span></a></li>
 						@if(session('huser'))
-      						<li><a href="#"><span id="status">{{ session('huser')['userName'] }}</span></a></li>
+      						<li>
+      							<a href="#"><span id="status">{{ session('huser')['userName'] }}</span></a>
+								<input type="hidden" id="userID" name="userId" value="{{ session('huser')['id'] }}">
+      						</li>
       						<li><a href="{{ url('/home/logout') }}"><span>退出</span></a></li>
 						@else
 							<li id="register"><a href="#"><span>注册</span></a></li>
@@ -50,12 +56,12 @@
 						<div>
 							<a href="#"><span class="first_span">我的开场</span></a>
 							<ul>
-								<li><a href="{{ asset('/home/order/myOrder') }}">我的订单</a></li>
+								<li><a href="#">我的订单</a></li>
 								<li><a href="#">我的足迹</a></li>
 							</ul>
 						</div>
 
-						<div><a href="#"><span>购物车</span></a></div>
+						<div><a href="{{ asset('/home/order/myOrder') }}"><span>购物车</span></a></div>
 
 
 						<div><a href="#"><span>收藏夹</span></a>
@@ -424,6 +430,29 @@
 	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/nav.js') }}"></script>
 	
+
+	<script type="text/javascript" src="{{ asset('/js/laydate.dev.js') }}"></script>
+    <script type="text/javascript">
+
+        laydate({
+
+            elem: '#J-xl'
+
+        });
+
+        laydate({
+
+            elem: '#J-xy'
+
+        });
+
+        laydate({
+
+            elem: '#J-xa'
+
+        });
+
+    </script>
 
 
 </body>

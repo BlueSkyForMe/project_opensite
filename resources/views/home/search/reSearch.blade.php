@@ -8,7 +8,7 @@
 				<div class="left_con_one">
 					<ul>
 						<li>
-							<img src="{{ asset('/images/merchant.png') }}" class="float_one" />
+							<img src="{{ asset('/uploads/meetimg/') }}/{{ $val->meetImg }}" width="241" height="195" class="float_one" />
 							<div class="left_con_two">
 
 								<div class="left_con_two_tit">

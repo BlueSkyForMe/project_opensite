@@ -58,18 +58,33 @@ class LoginController extends Controller
 	            	//查询merchant表, 查看是否通过审核
 	            	$mer = \DB::table('merchant')->where('uid', $res->id)->first();
 
-	            		//将商户信息存入session
-	    				session(['hmer' => $mer]);
-
-	            	switch($mer->check)
+	            	// 判断
+	            	if($mer)
 	            	{
-	            		case '0':
-	            			return redirect('/home/merchant/attest'); break;
-	            		case '1':
-	            			return redirect('/home/merchant/checked'); break;
-	            		case '2':
-	            			return redirect('/home/merchant/notchecked'); break;
+	            		//将商户信息存入session
+	    				session(['hmer' => $res]);
+
+		            	switch($mer->check)
+		            	{
+		            		case '0':
+		            			return redirect('/home/merchant/attest/'.$mer->uid); 
+		            		break;
+		            		case '1':
+		            			return redirect('/home/merchant/checked/'.$mer->uid);
+		            		break;
+		            		case '2':
+		            			return redirect('/home/merchant/notchecked/'.$mer->uid); 
+		            		break;
+		            		case '3':
+		            			return redirect('/tenant/index'); 
+		            		break;
+		            	}
 	            	}
+	            	else
+	            	{
+	            		return redirect('/home/merchant/fill/'.$res->id);
+	            	}
+	            	
 	            }
 
 

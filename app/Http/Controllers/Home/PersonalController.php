@@ -18,8 +18,26 @@ class PersonalController extends Controller
             echo "<script>alert('你还未登录,请登录后再来');location.href='/home/index'</script>";
         }else
         {
+
+            $id = $data['id'];
+
+            // dd($id);
+
+            $users = \DB::table('users')->where('id',$id)->first();
+
+            $phone = $users->phone;
+
+            // dd($phone);
+
+            // $haoma="15012345678"; 
+            $phone = substr($phone, 0, 3).'****'.substr($phone, 7);
+
+
+            // dd($phone);
+
+
             //解析前台页面模板
-        return view('home.personal.index', ['title' => '我的开场']);
+            return view('home.personal.index', ['title' => '我的开场', 'users' => $users, 'phone' => $phone]);
         }
 
     	
@@ -34,16 +52,24 @@ class PersonalController extends Controller
     
     // 个人信息
     public function insert(Request $request)
-    {
+    {   
+
+        $xin = session('huser');
+
+        $uid = $xin['id'];
         // 获取信息
         $data = $request->all();
+
+        $data['uid'] = $uid;
+
+        dd($data);
 
         // 去除token
         $data = $request->except('_token');
         // dd($data);
 
         // 执行添加
-        $res = \DB::table('user_info')->insert($data);
+        $res = \DB::table('userInfo')->insert($data);
 
         if($res)
         {

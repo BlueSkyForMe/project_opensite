@@ -95,8 +95,6 @@ var type = new Array();
 
   // });
 
-
-
 //=======================酒店星级选择===========================
   //星级 (三星以下)
   $("#zone").on("click", function(){
@@ -200,9 +198,39 @@ var type = new Array();
     }
   });
 
+//=======================查询结果排序===========================
 
+    //人气
+    $('#s_popularity').on('change', function(){
 
+        //获取下拉选择
+        var value = $(this).val();
 
+        // 书写 ajax, 调用后台数据
+        $.get('/home/search/ajax', {"s_popular": value}, function(data){
+
+            $(".left_con").remove();
+            $(".left").append(data);  
+           
+          }, 'html');
+
+    });
+
+    //价格
+    $('#s_price').on('change', function(){
+
+        //获取下拉选择
+        var value = $(this).val();
+
+        // 书写 ajax, 调用后台数据
+        $.get('/home/search/ajax', {"s_price": value}, function(data){
+
+            $(".left_con").remove();
+            $(".left").append(data);  
+           
+          }, 'html');
+
+    });
 
 
 

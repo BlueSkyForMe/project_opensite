@@ -14,13 +14,13 @@
 			
 				<!-- 加载编辑器的容器 -->
 				<form action="{{ url('/home/pingl/insert') }}" method="post" enctype="multipart/form-data">
-
+				<input type="hidden" name="id" value="{{ $id }}">
 				{{ csrf_field() }}
 			<div class="pingl" >
 			   
 				<!-- 加载编辑器的容器 -->
 			    <script id="container" name="content" type="text/plain" style="width:1196px;height:220px;margin:auto;">
-			        这里写你的初始化内容
+			        
 			    </script>
 			    <!-- 配置文件 -->
 			    <script type="text/javascript" src="{{ asset('/ueditor/ueditor.config.js') }}"></script>
