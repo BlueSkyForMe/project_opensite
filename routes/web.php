@@ -206,5 +206,6 @@ Route::group(['middleware' => 'tenantlogin'], function()
 		Route::get('/tenant/mansite/avDelete/{id}', 'Tenant\MansiteController@avDelete');
 
 		// trade 交易管理
+		Route::get('/tenant/trade/order', 'Tenant\TradeController@order');
 	});	
 // =======================================================================================================

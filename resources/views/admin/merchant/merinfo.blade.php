@@ -8,7 +8,7 @@
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <img id="show_mer_bigimg" style="margin-left:200px;" width="450px" height="600px" src="">
+          <img id="show_mer_bigimg" style="margin-left:215px;" width="450px" height="600px" src="">
         </div>
       </div>
     </div>

@@ -34,7 +34,7 @@
                                             <span style="color:green;">例：1998</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>最近装修时间</label>
+                                            <label>最近装修时间（如无可不填）</label>
                                             <input id="ft" class="form-control" name="fitmentTime" placeholder="最近装修时间:单位/年">
                                             <span style="color:green;">选填！例：2010</span>
                                         </div>
@@ -44,7 +44,7 @@
                                             <span style="color:green;">例：5</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>客房数量</label>
+                                            <label>客房数量（如无可不填）</label>
                                             <input id="gr" class="form-control" name="guestRoom" placeholder="客房数量:单位/个">
                                             <span style="color:green;">选填！例：200</span>
                                         </div>
@@ -73,7 +73,7 @@
                                                 <input class="sup" type="checkbox" name="support[]" value="停车场">停车场
                                             </label>
                                             <label style="color:green;" class="checkbox-inline">
-                                            	可多选
+                                            	可多选可不选
                                             </label>
                                         </div>
                                         <div class="form-group">

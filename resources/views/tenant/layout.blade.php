@@ -131,13 +131,7 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>交易管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse in">
                                 <li>
-                                    <a href="{{ url('/tenant/index') }}">订单管理</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/tenant/index') }}">档期管理</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/tenant/index') }}">评价管理</a>
+                                    <a href="{{ url('/tenant/trade/order') }}">订单管理</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
