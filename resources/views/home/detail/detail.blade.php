@@ -29,7 +29,7 @@
 				</div>
 				<div class="handle">
 					<div class="collect">
-						<img id="collect" src="{{ asset('/images/collect.png') }}">
+						<img class="mid" src="{{ asset('/images/collect.png') }}">
 					</div>
 					<div class="share">
 						<img id="share" src="{{ asset('/images/share.png') }}">
@@ -87,8 +87,7 @@
 					<ul class="lunbotu" style="width:2496px;position: absolute;">
 						@if($merimg)
 						@foreach($merimg as $key => $val)
-						
-						<li style="float: left;"><img width="624px" src="{{ asset('/uploads/images') }}/{{ $val->img }}"></li>
+						<li style="float: left;"><img width="624px" height="242px" src="{{ asset('/uploads/merimg') }}/{{ $val->img }}"></li>
 						@endforeach
 						@endif
 					</ul>
@@ -102,9 +101,10 @@
 			<div class="details">
 			@if($mee)
 				@foreach($mee as $key => $val)
+				<div class="merid" style="display: none;">{{ $val->id }}</div>
 				<div class="details_header">
 					<div class="details_header_img">
-						<img src="{{ asset('/images/sanjiao.png') }}">
+						<img class="xin_b" src="{{ asset('/images/sanjiao.png') }}">
 					</div>
 					
 					<div class="details_header_char" style="cursor: pointer;">
@@ -152,10 +152,10 @@
 								</div>
 							</div>
 
-							<div class="details_options">
+							<div class="details_options" style="height:auto">
 
 								<div class="options_box">
-
+										@if($rest)
 										<div class="box_one">
 
 											<div>会议茶歇: </div>
@@ -177,8 +177,12 @@
 
 											<div id="amount0">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
 										</div>
+										@else
 
+										@endif
 
+										
+										@if($guest)
 										<div class="box_two">
 											<div>会务客房:</div>
 
@@ -212,8 +216,12 @@
 												</select>-->
 											</div> 
 										</div>
+										@else
 
+										@endif
 
+										
+										@if($av)
 										<div class="box_three">
 											
 											<div>AV设备:</div>
@@ -245,10 +253,14 @@
 											</div>
 
 										</div>
-										
-								</div>	
+										@else
 
-								<div><img class="go" src="{{ asset('/images/add.png') }}" ></div>
+										@endif
+										
+							</div>
+
+								
+								<div class="go"><img class="goshop" src="{{ asset('/images/add.png') }}" ></div>
 							</div>
 						</form>
 				
@@ -353,6 +365,64 @@
             }, 3000);
 
 
+// ===============点击收藏和取消收藏======================
+
+	//因为是整段追加,因此绑定事件时需要注意, 寻找第一次加载就存在的类名, 使用on()方式绑定
+	//on()事件新用法: on('事件', '绑定对象', '匿名函数')
+	$('.mid').on('click', function(){
+
+
+		//$(this)指向的是上一个$
+		var t = $(this);
+
+		//获取用户的id 和 企业的 id, 将这些信息存入数据表collect中
+		var userID = $('.wrap_ul').find('#userID').val();
+		var merchantID = $(this).parent().parent().parent().parent().find('.merid').html();
+		// alert(merchantID);
+		//如果用户未登录, 提示登录
+		if(userID == undefined)
+		{
+			alert('如需收藏, 请先登录!');
+			return ;
+		}
+
+		$.ajaxSetup({
+		    headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    }
+		});
+
+		//使用ajax将数据传到后台, 查询数据库,如果存在,删除,返回状态码 0; 如果不存在,添加, 返回状态码 1;
+		$.post('/home/collect', {"userID": userID, "merchantID": merchantID}, function(data){
+
+			if(data == 1)
+			{
+				alert('收藏成功');
+				
+				//收藏, 更换显示样式
+				t.attr('src', "{{ asset('/images/collect_blue.png') }}");
+			}
+			
+			if(data == 0)
+			{
+				alert('取消收藏成功');
+
+				//取消收藏, 更换成普通显示样式
+				t.attr('src', "{{ asset('/images/collect.png') }}");
+			}
+
+			if(data == 2)
+			{
+				alert('系统繁忙, 请稍后重试!');
+			}
+
+
+
+		});
+
+	});
+
+
 // ===============点击会议时长================================
 
 
@@ -372,7 +442,7 @@
 
 // ===============点击会议日期================================
 
-	$('.go').on('click', function(){
+	$('.goshop').on('click', function(){
 
 		// alert('ok');
 		var id = $(".id").val();

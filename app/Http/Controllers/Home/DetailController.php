@@ -24,27 +24,37 @@ class DetailController extends Controller
         $uid = $res->uid;
 
        
-
+        // 根据uid查询users用户综合表
         $user = \DB::table('users')->where('id',$uid)->first();
 
+        // 根据uid查询merchant会场详情表
         $mer = \DB::table('merchant')->where('uid',$uid)->first();
 
+        // 根据uid查询meeting会场表
         $mee = \DB::table('meeting')->where('uid',$uid)->get();
 
-        // dd($mee);
-
+        // 根据uid查询merimg轮播图表
         $merimg = \DB::table('merimg')->where('uid',$uid)->get();
 
-        // dd($sid);
+        // 根据uid查询comment评论表
         $comment = \DB::table('comment')->where('uid',$uid)->get();
 
-        // dd($comment);
+        // 查询茶歇表
+        $rest = \DB::table('rest')->where('uid', $uid)->first();
+
+        // dd($uid);
+
+        // 查询客房表
+        $guest = \DB::table('guest')->where('uid', $uid)->first();
+
+        // 查询av设备表
+        $av = \DB::table('av')->where('uid', $uid)->first();
 
     	// //查询数据表 ad, 找到友情链接
     	$ad = \DB::table('ad')->get();
 
     	// //解析详情页模板
-    	return view('home.detail.detail',  ['title' => '企业详情', 'comment' => $comment, 'merimg' => $merimg, 'ad' => $ad, 'user' => $user, 'mer' => $mer, 'res' => $res, 'mee' => $mee]);
+    	return view('home.detail.detail',  ['title' => '企业详情','rest' => $rest, 'guest' => $guest, 'av' => $av, 'comment' => $comment, 'merimg' => $merimg, 'ad' => $ad, 'user' => $user, 'mer' => $mer, 'res' => $res, 'mee' => $mee]);
 
     }
 
@@ -212,6 +222,64 @@ class DetailController extends Controller
                 $aww = ['0' =>$meetingdata, '1' => $time];
                 $arr = implode($aww, '/');
              
+
+
+
+
+        // $meetTime = $data['meeting'];
+        // $startTime = $data['startTime'];
+        
+        //===================会议时间处理函数========================================
+        function orderTime($meetTime, $startTime)
+        {
+
+            //拆分开始时间
+            $res = explode('-', $startTime);
+
+            //将开始时间转化为时间戳
+            $newTime = mktime('0', '0', '0', $res[1], $res[2], $res[0]);
+
+            //将时间戳加上会议时长的秒数
+            $dangqi = $newTime + ($meetTime * 24 * 60 * 60);
+
+
+            //将开始时间和结束时间拼接字符串
+            $str = $startTime." / ".date('Y-m-d', $dangqi);
+
+            return $str;
+
+        }
+
+        // if($meetTime != '会议时长' && $startTime != '会议时长')
+        // {
+
+            // session(['mTime' => $meetTime]);
+            // session(['sTime' => $startTime]);
+
+            //需求的时间范围
+            $orderTime = orderTime($meeting, $meetingdata);
+
+            
+
+            //将这个范围从放到session中
+            // session(['oTime' => $orderTime]);
+
+            // dd(session('oTime'));
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
            
 
 
@@ -267,7 +335,7 @@ class DetailController extends Controller
                  // 查询rest(茶歇)数据表
                 $rest = \DB::table('rest')->where(['uid'=>$uid, 'restType'=>$restType])->first();
 
-                $restPrice = $rest->restPrice;
+                $restPrice = $rest['restPrice'];
 
                 // 判断
                 if($restType == null)
@@ -293,7 +361,7 @@ class DetailController extends Controller
                 // 查询av(设备)数据表
                 $av = \DB::table('av')->where(['uid'=>$uid, 'avType'=>$avType])->first();
 
-                $avPrice = $av->avPrice;
+                $avPrice = $av['avPrice'];
 
                 // dd($avPrice);
 
@@ -320,7 +388,7 @@ class DetailController extends Controller
                 // 查询guest(客房)数据表
                 $guest = \DB::table('guest')->where(['uid'=>$uid, 'guestType'=>$guestType])->first();
 
-                $guestPrice = $guest->guestPrice;
+                $guestPrice = $guest['guestPrice'];
 
                 // 判断
                 if($guestType == null)
@@ -398,7 +466,7 @@ class DetailController extends Controller
             $data['guestmoney'] = $guestmoney;
             $data['avmoney'] = $avmoney;
             $data['money'] = $money;
-            $data['time_quantum'] = $arr;
+            $data['time_quantum'] = $orderTime;
 
             // dd($data);
             // 添加到数据库

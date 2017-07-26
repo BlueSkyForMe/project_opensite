@@ -30,18 +30,20 @@
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                             <label>*选择设备</label>
-                                            <select name="avType" class="form-control">
+                                            <select id="av_name" name="avType" class="form-control">
                                                 <option value="0">请选择</option>
                                                 <option value="1">音响</option>
                                                 <option value="2">麦克风</option>
                                                 <option value="3">投影仪</option>
                                             </select>
+                                            <span style="display:none;"></span>
                                         </div>
                                 <div class="form-group">
                                     <label>*价格</label>
-                                    <input class="form-control" name="avPrice" placeholder="天/元">
+                                    <input id="av_price" class="form-control" name="avPrice" placeholder="天/元">
+                                    <span style="display:none;"></span>
                                 </div>
-                                <button type="submit" class="btn btn-primary">添加</button>
+                                <button id="av_sub" type="submit" class="btn btn-primary">添加</button>
                                 <button type="reset" class="btn btn-default">重置</button>
                             </form>
                         </div>
@@ -58,4 +60,66 @@
     <!-- /.row -->
 </div>
 @endsection
+
+@section('js')
+    
+    <script type="text/javascript">
+
+        // 下拉框事件
+        $("#av_name").on("change", function()
+            {
+                $(this).next().css("display", "none");
+            });
+
+        // 获取焦点事件
+        $("#av_price").on("focus", function()
+            {
+                $(this).next().css("display", "none");
+            });
+
+        // 点击添加事件
+        $("#av_sub").on("click", function()
+            {
+                // 判断是否选择客房类型
+                var avname = $(this).parent().find("#av_name").val();
+                if(avname == 0)
+                {
+                    $(this).parent().find("#av_name").next().html("×请选择设备类型");
+                    $(this).parent().find("#av_name").next().css("color", "red");
+                    $(this).parent().find("#av_name").next().css("display", "block");
+                    return false;
+                }
+
+                // 判断是填写客房价格
+                var avprice = $(this).parent().find("#av_price").val();
+                if(avprice == "")
+                {
+                    // 提示错误
+                    $(this).parent().find("#av_price").next().html("×请输入价格");
+                    $(this).parent().find("#av_price").next().css("display", "block");
+                    $(this).parent().find("#av_price").next().css("color", "red");
+
+                    return false;
+                }
+                else
+                {
+                    // 正则匹配
+                    var avreg = /^[0-9]{1,}$/;
+                    var avres = avreg.test(avprice);
+
+                    if(!avres)
+                    {
+                        // 提示错误
+                        $(this).parent().find("#av_price").next().html("×输入有误");
+                        $(this).parent().find("#av_price").next().css("display", "block");
+                        $(this).parent().find("#av_price").next().css("color", "red");
+                        return false;
+                    } 
+                }
+            });
+
+    </script>
+
+@endsection
+
 

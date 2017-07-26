@@ -25,7 +25,7 @@
 				</div>
 				<div class="ge_left_b">
 					<div class="left_jiben">
-						<li class="lli"><a href="#">收藏会场</a></li>
+						<li class="lli"><a href="{{ asset('/home/personal/collect') }}">收藏会场</a></li>
 					</div>
 					<div class="left_mima">
 						<li class="iil"><a href="{{ asset('/home/personal/merchant') }}">收藏商家</a></li>
@@ -38,25 +38,26 @@
 					<div class="ge_right_a_top">
 						会场信息
 					</div>
-					<!-- <span><img src="./images/1.jpg" class="images"></span> -->
-							<!-- <label for="">大宴会厅</label> -->
-							<!-- <p class="ppp">三鹿奶粉就是好,喝的你我有保障<span class="yuan">￥3504004</span></p> -->
+					
 					<ul>
+						@if($res)
+						@foreach($res as $key => $val)
 						<li class="il">
 							<div class="huichang">
 								<div class="huichang_left">
-								<a href=""><p class="shangjiaming">天上人间大酒店</p></a>
+								<a href=""><p class="shangjiaming">{{ $val->userName }}</p></a>
 									<a href=""><span ><img src="{{ asset('/images/1.jpg') }}" class="images"></span>
-									<label for="">大宴会厅</label>
-									<p>三鹿奶粉就是好,喝的你我有保障</p>
+									<label for="">{{ $val->meetName }}</label>
+									<p>{{ $val->address }}</p>
 								</div>
 								<div class="huichang_right">
-									<span class="yuan"><b>￥</b>&nbsp;3504004</span>
+									<span class="yuan"><b>￥</b>&nbsp;{{ $val->meetPrice }}</span>
 								</div></a>
 							</div>
 
 						</li>
-
+						@endforeach
+						@endif
 						
 
 						

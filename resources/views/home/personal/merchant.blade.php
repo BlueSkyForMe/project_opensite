@@ -18,19 +18,14 @@
 		<div class="zhu_body">
 			<div class="ge_left">
 				<div class="ge_left_a">
+				@if($name)
 					<img src="{{ asset('/images/1.jpg') }}" class="left_img" alt="">
-					<div class="left_name">小泉日树</div>
+					<div class="left_name">{{ $name }}</div>
 					<div class="left_kong"></div>
-					<a href="#" class="left_xinxi">完善信息</a>
+					<a href="{{ asset('/home/personal/updata') }}" class="left_xinxi">完善信息</a>
+				@endif
 				</div>
-				<div class="ge_left_b">
-					<div class="left_jiben">
-						<li class="lli"><a href="{{ asset('/home/personal/collect') }}">收藏会场</a></li>
-					</div>
-					<div class="left_mima">
-						<li class="iil"><a href="#">收藏商家</a></li>
-					</div>
-				</div>
+				
 			</div>
 			<div class="ge_right">
 			<form action="">
@@ -40,21 +35,24 @@
 					</div>
 					
 					<ul>
+						@if($res)
+						@foreach($res as $key => $val)
 						<li class="il">
 							<div class="huichang" style="height:75px;">
 								<div class="huichang_left">
 								<!-- <a href=""><p class="shangjiaming">天上人间大酒店</p></a> -->
 									<a href=""><span ><img src="{{ asset('/images/1.jpg') }}" class="images"></span>
-									<label for="">中国石油化工大酒店</label></a>
-									<p>三鹿奶粉就是好,喝的你我有保障</p>
+									<label for="">{{ $val->userName }}</label></a>
+									<p>{{ $val->address }}</p>
 								</div>
 								<div class="huichang_right">
-									<span class="yuan"><b>￥</b>&nbsp;3504004</span>
+									<span class="yuan"><b>￥</b>&nbsp;{{ $val->meetPrice }}</span>
 								</div>
 							</div>
 
 						</li>
-
+						@endforeach
+						@endif
 
 						
 

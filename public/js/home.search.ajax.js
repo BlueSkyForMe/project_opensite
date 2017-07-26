@@ -11,7 +11,7 @@ var type = new Array();
   	// 书写 ajax, 调用后台数据
       $.get('/home/search/ajax', {"value": inputCode}, function(data){
 
-      	$(".left_con").remove();
+      	$(".left_con").detach();
           $(".left").append(data);	
        
       }, 'html');
@@ -27,7 +27,7 @@ var type = new Array();
       // 书写 ajax, 调用后台数据
       $.get('/home/search/ajax', {"budget": inputCode}, function(data){
 
-          $(".left_con").remove();
+          $(".left_con").detach();
           $(".left").append(data);  
        
       }, 'html');
@@ -73,7 +73,7 @@ var type = new Array();
       //书写 ajax, 调用后台数据
       $.get('/home/search/ajax', {"class": type}, function(data){
 
-          $(".left_con").remove();
+          $(".left_con").detach();
           $(".left").append(data);  
 
           }, 'html');
@@ -88,7 +88,7 @@ var type = new Array();
   //     // 书写 ajax, 调用后台数据
   //     $.get('/home/search/ajax', {"meeting": inputCode}, function(data){
 
-  //         $(".left_con").remove();
+  //         $(".left_con").detach();
   //         $(".left").append(data);  
        
   //     }, 'html');
@@ -105,7 +105,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"star": '0'}, function(data){
 
-           $(".left_con").remove();
+           $(".left_con").detach();
            $(".left").append(data);  
        
       }, 'html');
@@ -122,7 +122,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"star": '三星级'}, function(data){
 
-           $(".left_con").remove();
+           $(".left_con").detach();
            $(".left").append(data);  
        
       }, 'html');
@@ -139,7 +139,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"star": '四星级'}, function(data){
 
-           $(".left_con").remove();
+           $(".left_con").detach();
            $(".left").append(data);  
        
       }, 'html');
@@ -156,7 +156,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"star": '五星级'}, function(data){
 
-           $(".left_con").remove();
+           $(".left_con").detach();
            $(".left").append(data);  
        
       }, 'html');
@@ -173,7 +173,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"star": '六星级'}, function(data){
 
-           $(".left_con").remove();
+           $(".left_con").detach();
            $(".left").append(data);  
        
       }, 'html');
@@ -190,7 +190,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"star": '七星级'}, function(data){
 
-           $(".left_con").remove();
+           $(".left_con").detach();
            $(".left").append(data);  
        
       }, 'html');
@@ -209,7 +209,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"s_popular": value}, function(data){
 
-            $(".left_con").remove();
+            $(".left_con").detach();
             $(".left").append(data);  
            
           }, 'html');
@@ -225,7 +225,7 @@ var type = new Array();
         // 书写 ajax, 调用后台数据
         $.get('/home/search/ajax', {"s_price": value}, function(data){
 
-            $(".left_con").remove();
+            $(".left_con").detach();
             $(".left").append(data);  
            
           }, 'html');

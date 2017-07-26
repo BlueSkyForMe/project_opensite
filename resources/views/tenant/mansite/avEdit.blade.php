@@ -31,7 +31,7 @@
                                 <input type="hidden" name="uid" value="{{ $data->uid }}">
                                 <div class="form-group">
                                     <label>*设备类型</label>
-                                    <select name="avType" class="form-control">
+                                    <select id="edit_avtype" name="avType" class="form-control">
                                         <option value="0">请选择</option>
                                         <option value="1" 
                                         @if($data->avType == 1)
@@ -49,12 +49,14 @@
                                         @endif 
                                         >投影仪</option>
                                     </select>
+                                    <span style="display:none;"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>*价格</label>
-                                    <input class="form-control" name="avPrice" value="{{ $data->avPrice }}" placeholder="天/元">
+                                    <input id="edit_avprice" class="form-control" name="avPrice" value="{{ $data->avPrice }}" placeholder="天/元">
+                                    <span style="display:none;"></span>
                                 </div>
-                                <button type="submit" class="btn btn-primary">更新</button>
+                                <button id="edit_avsub" type="submit" class="btn btn-primary">更新</button>
                             </form>
                             <div style="width:54px;height:34px;margin-top:-34px;margin-left:75px;">
                                 <a href="{{ url('/tenant/mansite/avShow') }}/{{ $data->uid }}">
@@ -76,3 +78,63 @@
 </div>
 @endsection
 
+@section('js')
+    
+    <script type="text/javascript">
+
+        // 下拉框事件
+        $("#edit_avtype").on("change", function()
+            {
+                $(this).next().css("display", "none");
+            });
+
+        // 获取焦点事件
+        $("#edit_avprice").on("focus", function()
+            {
+                $(this).next().css("display", "none");
+            });
+
+        // 点击添加事件
+        $("#edit_avsub").on("click", function()
+            {
+                // 判断是否选择客房类型
+                var edit_avname = $(this).parent().find("#edit_avtype").val();
+                if(edit_avname == 0)
+                {
+                    $(this).parent().find("#edit_avtype").next().html("×请选择设备类型");
+                    $(this).parent().find("#edit_avtype").next().css("color", "red");
+                    $(this).parent().find("#edit_avtype").next().css("display", "block");
+                    return false;
+                }
+
+                // 判断是填写客房价格
+                var edit_avprice = $(this).parent().find("#edit_avprice").val();
+                if(edit_avprice == "")
+                {
+                    // 提示错误
+                    $(this).parent().find("#edit_avprice").next().html("×请输入价格");
+                    $(this).parent().find("#edit_avprice").next().css("display", "block");
+                    $(this).parent().find("#edit_avprice").next().css("color", "red");
+
+                    return false;
+                }
+                else
+                {
+                    // 正则匹配
+                    var edit_avprice_reg = /^[0-9]{1,}$/;
+                    var edit_avprice_res = edit_avprice_reg.test(edit_avprice);
+
+                    if(!edit_avprice_res)
+                    {
+                        // 提示错误
+                        $(this).parent().find("#edit_avprice").next().html("×输入有误");
+                        $(this).parent().find("#edit_avprice").next().css("display", "block");
+                        $(this).parent().find("#edit_avprice").next().css("color", "red");
+                        return false;
+                    } 
+                }
+            });
+
+    </script>
+
+@endsection

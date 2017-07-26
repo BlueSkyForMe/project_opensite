@@ -14,6 +14,17 @@
     <script type="text/javascript" src="{{ asset('/js/jquery-3.2.1.min.js') }}"></script>   
 </head>
 <body>
+	<!--判断是否被封号 -->
+	<div id="sta" style="display: none;">{{ session('hErrorInfo') }}</div>
+	<script type="text/javascript">
+		$(function(){
+			var str = $('#sta').html();
+			if(str)
+			{
+				alert(str);
+			}
+		});
+	</script>
 	
 	<!-- 页面容器 -->	
 	<div class="container_i">
@@ -44,12 +55,16 @@
 						<div>
 							<a href="{{ asset('/home/personal/index') }}"><span class="first_span">我的开场</span></a>
 							<ul>
-								<li><a href="">我的订单</a></li>
+
+								
+
+								<li><a href="{{ url('/home/order/myOrder') }}">我的订单</a></li>
+
 								<li><a href="#">我的足迹</a></li>
 							</ul>
 						</div>
 
-						<div><a href="{{ asset('/home/order/myOrder') }}"><span>购物车</span></a></div>
+						<div><a href="{{ asset('/home/shop') }}"><span>购物车</span></a></div>
 
 
 						<div><a href="#"><span>收藏夹</span></a>
@@ -62,7 +77,7 @@
 						<div><a href="#"><span>商家中心</span></a>
 							<ul>
 								<li><a href="{{ asset('/home/merchant/register') }}">添加商户</a></li>
-								<li><a href="#">用户中心</a></li>
+								<li><a href="{{ url('/tenant/index') }}">商户中心</a></li>
 								<li><a href="#">商户认证</a></li>
 								<li><a href="#">我想合作</a></li>
 							</ul>
@@ -121,17 +136,19 @@
 						<div id="in_city" style="display: none; position:absolute; top: 64px; left: -292px;"></div>
 						
 						<!-- 关键字 -->
-						<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地或地标关键字"></li>
+						<li class="kw"><input class="inp" type="text" name="keywords" placeholder="场地关键字"></li>
 						
 						<!-- 可容纳人数 -->
 						<li class="number">
 							<div class="dis_sel" >
 								<select name="number">
-									<option value="0">人数不限</option>
+									<option value="人数">人数</option>
+									<option value="人数不限">人数不限</option>
+									<option value="10-50">10-50</option>
 									<option value="50-100">50-100</option>
-									<option value="100-200">100-200</option>
-									<option value="200-300">200-300</option>
-									<option value="300-400">300-400</option>
+									<option value="100-300">100-300</option>
+									<option value="300-500">300-500</option>
+									<option value="500-1000">500-1000</option>
 								</select>
 							</div>
 							<div class="mar"><div class="s"></div></div>
@@ -331,7 +348,7 @@
 
 					<div class="phco">
 						<input class="register_phco" type="text" name="phonecode" value="" placeholder="请输入收到的验证码">
-						<div class="getPhone"><span style="cursor: pointer;">获取验证码</span></div>
+						<div class="getPhone" style="background: #0066cc;"><span style="cursor: pointer;">获取验证码</span></div>
 						<span style="display: none; position: absolute; top: 442px; left: 84px; color: red; font-wieght: blod;"></span>
 					</div>
 

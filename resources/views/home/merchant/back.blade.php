@@ -24,7 +24,8 @@
 				<input type="password" class="regist1" name="password" value="{{ $data->password }}" placeholder="请输入密码(6-18位字母、数字、下划线组成)"><div style="display:none; position: absolute; top: 312px; left: 765px;"></div>
 				<div id="f_w">
 					<input type="text" id="code1" name="code" value="" placeholder="请输入验证码">
-					<div id="sendcode"><a href="#"><span>发送验证码</span></a></div>
+					<div id="sendcode"><a id="send-code" href="javascript:"><span>发送验证码</span></a></div>
+					<div style="display:none; position: absolute; top: 355px; left: 765px;"></div>
 				</div>
 				<div class="next">
 					<input id="next-inpt" style="margin-left: 110px;" type="image" src="{{ asset ('/images/next.png') }}">
@@ -53,6 +54,7 @@
 		var uname = 1;
 		var conta = 1;
 		var pass = 1;
+		var vcode = 0;
 
 		// 匹配公司名称
 		$("input[name='userName']").on('blur', function()
@@ -261,6 +263,138 @@
 
 			});
 
+		// 点击发送验证码事件
+		$("#send-code").on("click", function()
+			{
+				// 定义$(this)
+				var scode = $(this);
+
+				// 获取联系方式的值
+				var contval = scode.parents("form").find("input[name='contact']").val();
+
+				// 点击一次
+				var status = scode.find("span").attr('status');
+
+				// 判断是否为空
+				if(!contval || conta != 1)
+				{
+					// 提示填写联系方式
+					scode.parent().next().html('×请正确填写手机号或邮箱');
+					scode.parent().next().css('color','red');
+					scode.parent().next().css('display','block');
+
+					return;
+				}
+				else
+				{
+					// 判断是否已经点击过
+					if(status == 1)
+			    	{
+			    		return false;
+			    	}
+
+					// ajax 请求
+					$.ajax('/home/merchant/ajaxGetCode',
+						{
+							type:"GET",
+							data:{contact:contval},
+							success:function(data)
+							{
+								console.log(data);
+							},
+							dataType:"json"
+						});
+				}
+		  		
+		  		// 标识已点击
+		    	scode.find("span").attr('status', 1);
+
+		    	// 设置呈灰色
+    			scode.parent().css("background-color", "#ccc");
+				
+		    	//倒计时
+		    	num = 60;
+		    	scode.find("span").html(num);
+		        var inte = setInterval(function()
+		        { 
+		            num--;
+		           	scode.find("span").html(num);
+
+		            if(num == 0)
+		            {
+		            	// 清除定时器。
+		                clearInterval(inte);
+		                scode.find('span').html("重新获取验证码");
+		                // 设置呈蓝色
+    					scode.parent().css("background-color", "#0066cc");
+		                // 标识可以重新获取
+		                scode.find("span").attr('status', 0);
+		                return ;
+		            }
+
+		         }, 1000);	
+			});
+
+		// 验证码失去焦点事件
+		$("#code1").on('blur', function()
+			{
+				// 定义$(this)
+				var inpCode = $(this);
+
+				// 获取输入的值
+				var codeVal = inpCode.val();
+
+				// 判断
+				if(!codeVal)
+				{
+					// 提示验证码不能为空
+					inpCode.next().next().html('×填写验证码');
+					inpCode.next().next().css('color','red');
+					inpCode.next().next().css('display','block');
+
+					// 标识错误
+					vcode = 0;
+				}
+				else
+				{
+					// ajax 验证验证码
+					$.ajax('/home/merchant/ajaxverify', 
+						{
+							type:"GET",
+							async:false,
+							data:{code:codeVal},
+							success:function(data)
+							{
+								switch(data)
+								{
+									case "0" : 
+										inpCode.next().next().html('×验证码过期');
+										inpCode.next().next().css('color','red');
+										inpCode.next().next().css('display','block');
+										// 标识错误
+										vcode = 0;
+									break;
+									case "1" : 
+										inpCode.next().next().html('√验证码正确');
+										inpCode.next().next().css('color','green');
+										inpCode.next().next().css('display','block');
+										// 标识正确
+										vcode = 1;
+									break;
+									case "2" : 
+										inpCode.next().next().html('×验证码错误');
+										inpCode.next().next().css('color','red');
+										inpCode.next().next().css('display','block');
+										// 标识错误
+										vcode = 0;
+									break;	
+								}
+							},
+							dataType:"json"
+						})
+				}
+			});
+
 		// 点击下一步
 		$('#next-inpt').on('click',function()
 			{	
@@ -321,8 +455,26 @@
 					return false;
 				}
 
+				// 获取验证码
+				var gcodeval = sub.parents('form').find("#code1").val();
+				
+				// 判断
+				if(!gcodeval)
+				{
+					// 定义变量
+					var gcode = sub.parents('form').find("#code1").next().next();
+					
+					// 提示错误信息	
+					gcode.html('×请填写验证码');
+					gcode.css('color', 'red');
+					gcode.css('display', 'block');
+
+					// 阻止默认行为
+					return false;
+				}
+
 				// 单位、联系方式、密码全部输入正确方可提交
-				if(uname == 1 && conta == 1 && pass == 1)
+				if(uname == 1 && conta == 1 && pass == 1 && vcode == 1)
 				{
 					return true;
 				}

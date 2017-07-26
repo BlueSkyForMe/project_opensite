@@ -12,6 +12,9 @@
 							<div class="left_con_two">
 
 								<div class="left_con_two_tit">
+
+									<div class="merid" style="display: none;">{{ $val->id }}</div>
+
 									<span class="span_a" ><a href="{{ url('/home/detail') }}/{{ $val->id }}">{{ $val->userName }}</a></span><br>
 									<span class="span_b" >
 										@if($val->star != '0')
@@ -35,7 +38,34 @@
 										
 									</div>
 									<div class="float_cont_r">
-									<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+
+									@if(session('huser')['id'])
+
+										@if(!$collect->isEmpty())
+
+											@foreach($collect as $k => $v)
+
+												@if($v->mid == $val->uid && $v->uid == session('huser')['id'])
+													<img src="{{ asset('/images/collect_blue.png') }}" class="xin_a" />
+
+												@break
+												@else
+													<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+												@endif
+
+											@endforeach
+										@else
+
+											<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+										
+										@endif
+									@else
+
+										<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+
+									@endif
+
+
 										<span class="float_cont_rmb"><sup>¥</sup><b>{{ $val->meetPrice }}</b>起</span>
 									</div>
 								</div>

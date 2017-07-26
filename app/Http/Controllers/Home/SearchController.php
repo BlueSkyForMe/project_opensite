@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 //用户搜索
 class SearchController extends Controller
 {
+    
     //普通搜素
     public function search(Request $request)
     {
@@ -19,29 +20,63 @@ class SearchController extends Controller
     	//查询的城市, 关键字, 可容纳人数
     	$city = $data['city'];
     	$keywords = $data['keywords'];
-    	$number = $data['number'];
+        $person = $data['number'];
+
+        //城市
+        if($city != null)
+        {
+            session(['city' => $city]);
+        }
+
+
+        //人数
+        if($person == "人数" || $person == "人数不限" || $person == "0")
+        {
+            $person = "0";
+            session(['supPerson' => $person]);
+        }
+        else
+        {
+            //选最大值
+            $person = explode('-', $person);
+            $person = $person[1];
+            session(['supPerson' => $person]);
+
+        }
+
+        session(['budget' => 30000000]);
 
     	//查询数据表 merchant 和 users, 找到搜索的城市
-    	$res = \DB::table('merchant')
+    	$result = \DB::table('merchant')
     				->join('users', 'merchant.uid', '=', 'users.id')
                     ->join('sitebase', 'merchant.uid', '=', 'sitebase.uid')
                     ->join('meeting', 'merchant.uid', '=', 'meeting.uid')
-                    ->where('merchant.address', 'like', '%'. $city .'%')
+                    ->where('address', 'like', '%'. $city .'%')
+                    ->where('sitebase.maxPerson', '>=', $person)
     				->where('users.userName', 'like', '%'. $keywords .'%')
-                    ->orWhere('merchant.address', 'like', '%'. $keywords .'%')
     				->get();
+        // dd($result);
 
-        // dd($res);
+        if(session('huser')['id'])
+        {
+            // 查询数据表 collect, 找到收藏信息
+            $collect = \DB::table('collect')->where('uid', session("huser")["id"])->get();
+        }
+        else
+        {
+            $collect = null;
+        }
 
     	//查询数据表 ad, 找到友情链接
     	$ad = \DB::table('ad')->get();
 
 		//查询数据表 hot, 找到热门广告
     	$hot = \DB::table('hot')->get();
+
     	
-    	return view('home.search.search', ['title' => '搜索结果', 'data' => $res, 'ad' => $ad, 'hot' => $hot]);	
-    	
+    	return view('home.search.search', ['title' => '搜索结果', 'data' => $result, 'collect' => $collect, 'ad' => $ad, 'hot' => $hot]);		
     }
+
 
     //高级搜索
     public function superSearch(Request $request)
@@ -49,19 +84,26 @@ class SearchController extends Controller
     	//获取用户提交的搜索数据
         $data = $request->except('x', 'y');
 
-        // dd($data);
-
         //提取搜索选项
         $city = $data['city'];
         $person = $data['supPerson'];
         $budget = $data['budget'];
-
 
         //会议时长和开始时间
         $meetTime = $data['meeting'];
         $startTime = $data['startTime'];
 
         session(['meetTime' => $meetTime]);
+
+        if(session('huser')['id'])
+        {
+            // 查询数据表 collect, 找到收藏信息
+            $collect = \DB::table('collect')->where('uid', session("huser")["id"])->get();
+        }
+        else
+        {
+            $collect = null;
+        }
 
 
         //城市
@@ -163,7 +205,7 @@ class SearchController extends Controller
 
                     // dd();
 
-                    return view('home.search.search', ['title' => '搜索结果', 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
+                    return view('home.search.search', ['title' => '搜索结果', 'collect' => $collect, 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
               
                         
                 }
@@ -187,7 +229,7 @@ class SearchController extends Controller
                     //查询数据表 hot, 找到热门广告
                     $hot = \DB::table('hot')->get();
 
-                    return view('home.search.search', ['title' => '搜索结果', 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
+                    return view('home.search.search', ['title' => '搜索结果', 'collect' => $collect, 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
    
 
                 }
@@ -214,7 +256,7 @@ class SearchController extends Controller
                 //查询数据表 hot, 找到热门广告
                 $hot = \DB::table('hot')->get();
 
-                return view('home.search.search', ['title' => '搜索结果', 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
+                return view('home.search.search', ['title' => '搜索结果', 'collect' => $collect, 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
 
 
             }
@@ -240,11 +282,11 @@ class SearchController extends Controller
             //查询数据表 hot, 找到热门广告
             $hot = \DB::table('hot')->get();
 
-            return view('home.search.search', ['title' => '搜索结果', 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
+            return view('home.search.search', ['title' => '搜索结果', 'collect' => $collect, 'postData' => $data, 'data' => $res, 'ad' => $ad, 'hot' => $hot]); 
 
         }
-
     }
+
 
     //搜索页 ajax 获取实时数据
     public function ajax(Request $request)
@@ -259,7 +301,19 @@ class SearchController extends Controller
         $sorkPopular = $request->s_popular;
         $sorkPrice = $request->s_price;
 
-        // dd($price);
+        if(session('huser')['id'])
+        {
+
+        	// 查询数据表 collect, 找到收藏信息
+    		$collect = \DB::table('collect')->where('uid', session("huser")["id"])->get();
+
+    	}
+        else
+        {
+            $collect = null;
+        }
+
+      
 
         //=======================价格排序=================================
         if($sorkPrice != null)
@@ -294,7 +348,6 @@ class SearchController extends Controller
             else
             {
                 $person = 0;
-
             }
 
             //检查是否选择了预算
@@ -330,10 +383,9 @@ class SearchController extends Controller
                     $res = false;
                 }
 
-                return view('home.search.reSearch', ['data' => $res]); 
+                return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
                     
             }
-
 
             //根据条件进行查询
             $res = \DB::table('merchant')
@@ -354,7 +406,7 @@ class SearchController extends Controller
                 $res = false;
             }
 
-            return view('home.search.reSearch', ['data' => $res]); 
+            return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
 
         }
 
@@ -382,7 +434,6 @@ class SearchController extends Controller
             else
             {
                 $person = 0;
-
             }
 
             //检查是否选择了预算
@@ -417,10 +468,9 @@ class SearchController extends Controller
                     $res = false;
                 }
 
-                return view('home.search.reSearch', ['data' => $res]); 
+                return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
                     
             }
-
 
             //根据条件进行查询
             $res = \DB::table('merchant')
@@ -440,7 +490,7 @@ class SearchController extends Controller
                 $res = false;
             }
 
-            return view('home.search.reSearch', ['data' => $res]); 
+            return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
 
         }
 
@@ -517,10 +567,9 @@ class SearchController extends Controller
                     $res = false;
                 }
 
-                return view('home.search.reSearch', ['data' => $res]); 
+                return view('home.search.reSearch', ['data' => $res,  'collect' => $collect]); 
                     
             }
-
 
             //根据条件进行查询
             $res = \DB::table('merchant')
@@ -541,7 +590,7 @@ class SearchController extends Controller
                 $res = false;
             }
 
-            return view('home.search.reSearch', ['data' => $res]); 
+            return view('home.search.reSearch', ['data' => $res,  'collect' => $collect]); 
         }
 
         //===================更改人数条件时==============================
@@ -625,8 +674,7 @@ class SearchController extends Controller
                     $res = false;
                 }
 
-                return view('home.search.reSearch', ['data' => $res]); 
-
+                return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
 
             }
        	 
@@ -648,7 +696,7 @@ class SearchController extends Controller
 	        	$res = false;
 	        }
 
-	        return view('home.search.reSearch', ['data' => $res]); 
+	        return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
         }
 
         //======================更改预算时===============================
@@ -741,7 +789,7 @@ class SearchController extends Controller
                     $res = false;
                 }
 
-                return view('home.search.reSearch', ['data' => $res]); 
+                return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
                     
             }
 
@@ -762,7 +810,7 @@ class SearchController extends Controller
                 $res = false;
             }
 
-            return view('home.search.reSearch', ['data' => $res]); 
+            return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
       
         }
 
@@ -843,7 +891,7 @@ class SearchController extends Controller
 	        	$res = false;
 	        }
 
-	        return view('home.search.reSearch', ['data' => $res]); 
+	        return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
         }
         else
         {
@@ -926,7 +974,7 @@ class SearchController extends Controller
                     $res = false;
                 }
 
-                return view('home.search.reSearch', ['data' => $res]); 
+                return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
             }
 
             //===========没有场地类型时=============
@@ -1000,15 +1048,9 @@ class SearchController extends Controller
                 $res = false;
             }
 
-            return view('home.search.reSearch', ['data' => $res]); 
-
+            return view('home.search.reSearch', ['data' => $res, 'collect' => $collect]); 
         }
-
-
-
-
     }
-
 
 
     //收藏商家
@@ -1018,8 +1060,10 @@ class SearchController extends Controller
         $merchantID = $request->merchantID;
 
         $res = \DB::table('collect')->where([
+
             ['uid', '=', $userID],
             ['mid', '=', $merchantID],
+
         ])->first();
 
 
@@ -1037,9 +1081,18 @@ class SearchController extends Controller
         else
         {
             //存储该数据, 并返回一个状态吗 collerctCode = 1
-            \DB::table('collect')->insert(['uid'=>$userID, 'mid'=>$merchantID]);
+            $r = \DB::table('collect')->insert(['uid'=>$userID, 'mid'=>$merchantID]);
 
-            $code = 1;
+            if($r)
+            {
+            	$code = 1;
+            }
+            else
+            {
+            	$code = 2;
+            }
+
+           
 
             echo json_encode($code);
         }

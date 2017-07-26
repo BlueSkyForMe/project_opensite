@@ -11,38 +11,24 @@ class OrderController extends Controller
     // 加载前台订单
     public function index()
     {
-
-    	// 获取session
-    	$data = session('huser');
-    	
-    	// 判断是否登录
-    	if(!$data)
+    	//判断用户是否登录
+    	if(session('huser'))
     	{
-    		echo "<script>alert('你还未登录,请登录后再来');location.href='/home/index'</script>";
-    	}else
-    	{
+    		//获取登录用户ID
+    		$id = session('huser')['id'];
+            // dd($id);
 
-    		$id = $data['id'];
+    		//获取该用户的订单信息
+    		$res = \DB::table('indent')->where('indent.uid', '=', $id)->get();
 
-    		$res = \DB::table('indent')->where('uid', $id)->get();
-    	
-    		// dd($res);/
+    		// dd($res);
 
-
-
-	    		//解析前台订单页面模板
-	    		return view('home.order.myOrder', ['title' => '我的订单', 'res' => $res]);
-    		// }
-
-
-
-
-
+    		//解析前台订单页面模板
+    		return view('home.order.myOrder', ['title' => '我的订单', 'data' => $res]);
     	}
-    }
-
-    public function add(Request $request)
-    {
-    	dd($request->all());
+    	else
+    	{
+    		return back()->with(['hErrorInfo' => '请登录后查看我的开场']);
+    	}	
     }
 }

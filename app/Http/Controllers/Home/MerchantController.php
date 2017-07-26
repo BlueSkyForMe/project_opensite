@@ -14,7 +14,7 @@ class MerchantController extends Controller
     	return view('home.merchant.register', ['title' => '创建商家账户']);
     }
 
-    // ajax
+    // ajax 验证单位名手机号等
     public function ajaxrename(Request $request)
     {	
     	// 定义一个变量存放返回码
@@ -116,13 +116,106 @@ class MerchantController extends Controller
     	return response()->json($data);
     }
 
+    // ajax 获取手机或邮箱验证码
+    public function ajaxGetCode(Request $request)
+    {   
+        // 定义联系方式
+        $contact = $request->contact;
+
+        // 随机六位验证码
+        $code = mt_rand(000000, 999999);
+
+        // cookie存储验证码
+        \Cookie::queue('hmerCode', $code, 1);
+
+        // 验证是否是手机号
+        $patt = "/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/";
+        // 正则匹配
+        preg_match($patt, $contact, $res);     
+
+        // 判断
+        if($res)
+        {
+            // 发送手机验证码
+            $host = "http://ali-sms.showapi.com";
+            $path = "/sendSms";
+            $method = "GET";
+            $appcode = "f7f0b48b5ef34c7db6801ee2c78e5c83";
+            $headers = array();
+            array_push($headers, "Authorization:APPCODE " . $appcode);
+            $querys = 'content={"code":"'.$code.'","minute":1,"comName":"开场网"}&mobile='.$contact.'&tNum=T150606060601';
+            $bodys = "";
+            $url = $host . $path . "?" . $querys;
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_FAILONERROR, false);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HEADER, true);
+            if (1 == strpos("$".$host, "https://"))
+            {
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            }
+
+            $res = curl_exec($curl);
+
+            return response()->json($res);
+        }
+        else
+        {
+            // 发送邮箱
+            \Mail::send('home.merchant.mails', ['code' => $code], function($message) use($contact)
+                {
+                    $message->to($contact);
+                    $message->subject('开场商户注册');
+                });
+
+            return response()->json('邮件已发送成功');
+        }
+    }
+
+    // ajaxverify 验证验证码
+    public function ajaxverify(Request $request)
+    {
+        // 定义发送过来的验证码
+        $code = $request->code;
+
+        // 定义标识符
+        $data = '0';
+
+        // 获取cookie中的验证码
+        $vcode = \Cookie::get('hmerCode');
+
+        // 判断验证码是否过期
+        if($vcode)
+        {
+            // 判断是否一致
+            if($code == $vcode)
+            {
+                // 标识验证码正确
+                $data = '1';
+            }else
+            {
+                // 标识验证码错误
+                $data = '2';
+            }
+        }
+        else
+        {
+            // 标识验证码过期
+            $data = '0';
+        }
+
+        // json发送
+        return response()->json($data);
+    }
+
     // insert 插入数据库
     public function insert(Request $request)
     {
-    	// dd($request->all());
-
-    	// =========== 需要验证验证码 ===============
-
     	// 剔除冗余
     	$data = $request->only('userName', 'password');
     	
@@ -165,6 +258,20 @@ class MerchantController extends Controller
 
     	if($id)
     	{
+            // 将本条插入的信息查出存入session
+            $mer = \DB::table('users')->where('id', $id)->first();
+
+            // 将对象转成数组
+            $user = [];
+            foreach($mer as $key => $value) 
+            {
+                $user[$key] = $value;
+            }
+
+            // 存储session
+            session(['hmer' => $mer]);
+            session(['huser' => $user]);
+
     		return redirect('/home/merchant/fill/'.$id);
     	}
     	else

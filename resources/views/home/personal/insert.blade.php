@@ -22,11 +22,11 @@
 					<img src="{{ asset('/images/1.jpg') }}" class="left_img" alt="">
 					<div class="left_name">先生/女士</div>
 					<div class="left_kong"></div>
-					<a href="#" class="left_xinxi">完善信息</a>
+					<a href="{{ asset('/home/personal/updata') }}" class="left_xinxi">完善信息</a>
 				</div>
 				<div class="ge_left_b">
 					<div class="left_jiben">
-						<li class="lli"><a href="#">基本信息</a></li>
+						<li class="lli"><a href="{{ asset('/home/personal/index') }}">基本信息</a></li>
 					</div>
 					<div class="left_mima">
 						<li class="iil"><a href="{{ asset('/home/personal/amend') }}">修改密码</a></li>
@@ -42,14 +42,23 @@
 					{{ csrf_field() }}
 					<ul>
 					
+						<li class="il">
+							<span>用户名：</span>
+							@if($users)
+							<input type="text" name="phone" value="{{ $users->userName }}">
+							
+							@else
+							
+							@endif
+						</li>
 						@if($users->phone)
 						<li class="il">
-							<span>电子邮箱</span>
+							<span>电子邮箱：</span>
 							<input type="email" name="postcode" placeholder="请输入">
 						</li>
 						@else
 						<li class="il">
-							<span>电话号码</span>
+							<span>电话号码：</span>
 							<input type="text" name="phone" placeholder="请输入">
 						</li>
 						@endif

@@ -109,8 +109,10 @@
                       待审核
                     @elseif ($val->check == 1)
                       审核通过
+                    @elseif ($val->check == 2)
+                      审核未通过
                     @else
-                      审核未通过   
+                      审核通过     
                     @endif
                   </td>
                   <td>{{ $val->created_at }}</td>

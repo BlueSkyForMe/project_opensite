@@ -24,10 +24,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page" >
+<body class="hold-transition login-page" style="background: url('/images/bg.jpg'); background-size: 100%; ">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>开</b>场</a>
+    <a href="#"><b>开场</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

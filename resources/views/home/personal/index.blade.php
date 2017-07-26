@@ -10,7 +10,7 @@
 			<ul class="juli">
 				<a href="{{ asset('/home/index') }}"><li class="lly">首页</li></a>
 				<a href=""><li class="lly">账户信息</li></a>
-				<a href=""><li class="lly">我的订单</li></a>
+				<a href="{{ asset('/home/order/myOrder') }}"><li class="lly">我的订单</li></a>
 				<a href=""><li class="lly">我的足迹</li></a>
 				<a href="{{ asset('/home/personal/collect') }}"><li class="lly">收藏夹</li></a>
 			</ul>
@@ -23,7 +23,7 @@
 					<img src="{{ asset('/images/1.jpg') }}" class="left_img" alt="">
 					<div class="left_name">{{ $users->userName }}</div>
 					<div class="left_kong"></div>
-					<a href="#" class="left_xinxi">完善信息</a>
+					<a href="{{ asset('/home/personal/updata') }}" class="left_xinxi">完善信息</a>
 				</div>
 				<div class="ge_left_b">
 					<div class="left_jiben">
@@ -44,21 +44,24 @@
 					{{ csrf_field() }}
 					<ul>
 						<li class="il">
-							<span style="width: 80px;float: left;text-align: right;margin-right: 20px;">用户名：</span>
-							<input type="email" style="border:none" name="postcode" placeholder="{{ $users->userName }}">
+						{{ $users->userName  }}
+							<span >用户名：</span>
+							<!-- <input type="email" style="border:none" name="postcode" value="{{ $users->userName }}"> -->
 						</li>
 
 						<li class="il">
+						{{ $phone }}
 							<span style="">电话号码</span>
-							<input type="tesx" style="border:none" name="postcode" 
-							placeholder="@if($phone)
+							<!-- <input type="tesx" style="border:none" name="postcode"value="
+							@if($phone)
 							{{ $phone }}
 							@endif">
-							
+ -->							
 						</li>
 						<li class="il">
 							<span style="width: 80px;float: left;text-align: right;margin-right: 20px;">电子邮箱</span>
-							<input type="email" style="border:none" name="postcode" placeholder="@if(@users)
+							<input type="email" style="border:none" name="postcode" value="
+							@if(@users)
 							{{ $users->email }}
 							@endif">
 							@if(@users)
@@ -67,13 +70,13 @@
 							</span>
 						</li>
 						<li class="il">
-							<button class="btn">修改</button>
+							
 						</li>
 					</ul>
 					
 					<div class="kong"></div>
 				</div>
-				</form>
+				
 				<div class="ge_right_b">
 					<div class="ge_right_a_bottom">
 						

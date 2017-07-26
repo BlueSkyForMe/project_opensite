@@ -4,6 +4,15 @@
 
 	<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    <!-- 显示大图模态框 -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <img id="show_mer_bigimg" style="margin-left:200px;" width="450px" height="600px" src="">
+        </div>
+      </div>
+    </div>
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -54,7 +63,7 @@
                   <tr>
                     <td>酒店星级 :</td>
                     <td>
-                      @if ($data->star == 0)
+                      @if ($data->star == "0")
                         无
                       @else
                         {{ $data->star }} 
@@ -64,7 +73,8 @@
                   <tr>
                     <td>租赁凭证 :</td>
                     <td>
-                      <img width="100" height="110" src="{{ asset ('/uploads/img') }}/{{ $data->img }}">
+                      <img width="100" height="110" src="{{ asset ('/uploads/img') }}/{{ $data->img }}"><br/>
+                      <a id="mer_bigimg" style="margin-left:20px;" data-toggle="modal" data-target=".bs-example-modal-lg" href="javascrpt:">查看大图</a>
                     </td>
                   </tr>
                   <tr>
@@ -170,6 +180,13 @@
                 // 阻止提交
                 return false;
             }
+        });
+
+      // 点击查看大图事件
+      $("#mer_bigimg").on("click", function()
+        {
+          var bigimg = $(this).prev().prev().attr("src");
+          $("#show_mer_bigimg").attr("src", bigimg);
         });
 
     </script>

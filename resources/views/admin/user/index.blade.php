@@ -32,7 +32,7 @@
                 </div>
             @endif
 
-            <form action="/admin/manage/index" method="GET">
+            <form action="/admin/user/index" method="GET">
                 <div class="col-md-2">
                   <div class="form-group">
                     <select name="num" class="form-control">

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 //前台注册控制器
 class RegisterController extends Controller
 {
+	
     //检测注册信息是否合格, 合法则存入数据库
     public function insert(Request $request)
     {
@@ -160,6 +161,29 @@ class RegisterController extends Controller
 
     	echo json_encode($code);
 
+    }
+
+
+    //sendEmail
+    public function sendEmail(Request $request)
+    {
+    	// 定义邮箱的联系方式
+        $contact = $request->contact;
+
+        // $code = '3729';
+
+        $code = mt_rand(0000, 9999);
+        
+        session(['emailCode' => $code]);
+
+        // 发送邮箱
+	    \Mail::send('home.index.email', ['code' => $code], function($message) use($contact)
+	        {
+	            $message->to($contact);
+	            $message->subject('开场用户注册邮箱验证码');
+	        });
+
+	    echo json_encode($code);
     }
 
 }

@@ -343,7 +343,7 @@
 .options_box
 {
 	width: 100%;
-	height: 102px;
+	height: auto;
 	background-color: #eee;
 }
 
