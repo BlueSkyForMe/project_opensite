@@ -10,6 +10,12 @@ class MerchantController extends Controller
     // register 创建商户账号
     public function register()
     {	
+        // 判断是否登录
+        if(session('huser') || session('hmer'))
+        {
+            return "<script>alert('请先退出登录');location.href='".$_SERVER['HTTP_REFERER']."'</script>";
+        }
+
     	// 商户注册页面
     	return view('home.merchant.register', ['title' => '创建商家账户']);
     }
