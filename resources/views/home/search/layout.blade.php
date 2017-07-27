@@ -81,6 +81,34 @@
 @endsection
 
 @section('js')
+<script type="text/javascript">
+	
+	$('.span_a').each(function(){
+
+		var t = $(this);
+
+		var userName = $(this).find('a').html();
+
+		// alert(userName);
+
+		$.get('/home/search/dq', {"userName": userName}, function(data){
+
+			// alert(data);
+
+			if(data == 1)
+			{
+				t.parent().next().next().find('.left_con_rig').empty();
+				var str = '<a href="#" id="Reservations" class="float_r"/><img src="{{ asset('/images/dangqi_no.png') }}"></a>';
+				t.parent().next().next().find('.left_con_rig').append(str);
+			}
+
+		}, 'json');
+
+
+	});
+
+
+</script>
 <script>
 
 	//因为是整段追加,因此绑定事件时需要注意, 寻找第一次加载就存在的类名, 使用on()方式绑定

@@ -863,6 +863,7 @@ laydate.now = function(timestamp, format){
     );
 };
 
+
 //皮肤选择
 laydate.skin = function(lib){
     Dates.skinLink.href = Dates.getPath + as[4] + lib + as[5];

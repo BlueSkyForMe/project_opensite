@@ -138,8 +138,8 @@ Route::get('/home/order/myOrder', 'Home\OrderController@index');
 //前台搜索
 Route::get('/home/search/general', 'Home\SearchController@search');
 Route::get('/home/search/super', 'Home\SearchController@superSearch');
-
 Route::get('/home/search/ajax', 'Home\SearchController@ajax');
+Route::get('/home/search/dq', 'Home\SearchController@dq');
 
 //前台详情
 Route::get('/home/detail/{id}', 'Home\DetailController@index');

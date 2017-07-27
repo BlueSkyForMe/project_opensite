@@ -348,7 +348,8 @@ a
 	/*position: absolute;*/
 	position: fixed;
 	top: 131px;
-	left: 370px;
+	left: 36%;
+	/*left: 370px;*/
 	z-index: 11111;
 }
 
@@ -450,7 +451,8 @@ a
 	/*position: absolute;*/
 	position: fixed;
 	top: 66px;
-	left: 368px;
+	left: 36%;
+	/*left: 368px;*/
 	z-index: 11111;
 }
 .register_title

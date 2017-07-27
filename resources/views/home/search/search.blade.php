@@ -167,32 +167,16 @@
 
 											</option>
 									
-											<option>一晚</option>
-											<option>半天</option>
-											<option>一天</option>
-											<option>两天</option>
-											<option>3-4天</option>
-											<option>5-7天</option>
-											<option>7-14天</option>
-											<option>14天以上</option>
+											<option>1天</option>
+											<option>2天</option>
+											<option>3天</option>
+											<option>4天</option>
+											<option>5天</option>
+											<option>6天</option>
+											<option>7天</option>
 										</select>
 
-					<!-- 					<select name="s_startTime" id="s_startTime" style="width: 80px; height: 25px; margin-right: 14px;">
-											<option>
-												@if(session('startTime'))
-													{{ session('startTime') }}
-												@else
-													开始时间
-												@endif
-
-											</option>
-										</select> -->
-
 										<input type="text" id="J-xl" placeholder="开始时间" name="startTime" value="{{ session('startTime') }}" style="width: 80px; height: 25px; margin-right: 14px;">
-
-
-
-
 
 									</td>
 								</tr>
@@ -299,31 +283,31 @@
 														</div>
 														<div class="float_cont_r">
 
-														@if(session('huser')['id'])
+															@if(session('huser')['id'])
 
-															@if(!$collect->isEmpty())
+																@if(!$collect->isEmpty())
 
-																@foreach($collect as $k => $v)
+																	@foreach($collect as $k => $v)
 
-																	@if($v->mid == $val->uid && $v->uid == session('huser')['id'])
-																		<img src="{{ asset('/images/collect_blue.png') }}" class="xin_a" />
+																		@if($v->mid == $val->uid && $v->uid == session('huser')['id'])
+																			<img src="{{ asset('/images/collect_blue.png') }}" class="xin_a" />
 
-																	@break
-																	@else
-																		<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
-																	@endif
+																		@break
+																		@else
+																			<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+																		@endif
 
-																@endforeach
+																	@endforeach
+																@else
+
+																	<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
+																
+																@endif
 															@else
 
 																<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
-															
+
 															@endif
-														@else
-
-															<img src="{{ asset('/images/collect.png') }}" class="xin_a" />
-
-														@endif
 
 
 
@@ -342,6 +326,7 @@
 														</div>
 														<div class="left_con_rig">
 															<a href="{{ url('/home/detail') }}/{{ $val->id }}" id="Reservations" class="float_r"/><img src="{{ asset('/images/yuding.png') }}"></a>
+															
 														</div>
 													</div>
 												</div>
