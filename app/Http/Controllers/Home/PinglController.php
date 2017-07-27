@@ -11,9 +11,20 @@ class PinglController extends Controller
     //加载评论页
     public function index(Request $request)
     {
-        
+
+
+       // var_dump($_GET);
+        //var_dump($request);
+      $mid = $request->id;
+
+$qqqq = encrypt(123123);
+
+        dd($qqqq); 
+
         $data = session('huser');
 
+
+        
 
         $id = $request->id;
         // dd($id);
@@ -32,7 +43,8 @@ class PinglController extends Controller
                             ->join('users', 'users.id', '=', 'meeting.uid')
                             ->select('indent.mid','meeting.uid','users.userName')
                             ->where('indent.uid', '=', $uid)
-                            ->first();
+                            ->where('indent.pay', '=', 0)
+                            ->get();
 
             // dd($res);
             if(!$res)
@@ -40,7 +52,12 @@ class PinglController extends Controller
                  echo "<script>alert('您还未购买,请购买后再来');location.href='".$_SERVER['HTTP_REFERER']."'</script>";
             }else
             {
-                return view('home.pingl.pingl', ['title' => '添加评论', 'res' => $res, 'id' => $id]);
+                $comment = \DB::table('comment')->where('uid',$mid)->get();
+
+                // dd($comment);
+                $ad = \DB::table('ad')->get();
+
+                return view('home.pingl.pingl', ['title' => '添加评论', 'ad' => $ad, 'res' => $res, 'id' => $id, 'comment' => $comment]);
             }
         }
         
@@ -66,7 +83,7 @@ class PinglController extends Controller
 
         $uid = $res['id'];
 
-
+        // dd($uid);
         $baidu = $res['content'];
 
         // 去除html标记
@@ -75,7 +92,7 @@ class PinglController extends Controller
         // dd($hao);
 
         // 查询indent订单表
-        $indent = \DB::table('indent')->where('uid', $id)->first();
+        $indent = \DB::table('indent')->where('mid', $uid)->first();
 
         $mid = $indent->mid;
 
@@ -84,6 +101,7 @@ class PinglController extends Controller
         // 查询meeting会场表
         $meet = \DB::table('meeting')->where('id', $mid)->first();
 
+        // dd($meet);
         $meetName = $meet->meetName;
 
         // dd($meetName);
@@ -97,7 +115,9 @@ class PinglController extends Controller
 
         // dd($comment);
 
-     return view('home.index.index');
+        echo "<script>alert('恭喜你，吐槽成功！');window.location.href='/home/index'</script>";
+
+     // return view('home.index.index');
 
     }
 

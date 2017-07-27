@@ -22,9 +22,14 @@ class ShopController extends Controller
         {
 
             $id = $data['id'];
-            // dd($id);
 
-            $res = \DB::table('indent')->where('uid', $id)->get();
+            // $pay = 0;
+            // dd($pay);
+
+            $res = \DB::table('indent')->where([
+                ['uid', $id],
+                ['pay',0],
+                ])->get();
 
                             
 
