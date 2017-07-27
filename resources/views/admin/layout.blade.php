@@ -187,12 +187,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-<<<<<<< HEAD
-              <li class="active"><a href="{{ url('/admin/comment/index') }}"><i class="fa fa-circle-o"></i> 用户列表</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> 商户列表</a></li>
-=======
               <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 评论列表</a></li>
->>>>>>> 3be0f5f16332212b108dc505fadb8fb0799364ec
             </ul>
           </li>
   <!-- /评论管理 -->

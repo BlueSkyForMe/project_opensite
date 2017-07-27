@@ -71,9 +71,7 @@ class PersonalController extends Controller
         $all = $request->all();
         // dd($all);
 
-        $qqqq = encrypt(123123);
-
-        dd($qqqq); 
+        
 
         $oldpass = $all['oldpassword'];
         $password = $all['password'];
