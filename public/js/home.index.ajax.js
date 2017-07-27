@@ -223,7 +223,7 @@
 					code = random(0000, 9999);
 
 					//请求接口
-				    var url = "http://sms.tehir.cn/code/sms/api/v1/send?srcSeqId=123&account="+SMS_ACCOUNT+"&password="+SMS_PASSWORD+"&mobile="+ phone +"&code="+ code +"&time=1";
+				    var url = "http://sms.tehir.cn/code/sms/api/v1/send?srcSeqId=123&account="+SMS_ACCOUNT+"&password="+SMS_PASSWORD+"&mobile="+ phone +"&code="+ code +"&time=60s";
 				    $.ajax({
 				        url: url,
 				        type: "get",

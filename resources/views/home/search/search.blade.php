@@ -293,7 +293,7 @@
 													<div class="left_con_two_cont">
 														<div class="float_cont_l">
 															<span class="span_l_a" >会场数量 : {{ $val->siteNumber }}</span><br />
-															<span class="span_l_b" >场地面积 : {{ $val->maxArea }}M<sup>2</sup> &nbsp;(50*40*9M)</span><br />
+															<span class="span_l_b" >场地面积 : {{ $val->maxArea }}M<sup>2</sup></span><br />
 															<span class="span_l_c" >最多容纳人数 : {{ $val->maxPerson }}人</span>
 															
 														</div>
