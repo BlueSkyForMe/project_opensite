@@ -344,9 +344,9 @@ class SearchController extends Controller
         $sorkPopular = $request->s_popular;
         $sorkPrice = $request->s_price;
 
-        session(['meetTime' => null]);
-        session(['startTime' => null]);
-        session(['orderTime' => null]);
+        $request->session()->forget('meetTime');
+        $request->session()->forget('startTime');
+        $request->session()->forget('orderTime');
 
 
         if(session('huser')['id'])
@@ -1170,14 +1170,31 @@ class SearchController extends Controller
                 {
                     $str = $val->time_quantum;
 
-                    $old = explode('@', $str);
+                    //2017-07-28 / 2017-07-29
+                    $old = explode('/', $str);
+
+                    // 2017 07 28
+                    $o1 = explode('-', $old[0]);
+
+                    // 2017 07 29
+                    $o2 = explode('-', $old[1]);
+
                     $new = explode('@', $orderTime);
+
                     if($old)
                     {
-                        $minOld = (int)$old[0];
-                        $maxOld = (int)$old[1];
+                        $minOld = (int)mktime('0', '0', '0', $o1[1], $o1[2], $o1[0]);
+
+                        // dd($minOld);
+
+                        $maxOld = (int)mktime('0', '0', '0', $o2[1], $o2[2], $o2[0]);
+
+                         // dd($maxOld);
 
                         $minNew = (int)$new[0];
+
+                        // dd($minNew);
+
                         $maxNew = (int)$new[1];
 
                         // var_dump($minNew);
