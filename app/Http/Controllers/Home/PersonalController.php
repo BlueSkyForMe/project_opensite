@@ -65,6 +65,7 @@ class PersonalController extends Controller
     // 执行修改密码页
     public function add(Request $request)
     {
+        // dd($request->all());
         $huser = session('huser');
         $id = $huser['id'];
 
@@ -81,7 +82,7 @@ class PersonalController extends Controller
         $users = \DB::table('users')->where('id', $id)->first();
 
         $pass = $users->password;
-        
+        // dd($pass);
         $res = decrypt($pass);
 
         // dd($res);
@@ -91,10 +92,22 @@ class PersonalController extends Controller
             
             if($password == $repassword)
             {
-                return view('home.personal.index.',['title' => '基本信息']);
+                // dd(111);
+                $apass = encrypt($password);
+                // dd($apass);
+                $pas = ['password' => $apass];
+
+                $qq = \DB::table('users')->where('id', $id)->update($pas);
+
+                // dd($qq);
+                if($qq)
+                {
+                    return "<script>alert('你还未登录,请登录后再来');window.location.href='".$_SERVER['HTTP_REFERER']."'</script>";
+                }
+                
             }else
             {
-               echo "<script>alert('你还未登录,请登录后再来');window.location.href='".$_SERVER('HTTP_REFERER')."'</script>";
+               echo "<script>alert('您的原密码输入不正确');window.location.href='".$_SERVER['HTTP_REFERER']."'</script>";
             }
 
         }else
@@ -105,35 +118,6 @@ class PersonalController extends Controller
 
         // dd($request->all());
     }
-
-    // 修改密码的ajax
-    //  public function ajax(Request $request)
-    // {
-    //     $res = $request->input('oldpass');
-
-    //     // dd($res);
-
-    //     $huser = session('huser');
-
-    //     $id = $huser['id'];
-
-    //     // dd($id);
-       
-    //     $users = \DB::table('users')->where('id',$id)->first();
-
-    //     $pass = $users->password;
-
-    //     $newpass = decrypt($pass);
-
-    //     if($newpass == $res)
-    //     {
-    //         return json_encode(1);
-    //     }else{
-    //         return json_encode(2);
-    //     }
-
-    // }
-
 
     
     // 个人信息
@@ -148,18 +132,28 @@ class PersonalController extends Controller
 
         $data['uid'] = $uid;
 
-        dd($data);
+        // dd($data);
 
         // 去除token
         $data = $request->except('_token');
         // dd($data);
 
+        $users = \DB::table('users')->where('id',$uid)->first();
+
+        $data['uid'] = $users->id;
+        $data['name'] = $users->userName;
+
         // 执行添加
-        $res = \DB::table('userInfo')->insert($data);
+        $res = \DB::table('userinfo')->insert($data);
+
+        $email = $data['email'];
+        // dd($email);
+        $email = ['email' => $email];
+        $user = \DB::table('users')->update($email);
 
         if($res)
         {
-            return '修改成功';       
+            echo "<script>alert('恭喜你，保存成功！');window.location.href='".$_SERVER['HTTP_REFERER']."'</script>";     
         }
 
         // dd($data);

@@ -40,15 +40,15 @@ class DetailController extends Controller
         $comment = \DB::table('comment')->where('uid',$uid)->get();
 
         // 查询茶歇表
-        $rest = \DB::table('rest')->where('uid', $uid)->first();
+        $rest = \DB::table('rest')->where('uid', $uid)->get();
 
-        // dd($uid);
+        // dd($rest);
 
         // 查询客房表
-        $guest = \DB::table('guest')->where('uid', $uid)->first();
+        $guest = \DB::table('guest')->where('uid', $uid)->get();
 
         // 查询av设备表
-        $av = \DB::table('av')->where('uid', $uid)->first();
+        $av = \DB::table('av')->where('uid', $uid)->get();
 
     	// //查询数据表 ad, 找到友情链接
     	$ad = \DB::table('ad')->get();
@@ -66,7 +66,10 @@ class DetailController extends Controller
         $avType = $request->av;
         $meeting = $request->meet;
 
-        // dd($meeting);
+        $meetid = $request->ruid;
+        $meetguid = $request->guid;
+        $meetauid = $request->auid;
+        // dd($meetid);
 
         if($meeting)
         {
@@ -79,15 +82,26 @@ class DetailController extends Controller
        
             if($restType == "1")
             {
-                $res = \DB::table('rest')->where('restType', $restType)->first();
+
+                $meet = \DB::table('meeting')->where('id',$meetid)->first();
+
+                $meet = $meet->uid;
+
+                $res = \DB::table('rest')->where('uid', $meet)->first();
 
                 $price = $res->restPrice;
+
+                // dd($price);
                 echo json_encode($price);
 
             }
             else if($restType == "2")
             {
-                $qwe = \DB::table('rest')->where('restType', $restType)->first();
+                $meet = \DB::table('meeting')->where('id',$meetids)->first();
+
+                $meet = $meet->uid;
+
+                $qwe = \DB::table('rest')->where('uid', $meet)->first();
 
                 $price = $qwe->restPrice;
                 echo json_encode($price);
@@ -98,49 +112,78 @@ class DetailController extends Controller
          
          if($guestType == "1")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+            $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
          }
          else if($guestType == "2")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+
+            $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
          }
          else if($guestType == "3")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+              $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
          }
          else if($guestType == "4")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+              $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
          }
          else if($guestType == "5")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+              $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
          }
          else if($guestType == "6")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+              $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
          }
          else if($guestType == "7")
          {
-            $res = \DB::table('guest')->where('guestType', $guestType)->first();
+              $meetgu = \DB::table('meeting')->where('id',$meetguid)->first();
+
+            $meetgu = $meetgu->uid;
+
+            $res = \DB::table('guest')->where('uid', $meetgu)->first();
 
             $price = $res->guestPrice;
             echo json_encode($price);
@@ -151,21 +194,33 @@ class DetailController extends Controller
          // ================更改设备类型时=====================
          if($avType == "1")
          {
-            $res = \DB::table('av')->where('avType', $avType)->first();
+            $meetau = \DB::table('meeting')->where('id',$meetauid)->first();
+
+            $meetau = $meetau->uid;
+
+            $res = \DB::table('av')->where('uid', $meetau)->first();
 
             $price = $res->avPrice;
             echo json_encode($price);
          }
          else if($avType == "2")
          {
-            $res = \DB::table('av')->where('avType', $avType)->first();
+            $meetau = \DB::table('meeting')->where('id',$meetauid)->first();
+
+            $meetau = $meetau->uid;
+
+            $res = \DB::table('av')->where('uid', $meetau)->first();
 
             $price = $res->avPrice;
             echo json_encode($price);
          }
          else if($avType == "3")
          {
-            $res = \DB::table('av')->where('avType', $avType)->first();
+            $meetau = \DB::table('meeting')->where('id',$meetauid)->first();
+
+            $meetau = $meetau->uid;
+
+            $res = \DB::table('av')->where('uid', $meetau)->first();
 
             $price = $res->avPrice;
             echo json_encode($price);

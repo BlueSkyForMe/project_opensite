@@ -23,7 +23,7 @@
 					<img src="{{ asset('/images/1.jpg') }}" class="left_img" alt="">
 					<div class="left_name">{{ $users->userName }}</div>
 					<div class="left_kong"></div>
-					<a href="#" class="left_xinxi">完善信息</a>
+					<a href="{{ asset('/home/personal/updata') }}" class="left_xinxi">完善信息</a>
 				</div>
 			@endif
 				<div class="ge_left_b">

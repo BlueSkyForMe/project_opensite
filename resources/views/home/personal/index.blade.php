@@ -64,9 +64,9 @@
 							@if(@users)
 							{{ $users->email }}
 							@endif">
-							@if(@users)
-							{{ $users->email }}
-							@endif
+							
+							
+							
 							</span>
 						</li>
 						<li class="il">

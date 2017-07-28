@@ -12,19 +12,9 @@ class PinglController extends Controller
     public function index(Request $request)
     {
 
+        $mid = $request->id;
 
-       // var_dump($_GET);
-        //var_dump($request);
-      $mid = $request->id;
-
-$qqqq = encrypt(123123);
-
-        dd($qqqq); 
-
-        $data = session('huser');
-
-
-        
+        $data = session('huser'); 
 
         $id = $request->id;
         // dd($id);

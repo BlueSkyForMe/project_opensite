@@ -29,7 +29,7 @@
 						@foreach($hot as $ke => $va)
 							<div class="right_con">
 								<div class="right_left">
-									<img width="84" height="60" src="{{ $va->re_image }}" class="right_img" />
+									<img width="84" height="60" src="{{ asset('/uploads/photo') }}/{{ $va->re_image }}" class="right_img" />
 								</div>
 								<div class="right_rig">
 									<span class="right_span_a">{{ $va->re_name }}</span><br>
@@ -57,7 +57,7 @@
 						@if($ad)
 							@foreach($ad as $k => $v)
 								<li>
-									<img width="242" height="229" src="{{ $v->ad_image }}">
+									<img width="242" height="229" src="{{ asset('/uploads/photo') }}/{{ $v->ad_image }}">
 									<div class="explain">
 										<div><p class="ex_name">{{ $v->ad_name }}</p></div>
 										<div><span>所在地：{{ $v->ad_area }}</span></div>

@@ -56,7 +56,7 @@
 						<div>
 							<a href="#"><span class="first_span">我的开场</span></a>
 							<ul>
-								<li><a href="#">我的订单</a></li>
+								<li><a href="{{ url('/home/order/myOrder') }}">我的订单</a></li>
 								<li><a href="#">我的足迹</a></li>
 							</ul>
 						</div>

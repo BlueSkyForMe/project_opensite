@@ -54,7 +54,7 @@
 						@if($users->phone)
 						<li class="il">
 							<span>电子邮箱：</span>
-							<input type="email" name="postcode" placeholder="请输入">
+							<input type="email" name="email" placeholder="请输入">
 						</li>
 						@else
 						<li class="il">

@@ -123,7 +123,7 @@
 							<input type="hidden" class="id" name="id" value="{{ $res->id }}">
 							<div class="details_content">
 								<div class="de_con-img">
-									<img src="{{ asset('/images/xqztu.png') }}">
+									<img width="193px" height="152px" src="{{ asset('/uploads/meetimg') }}/{{ $val->meetImg }}">
 								</div>
 								<div class="de_con-char">
 								
@@ -155,7 +155,7 @@
 							<div class="details_options" style="height:auto">
 
 								<div class="options_box">
-										@if($rest)
+										@if(!$rest->isEmpty())
 										<div class="box_one">
 
 											<div>会议茶歇: </div>
@@ -164,8 +164,15 @@
 											<div>
 												<select name="restTypes" id="rest">
 													<option>类型</option>
-													<option value="1">中式</option>
-													<option value="2">西式</option>
+													@foreach($rest as $restkey => $restval)
+													<option value="{{ $restval->restType }}">
+													@if($restval->restType == 1)
+														中式
+													@else
+														西式
+													@endif
+													</option>
+													@endforeach
 												</select>
 											</div>
 										
@@ -182,20 +189,33 @@
 										@endif
 
 										
-										@if($guest)
+										@if(!$guest->isEmpty())
 										<div class="box_two">
 											<div>会务客房:</div>
 
 											<div>
 												<select name="guestType" id="guest">
 													<option>类型</option>
-													<option value="1">单人间</option>
-													<option value="2">标准间(双床)</option>
-													<option value="3">双人间</option>
-													<option value="4">套间客房</option>
-													<option value="5">公寓式客房</option>
-													<option value="6">总统套房</option>
-													<option value="7">特色客房</option>
+													@foreach($guest as $guestkey => $guestval)
+													<option value="{{ $guestval->guestType }}">
+													@if($guestval->guestType == 1)
+														单人间
+													@elseif($guestval->guestType == 2)
+														标准间(双床)
+													@elseif($guestval->guestType == 3)
+														双人间
+													@elseif($guestval->guestType == 4)
+														套间客房
+													@elseif($guestval->guestType == 5)
+														公寓式客房
+													@elseif($guestval->guestType == 6)
+														总统套房
+													@else
+														特色客房
+													@endif
+													</option>
+													@endforeach
+													
 												</select>
 											</div>
 
@@ -221,16 +241,26 @@
 										@endif
 
 										
-										@if($av)
+										@if(!$av->isEmpty())
 										<div class="box_three">
 											
 											<div>AV设备:</div>
 											<div>
 												<select name="" id="av">
 													<option>类型</option>
-													<option value="1">音响设备</option>
-													<option value="2">麦克风</option>
-													<option value="3">投影仪</option>
+													@foreach($av as $avtkey => $avtval)
+													<option value="{{ $avtval->avType }}">
+													@if($avtval->avType == 1)
+														音响设备
+													@elseif($avtval->avType == 2)
+														麦克风
+													@else
+														投影仪
+													@endif
+													</option>
+
+													@endforeach
+													
 												</select>
 											</div>
 
@@ -308,7 +338,7 @@
 						@if($ad)
 							@foreach($ad as $k => $v)
 								<li>
-									<img width="242" height="229" src="{{ $v->ad_image }}">
+									<img width="242" height="229" src="{{ asset('/uploads/photo') }}/{{ $v->ad_image }}">
 									<div class="explain">
 										<div><p class="ex_name">{{ $v->ad_name }}</p></div>
 										<div><span>所在地：{{ $v->ad_area }}</span></div>
@@ -465,10 +495,10 @@
 				alert('你还未登录,请登录后再来');location.href='/home/index';
 			}else if(data == 1)
 			{
-				alert('恭喜你添加购物车成功,');location.href='/home/order/myOrder';
+				alert('恭喜你添加购物车成功,');location.href='/home/shop';
 			}else if(data == 2)
 			{
-				alert('你还没选择会议日期,请选择后在提交');location.href='/home/index';
+				alert('你还没选择会议日期,请选择后在提交');
 			}
 
 		}, 'json');
@@ -505,8 +535,9 @@
 
 			// alert('ok');
 			var value = $(this).val();
+			var ruid = $(".id").val();
 			// alert(value);
-			$.get('/home/details/ajax', {"value": value}, function(data){
+			$.get('/home/details/ajax', {"value": value, "ruid":ruid}, function(data){
 
 				// alert(data);
 				$('#restPrice').find('option').remove();
@@ -521,8 +552,9 @@
 	$('#guest').on('change',function(){
 
 		var value = $(this).val();
+		var guid = $(".id").val();
 		// alert(value);
-		$.get('/home/details/ajax',{"guest": value},function(data){
+		$.get('/home/details/ajax',{"guest": value,"guid":guid},function(data){
 
 			$('#guestPrice').find('option').remove();
 			$('#guestPrice').append("<option>"+ data +"</option>");
@@ -537,8 +569,9 @@
 	$('#av').on('change', function(){
 
 		var value = $(this).val();
+		var auid = $(".id").val();
 
-		$.get('/home/details/ajax', {"av": value}, function(data){
+		$.get('/home/details/ajax', {"av": value,"auid":auid}, function(data){
 
 			$('#avPrice').find('option').remove();
 			$('#avPrice').append("<option>"+ data +"</option>");

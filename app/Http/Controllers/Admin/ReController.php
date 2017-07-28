@@ -30,8 +30,8 @@ class ReController extends Controller
         // 验证表单
         $this->validate($request,
             [
-                're_name' => 'required|unique:re|max:10',
-                're_site' => 'required|unique:re',
+                're_name' => 'required|unique:hot|max:10',
+                're_site' => 'required|unique:hot',
                 're_type' => 'required',
                 're_url' => 'required',
             ],
@@ -94,15 +94,15 @@ class ReController extends Controller
     {
 
         $data = $request->all();
-
+        // dd($data);
         // 清除token
         $data = $request->except('_token');
     
         // 验证表单
         $this->validate($request,
              [
-                're_name' => 'required|unique:re|max:10',
-                're_site' => 'required|unique:re',
+                're_name' => 'required|max:10',
+                're_site' => 'required',
                 're_type' => 'required',
                 're_url' => 'required',
             ],

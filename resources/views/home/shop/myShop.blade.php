@@ -7,7 +7,7 @@
 
 			<div class="wrap_column">
 				<div class="column">
-					<span>首页 > 确认订单信息</span>
+					<span>首页 > 购物车</span>
 				</div>
 			</div>
 
@@ -20,7 +20,7 @@
 				<div class="order">
 				
 					
-					<div class="order_info"><span>订单信息</span></div>
+					<div class="order_info"><span>购物车信息</span></div>
 
 			
 						<div class="order_title">

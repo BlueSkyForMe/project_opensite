@@ -115,8 +115,8 @@ class AdController extends Controller
     	// 验证表单
     	$this->validate($request,
     		[
-			    'ad_name' => 'required|unique:ad|max:10',
-			    'ad_site' => 'required|unique:ad',
+			    'ad_name' => 'required|max:10',
+			    'ad_site' => 'required',
 			    'ad_count' => 'required',
 			    'ad_area' => 'required',
 			    'ad_rencount' => 'required',
