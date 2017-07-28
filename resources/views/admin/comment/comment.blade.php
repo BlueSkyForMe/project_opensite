@@ -67,8 +67,7 @@
                 <thead>
                 <tr>
                   <th>评论ID</th>
-                  <th>用户名</th>
-                  <th>酒店名</th>                  
+                  <th>用户名</th>                  
                   <th>会场名</th>
                   <th>会议人数</th>
                   <th>会议类型</th>
@@ -81,17 +80,16 @@
                 <tr>
                   <td>{{ $val->id }}</td>
                   <td>{{ $val->userName }}</td>
-                  <td>{{ $val->merchantName }}</td>
-                  <td>{{ $val->meetName }}</td>
+                  <td>{{ $val->pl_site }}</td>
                   <td>
-                      @if($val->time_quantum)
-                          {{ $val->time_quantum }}
+                      @if($val->pl_rencount)
+                          {{ $val->pl_rencount }}
                       @else
                           无
                       @endif
 
                   </td>
-                  <td>{{ $val->money }}</td>
+                  <td>{{ $val->pl_type }}</td>
                
                 </tr>
               @endforeach  

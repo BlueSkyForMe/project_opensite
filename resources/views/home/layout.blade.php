@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/registe.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/order.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('/css/result.css') }}">
+<!-- <<<<<<< HEAD -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/bodyer.css') }}">
+<!-- ======= -->
     <link rel="stylesheet" type="text/css" href="{{ asset ('/css/search.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/city.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/result.css') }}">
@@ -17,6 +21,7 @@
 
 
 
+<!-- >>>>>>> df05bbd636c481321a992bcf5a3d5755d06b47fa -->
     <script type="text/javascript" src="{{ asset ('/js/jquery-3.2.1.min.js') }}"></script>
 </head>
 <body>
@@ -51,12 +56,12 @@
 						<div>
 							<a href="#"><span class="first_span">我的开场</span></a>
 							<ul>
-								<li><a href="{{ asset('/home/order/myOrder') }}">我的订单</a></li>
+								<li><a href="#">我的订单</a></li>
 								<li><a href="#">我的足迹</a></li>
 							</ul>
 						</div>
 
-						<div><a href="#"><span>购物车</span></a></div>
+						<div><a href="{{ asset('/home/order/myOrder') }}"><span>购物车</span></a></div>
 
 
 						<div><a href="#"><span>收藏夹</span></a>
@@ -447,6 +452,7 @@
 	<script type="text/javascript" src="{{ asset('/js/cityTemplate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/citySelect.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/nav.js') }}"></script>
+	
 
 	<script type="text/javascript" src="{{ asset('/js/laydate.dev.js') }}"></script>
     <script type="text/javascript">
@@ -454,6 +460,18 @@
         laydate({
 
             elem: '#J-xl'
+
+        });
+
+        laydate({
+
+            elem: '#J-xy'
+
+        });
+
+        laydate({
+
+            elem: '#J-xa'
 
         });
 

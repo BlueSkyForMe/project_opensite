@@ -266,6 +266,7 @@ class SearchController extends Controller
                                 ->where('class', '=', $type)
                                 ->get();
 
+                    
                     //查询数据表 ad, 找到友情链接
                     $ad = \DB::table('ad')->get();
 

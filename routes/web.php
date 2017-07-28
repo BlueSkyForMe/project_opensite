@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -132,8 +133,26 @@ Route::group(['middleware' => 'merchantlogin'], function()
 
 //前台添加我的订单
 Route::get('/home/order/myOrder', 'Home\OrderController@index');
+Route::post('/home/order/add', 'Home\OrderController@add');
+
+// 购物车
+Route::get('/home/shop', 'Home\ShopController@index');
+Route::get('/home/shop/ajax', 'Home\ShopController@ajax');
+
+// Route::get('/home/shop', 'Home\ShopController@index');
 
 
+// 前台我的开场
+Route::get('home/personal/index', 'Home\PersonalController@index');
+Route::post('home/personal/insert', 'Home\PersonalController@insert');
+Route::get('home/personal/collect', 'Home\PersonalController@collect');
+Route::get('home/personal/merchant', 'Home\PersonalController@merchant');
+Route::get('home/personal/updata', 'Home\PersonalController@updata');
+Route::get('home/personal/amend', 'Home\PersonalController@amend');
+Route::post('/home/personal/add', 'Home\PersonalController@add');
+
+// 前台修改密码ajax
+// Route::get('home/personal/ajax', 'Home\PersonalController@ajax');
 
 //前台搜索
 Route::get('/home/search/general', 'Home\SearchController@search');
@@ -143,9 +162,15 @@ Route::get('/home/search/dq', 'Home\SearchController@dq');
 
 //前台详情
 Route::get('/home/detail/{id}', 'Home\DetailController@index');
+Route::get('/home/details/ajax', 'Home\DetailController@ajax');
+Route::get('/home/details/insert', 'Home\DetailController@insert');
 
 //前台收藏 与 取消收藏
 Route::post('/home/collect', 'Home\SearchController@collect');
+
+// 前台评论页
+Route::get('/home/pingl/index/{id}', 'Home\PinglController@index');
+Route::post('/home/pingl/insert', 'Home\PinglController@insert');
 
 //
 Route::get('/home/login/ajax', 'Home\LoginController@ajax');
@@ -212,3 +237,4 @@ Route::group(['middleware' => 'tenantlogin'], function()
 		Route::get('/tenant/trade/order', 'Tenant\TradeController@order');
 	});	
 // =======================================================================================================
+

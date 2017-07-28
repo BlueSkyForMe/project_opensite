@@ -7,19 +7,29 @@
 			<!--================== 选项栏 ==================-->
 			<div class="min_header">
 				<div class="header_op">
-					<span class="op_char">首页>场地搜索>北京四川五粮液龙爪树宾馆</span>
+				@if($user)
+					<span class="op_char">首页>场地搜索>{{ $user->userName }}</span>
+				@endif
 				</div>
 			</div>
 			<!--================== 显示搜索结果头信息 ==================-->
 			<div class="result_header">
 				<div class="hotel">
-					<span class="hotel_name">北京四川五粮液龙爪树宾馆</span>
-					<span class="hotel_site">北京市朝阳区小红门路龙爪树北里312号</span>
-					<span class="hotel_phone">场地类型 : 酒店会场&nbsp;&nbsp;&nbsp;&nbsp;联系电话 : 010-80567743</span>
+				@if($user)
+				
+					<span class="hotel_name">{{ $user->userName }}</span>
+				@endif
+				@if($mer)
+					<span class="hotel_site">{{ $mer->address }}</span><br>
+				
+				
+					<span class="hotel_phone">场地类型 : {{ $mer->class }}&nbsp;&nbsp;&nbsp;&nbsp;联系电话 : {{ $mer->phone }}</span>
+				
+				@endif
 				</div>
 				<div class="handle">
 					<div class="collect">
-						<img id="collect" src="{{ asset('/images/collect.png') }}">
+						<img class="mid" src="{{ asset('/images/collect.png') }}">
 					</div>
 					<div class="share">
 						<img id="share" src="{{ asset('/images/share.png') }}">
@@ -35,52 +45,70 @@
 					<span class="res_op_char">介绍</span>
 				</div>
 				<div class="res_op">
-					<span class="res_op_char">评价</span>
+				@if($mer)
+					<a href="{{ url('/home/pingl/index') }}/{{ $mer->uid }}"><span class="res_op_char">评价</span></a>
+				@endif
 				</div>
 			</div>
 			<!--================== 显示搜索结果简介 ==================-->
 			<div class="intro">
 				<div class="intro_left">
+				@if($res)
 					<div class="intro_detail">
-						<p class="detail_num"><span class="det_number">5</span></p>
+					
+
+						<p class="detail_num"><span class="det_number">{{ $res->siteNumber }}</span></p>
 						<p class="detail_char"><span>会场数量</span></p>
 					</div>
 					<div class="intro_detail">
-						<p class="detail_num"><span class="det_number">2000</span></p>
+						<p class="detail_num"><span class="det_number">{{ $res->maxArea }}</span></p>
 						<p class="detail_char2"><span>会场最大面积</span></p>
 					</div>
 					<div class="intro_detail">
-						<p class="detail_num"><span class="det_number">1998</span></p>
+						<p class="detail_num"><span class="det_number">{{ $res->openTime }}</span></p>
 						<p class="detail_char3"><span>开业时间</span></p>
 					</div>
 					<div class="intro_detail">
-						<p class="detail_num4"><span class="det_number">200</span></p>
+						<p class="detail_num4"><span class="det_number">{{ $res->guestRoom }}</span></p>
 						<p class="detail_char"><span>客房数量</span></p>
 					</div>
 					<div class="intro_detail">
-						<p class="detail_num5"><span class="det_number">20000</span></p>
+						<p class="detail_num5"><span class="det_number">{{ $res->maxPerson }}</span></p>
 						<p class="detail_char5"><span>容纳人数</span></p>
 					</div>
 					<div class="intro_detail">
-						<p class="detail_num"><span class="det_number">2016</span></p>
+						<p class="detail_num"><span class="det_number">{{ $res->fitmentTime }}</span></p>
 						<p class="detail_char6"><span>最近装修</span></p>
 					</div>
+				
 				</div>
-				<div class="intro_right">
-					<img src="{{ asset('/images/replace_img.gif') }}">
+				
+				<div class="intro_right" style="overflow: hidden;position: relative;width:624px;">
+					<ul class="lunbotu" style="width:2496px;position: absolute;">
+						@if($merimg)
+						@foreach($merimg as $key => $val)
+						<li style="float: left;"><img width="624px" height="242px" src="{{ asset('/uploads/merimg') }}/{{ $val->img }}"></li>
+						@endforeach
+						@endif
+					</ul>
+					
 				</div>
 			</div>
 
 
-			<!--================== 显示搜索结果详情(一) ==================-->
+
+			<!--================== 显示搜索结果详情(三) ==================-->
 			<div class="details">
+			@if($mee)
+				@foreach($mee as $key => $val)
+				<div class="merid" style="display: none;">{{ $val->id }}</div>
 				<div class="details_header">
 					<div class="details_header_img">
-						<img src="{{ asset('/images/sanjiao.png') }}">
+						<img class="xin_b" src="{{ asset('/images/sanjiao.png') }}">
 					</div>
-
+					
 					<div class="details_header_char" style="cursor: pointer;">
-						<span>大宴会厅</span>
+						<span>{{ $val->meetName }}</span>
 					</div>
 
 					<div class="details_header_grade">
@@ -92,16 +120,30 @@
 
 					<!-- 用户选择, 加入购物车 -->
 						<form action="" method="">
+							<input type="hidden" class="id" name="id" value="{{ $res->id }}">
 							<div class="details_content">
 								<div class="de_con-img">
 									<img src="{{ asset('/images/xqztu.png') }}">
 								</div>
 								<div class="de_con-char">
-									<p>会场面积: 1350平方米(40*30*9M)/无立柱&nbsp;&nbsp;&nbsp;&nbsp;最多容纳人数1400（<a href="#">课桌式</a>）/ 1000（<a href="#">宴会式</a>）</p>
-									<p>曾举办活动 : <a href="#">互联网大会</a>、<a href="#">创业者大会</a>&nbsp;&nbsp;&nbsp;&nbsp;会场配置 : 会议纸笔、免费茶水、免费wifi</p>
-									<p>价格 : <sup style="color:red;">￥</sup><span class="de_con-char_price">30万</span><sub style="color:red;">/天</sub></p>				
-									<p>会议时长 : <select name=""><option>请选择</option></select> , 共____天</p>
-									<p>会议日期 : <select name=""><option>请选择</option></select></p>
+								
+									<p>会场面积: {{ $val->meetArea }}&nbsp;&nbsp;&nbsp;&nbsp;最多容纳人数{{ $val->meetPerson }}</p>
+									<p>曾举办活动 : <a href="#">{{ $val->activity }}</a>&nbsp;&nbsp;&nbsp;&nbsp;会场配置 : 会议纸笔、免费茶水、免费wifi</p>
+									<p>价格 : <sup style="color:red;">￥</sup><span class="de_con-char_price">{{ $val->meetPrice }}</span><sub style="color:red;">/天</sub></p>				
+									<p>会议时长 : <select name="" id="meet">
+									<option value="0">请选择</option>
+									<option value="1">1天</option>
+									<option value="2">2天</option>
+									<option value="3">3天</option>
+									<option value="4">4天</option>
+									<option value="5">5天</option>
+									<option value="6">6天</option>
+									<option value="7">7天</option>
+									</select>
+
+									<p>会议日期 :&nbsp;<input type="text" id="J-xl" placeholder="开始时间" name="startTime" value="" style="width: 80px; height: 25px; margin-right: 14px;"></p>
+									<!-- <p>会议日期 : <select name=""><option>请选择</option></select></p> -->
+								 
 								</div>
 								<div class="de_con-tag">
 									<p class="de_con_tag_char">场地方正</p>
@@ -110,423 +152,153 @@
 								</div>
 							</div>
 
-							<div class="details_options">
+							<div class="details_options" style="height:auto">
 
 								<div class="options_box">
-
+										@if($rest)
 										<div class="box_one">
 
 											<div>会议茶歇: </div>
 
+
 											<div>
-												<select name="rest" id="rest">
-													<option value="0">类型</option>
+												<select name="restTypes" id="rest">
+													<option>类型</option>
 													<option value="1">中式</option>
 													<option value="2">西式</option>
 												</select>
 											</div>
-
+										
 											<div>
-												<select name="" id="">
-													<option>100元</option>
+												<select name="" id="restPrice">
 													<option>价格</option>
-													<option>西式</option>
 												</select>
 											</div>
 
 											<div id="amount0">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
 										</div>
+										@else
 
+										@endif
 
+										
+										@if($guest)
 										<div class="box_two">
 											<div>会务客房:</div>
 
 											<div>
-												<select name="" id="">
+												<select name="guestType" id="guest">
 													<option>类型</option>
-													<option>单人间</option>
-													<option>标准间(双床)</option>
-													<option>双人间</option>
-													<option>套间客房</option>
-													<option>公寓式客房</option>
-													<option>总统套房</option>
-													<option>特色客房</option>
+													<option value="1">单人间</option>
+													<option value="2">标准间(双床)</option>
+													<option value="3">双人间</option>
+													<option value="4">套间客房</option>
+													<option value="5">公寓式客房</option>
+													<option value="6">总统套房</option>
+													<option value="7">特色客房</option>
 												</select>
 											</div>
 
 											<div>
-												<select name="" id="">
+												<select name="" id="guestPrice">
 													<option>价格</option>
-													<option>商家自定</option>
 												</select>
 											</div>
 
 											<div id="amount1">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
 
-											<div>入/离时间
-												<select name="" id="">
+											<div>
+
+											<!-- <input type="text" id="J-xy" placeholder="开始时间" name="startTime" value="" style="width: 80px; height: 25px; margin-right: 14px;"> -->
+												<!-- <select name="" id="">
 													<option>请选择</option>
 													<option>商家自定</option>
-												</select>
-											</div>
+												</select>-->
+											</div> 
 										</div>
+										@else
 
+										@endif
 
+										
+										@if($av)
 										<div class="box_three">
 											
 											<div>AV设备:</div>
 											<div>
-												<select name="" id="">
+												<select name="" id="av">
 													<option>类型</option>
-													<option>音响设备</option>
-													<option>麦克风</option>
-													<option>投影仪</option>
+													<option value="1">音响设备</option>
+													<option value="2">麦克风</option>
+													<option value="3">投影仪</option>
 												</select>
 											</div>
 
 											<div>
-												<select name="" id="">
+												<select name="" id="avPrice">
 													<option>价格</option>
-													<option>商家自定</option>
 												</select>
 											</div>
 
 											<div id="amount2">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
 
-											<div>使用时长&nbsp;
+											<div>
+											<!-- 使用时长&nbsp; -->
+												<!-- <input type="text" id="J-xa" placeholder="开始时间" name="startTime" value="" style="width: 80px; height: 25px; margin-right: 14px;"> -->
+											<!-- 
 												<select name="" id="">
 													<option>请选择</option>
 													<option>商家自定</option>
-												</select>
+												</select>-->
 											</div>
 
 										</div>
-										
-								</div>	
+										@else
 
-								<div class="go"><a href="#"><img src="{{ asset('/images/add.png') }}" ></a></div>
+										@endif
+										
+							</div>
+
+								
+								<div class="go"><img class="goshop" src="{{ asset('/images/add.png') }}" ></div>
 							</div>
 						</form>
+				
 					<!-- /用户选择, 加入购物车结束  -->
 				</div>
-			</div>
-			
-			
-			<!--================== 显示搜索结果详情(二) ==================-->
-			<div class="details">
-				<div class="details_header">
-					<div class="details_header_img">
-						<img src="{{ asset('/images/sanjiao.png') }}">
-					</div>
-
-					<div class="details_header_char" style="cursor: pointer;">
-						<span>大宴会厅</span>
-					</div>
-
-					<div class="details_header_grade">
-						<span>4.8分</span><sub>/5分</sub>
-					</div>
-				</div>
-
-				<div class="detail_wrap" style="display: block;">
-
-					<!-- 用户选择, 加入购物车 -->
-						<form action="" method="">
-							<div class="details_content">
-								<div class="de_con-img">
-									<img src="{{ asset('/images/xqztu.png') }}">
-								</div>
-								<div class="de_con-char">
-									<p>会场面积: 1350平方米(40*30*9M)/无立柱&nbsp;&nbsp;&nbsp;&nbsp;最多容纳人数1400（<a href="#">课桌式</a>）/ 1000（<a href="#">宴会式</a>）</p>
-									<p>曾举办活动 : <a href="#">互联网大会</a>、<a href="#">创业者大会</a>&nbsp;&nbsp;&nbsp;&nbsp;会场配置 : 会议纸笔、免费茶水、免费wifi</p>
-									<p>价格 : <sup style="color:red;">￥</sup><span class="de_con-char_price">30万</span><sub style="color:red;">/天</sub></p>				
-									<p>会议时长 : <select name=""><option>请选择</option></select> , 共____天</p>
-									<p>会议日期 : <select name=""><option>请选择</option></select></p>
-								</div>
-								<div class="de_con-tag">
-									<p class="de_con_tag_char">场地方正</p>
-									<p class="de_con_tag_char">装修精美</p>
-									<p style="clear:both;" class="de_con_tag_review">总成交量 : 58622单 | 评论 : 35252</p>
-								</div>
-							</div>
-
-							<div class="details_options">
-
-								<div class="options_box">
-
-										<div class="box_one">
-
-											<div>会议茶歇: </div>
-
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>中式</option>
-													<option>西式</option>
-												</select>
-											</div>
-
-											<div>
-												<select name="" id="">
-													<option>价格</option>
-													<option>中式</option>
-													<option>西式</option>
-												</select>
-											</div>
-
-											<div id="amount0">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
-										</div>
-
-
-										<div class="box_two">
-											<div>会务客房:</div>
-
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>单人间</option>
-													<option>标准间(双床)</option>
-													<option>双人间</option>
-													<option>套间客房</option>
-													<option>公寓式客房</option>
-													<option>总统套房</option>
-													<option>特色客房</option>
-												</select>
-											</div>
-
-											<div>
-												<select name="" id="">
-													<option>价格</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-
-											<div id="amount1">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
-
-											<div>入/离时间
-												<select name="" id="">
-													<option>请选择</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-										</div>
-
-
-										<div class="box_three">
-											
-											<div>AV设备:</div>
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>音响设备</option>
-													<option>麦克风</option>
-													<option>投影仪</option>
-												</select>
-											</div>
-
-											<div>
-												<select name="" id="">
-													<option>价格</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-
-											<div id="amount2">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
-
-											<div>使用时长&nbsp;
-												<select name="" id="">
-													<option>请选择</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-
-										</div>
-										
-								</div>	
-
-								<div class="go"><a href="#"><img src="{{ asset('/images/add.png') }}" ></a></div>
-							</div>
-						</form>
-					<!-- /用户选择, 加入购物车结束  -->
-				</div>
-			</div>
-
-			<!--================== 显示搜索结果详情(三) ==================-->
-			<div class="details">
-				<div class="details_header">
-					<div class="details_header_img">
-						<img src="{{ asset('/images/sanjiao.png') }}">
-					</div>
-
-					<div class="details_header_char" style="cursor: pointer;">
-						<span>大宴会厅</span>
-					</div>
-
-					<div class="details_header_grade">
-						<span>4.8分</span><sub>/5分</sub>
-					</div>
-				</div>
-
-				<div class="detail_wrap" style="display: block;">
-
-					<!-- 用户选择, 加入购物车 -->
-						<form action="" method="">
-							<div class="details_content">
-								<div class="de_con-img">
-									<img src="{{ asset('/images/xqztu.png') }}">
-								</div>
-								<div class="de_con-char">
-									<p>会场面积: 1350平方米(40*30*9M)/无立柱&nbsp;&nbsp;&nbsp;&nbsp;最多容纳人数1400（<a href="#">课桌式</a>）/ 1000（<a href="#">宴会式</a>）</p>
-									<p>曾举办活动 : <a href="#">互联网大会</a>、<a href="#">创业者大会</a>&nbsp;&nbsp;&nbsp;&nbsp;会场配置 : 会议纸笔、免费茶水、免费wifi</p>
-									<p>价格 : <sup style="color:red;">￥</sup><span class="de_con-char_price">30万</span><sub style="color:red;">/天</sub></p>				
-									<p>会议时长 : <select name=""><option>请选择</option></select> , 共____天</p>
-									<p>会议日期 : <select name=""><option>请选择</option></select></p>
-								</div>
-								<div class="de_con-tag">
-									<p class="de_con_tag_char">场地方正</p>
-									<p class="de_con_tag_char">装修精美</p>
-									<p style="clear:both;" class="de_con_tag_review">总成交量 : 58622单 | 评论 : 35252</p>
-								</div>
-							</div>
-
-							<div class="details_options">
-
-								<div class="options_box">
-
-										<div class="box_one">
-
-											<div>会议茶歇: </div>
-
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>中式</option>
-													<option>西式</option>
-												</select>
-											</div>
-
-											<div>
-												<select name="" id="">
-													<option>价格</option>
-													<option>中式</option>
-													<option>西式</option>
-												</select>
-											</div>
-
-											<div id="amount0">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
-										</div>
-
-
-										<div class="box_two">
-											<div>会务客房:</div>
-
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>单人间</option>
-													<option>标准间(双床)</option>
-													<option>双人间</option>
-													<option>套间客房</option>
-													<option>公寓式客房</option>
-													<option>总统套房</option>
-													<option>特色客房</option>
-												</select>
-											</div>
-
-											<div>
-												<select name="" id="">
-													<option>价格</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-
-											<div id="amount1">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
-
-											<div>入/离时间
-												<select name="" id="">
-													<option>请选择</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-										</div>
-
-
-										<div class="box_three">
-											
-											<div>AV设备:</div>
-											<div>
-												<select name="" id="">
-													<option>类型</option>
-													<option>音响设备</option>
-													<option>麦克风</option>
-													<option>投影仪</option>
-												</select>
-											</div>
-
-											<div>
-												<select name="" id="">
-													<option>价格</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-
-											<div id="amount2">数量 <div class="add">+</div><div class="num">1</div><div class="reduce">-</div></div>
-
-											<div>使用时长&nbsp;
-												<select name="" id="">
-													<option>请选择</option>
-													<option>商家自定</option>
-												</select>
-											</div>
-
-										</div>
-										
-								</div>	
-
-								<div class="go"><a href="#"><img src="{{ asset('/images/add.png') }}" ></a></div>
-							</div>
-						</form>
-					<!-- /用户选择, 加入购物车结束  -->
-				</div>
+				@endforeach
+				@endif
+				@endif
 			</div>
 
 
 			<!--================== 用户评论 ==================-->
 			<div id="review">
+			@if($comment)
+				@foreach($comment as $key => $val)
 				<div class="review_header">
 					<p><span class="re_de">评论详情(325321)</span> &nbsp;场地总评分<span style="color: red;">4.7</span>分, 共23586次打分</p>
 				</div>
 				<!-- 评论内容 (遍历数据库)-->
-				<div class="review_contents">
-					<div class="photo"><img src="{{ asset('/images/photo.png') }}"><p>BUEOIKFKJ</p></div>
-					<div class="con">
-						<div><p>房子很好,场地布置也非常完美,整体感觉不错,费用还有优惠,感觉很合适,房子很好,场地布置也非常完美,整体感觉不错,费用还有优惠,感觉很合适</p></div>
-						<div><img src="{{ asset('/images/re.png') }}"></div>
-						<div class="con_type"><span>所用场地：第一会议室 会议人数：200 会议类型：新闻发布会</span></div>
-					</div>
-				</div>
+				
 				<!--此处不该有，为展示页面添加，后期遍历数据库时，删除此段-->
 				<!-- 评论内容 (遍历数据库)-->
+				
+				 <!-- 评论内容 (遍历数据库) -->
 				<div class="review_contents">
 					<div class="photo"><img src="{{ asset('/images/photo.png') }}"><p>BUEOIKFKJ</p></div>
 					<div class="con">
-						<div><p>房子很好,场地布置也非常完美,整体感觉不错,费用还有优惠,感觉很合适,房子很好,场地布置也非常完美,整体感觉不错,费用还有优惠,感觉很合适</p></div>
+						<div><p>{{ $val->pl_content }}</p></div>
 						<div><img src="{{ asset('/images/re.png') }}"></div>
-						<div class="con_type"><span>所用场地：第一会议室 会议人数：200 会议类型：新闻发布会</span></div>
-					</div>
-				</div>
-				<!-- 评论内容 (遍历数据库)-->
-				<div class="review_contents">
-					<div class="photo"><img src="{{ asset('/images/photo.png') }}"><p>BUEOIKFKJ</p></div>
-					<div class="con">
-						<div><p>房子很好,场地布置也非常完美,整体感觉不错,费用还有优惠,感觉很合适,房子很好,场地布置也非常完美,整体感觉不错,费用还有优惠,感觉很合适</p></div>
-						<div><img src="{{ asset('/images/re.png') }}"></div>
-						<div class="con_type"><span>所用场地：第一会议室 会议人数：200 会议类型：新闻发布会</span></div>
+						<div class="con_type"><span>所用场地：{{ $val->pl_site }} 会议人数：200 会议类型：新闻发布会</span></div>
 					</div>
 				</div>
 				<!--======================================================-->
 				<!-- 更多详情 -->
+				@endforeach
+				@endif
 				<div id="more"><a href="#"><span>更多评论详情</span></a></div>
+				
 			</div>
 			<!-- /评论结束 -->
 
@@ -564,7 +336,147 @@
 
 <script type="text/javascript">
 
-	//=============点击大宴会厅,收起或放下内容=============
+// =============轮播图===============================
+		var os = '-';
+        var inte = null;
+        
+        setInterval(function(){
+                // 获取 left
+                var left = $('.lunbotu').position().left;
+                
+                
+                // 判断
+                if(left <= -1872)
+                {
+                    os = '+';
+                    // console.log('ok');
+                }
+
+                if(left >= 0)
+                {
+                    os = '-';
+                    // console.log(os);
+                }
+
+                $('ul').animate({
+                    'left': os+'=624px'
+                }, 1000);
+
+            }, 3000);
+
+
+// ===============点击收藏和取消收藏======================
+
+	//因为是整段追加,因此绑定事件时需要注意, 寻找第一次加载就存在的类名, 使用on()方式绑定
+	//on()事件新用法: on('事件', '绑定对象', '匿名函数')
+	$('.mid').on('click', function(){
+
+
+		//$(this)指向的是上一个$
+		var t = $(this);
+
+		//获取用户的id 和 企业的 id, 将这些信息存入数据表collect中
+		var userID = $('.wrap_ul').find('#userID').val();
+		var merchantID = $(this).parent().parent().parent().parent().find('.merid').html();
+		// alert(merchantID);
+		//如果用户未登录, 提示登录
+		if(userID == undefined)
+		{
+			alert('如需收藏, 请先登录!');
+			return ;
+		}
+
+		$.ajaxSetup({
+		    headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    }
+		});
+
+		//使用ajax将数据传到后台, 查询数据库,如果存在,删除,返回状态码 0; 如果不存在,添加, 返回状态码 1;
+		$.post('/home/collect', {"userID": userID, "merchantID": merchantID}, function(data){
+
+			if(data == 1)
+			{
+				alert('收藏成功');
+				
+				//收藏, 更换显示样式
+				t.attr('src', "{{ asset('/images/collect_blue.png') }}");
+			}
+			
+			if(data == 0)
+			{
+				alert('取消收藏成功');
+
+				//取消收藏, 更换成普通显示样式
+				t.attr('src', "{{ asset('/images/collect.png') }}");
+			}
+
+			if(data == 2)
+			{
+				alert('系统繁忙, 请稍后重试!');
+			}
+
+
+
+		});
+
+	});
+
+
+// ===============点击会议时长================================
+
+
+	$('#meet').on('change', function(){
+
+		var value = $(this).val();
+
+		// alert(value);
+
+		$.get('/home/details/ajax', {"meet": value}, function(data){
+
+			// alert(data);
+		},'json');
+
+	});
+
+
+// ===============点击会议日期================================
+
+	$('.goshop').on('click', function(){
+
+		// alert('ok');
+		var id = $(".id").val();
+		// alert(id);
+		var restcount = $("#amount0").find(".num").html();
+		var guestcount = $("#amount1").find(".num").html();
+		var avcount = $("#amount2").find(".num").html();
+		var value = $("#J-xl").val();
+		// alert(value);
+		var meet = $("#meet").val();
+		var rest = $("#rest").val();
+		var guest = $("#guest").val();
+		var av = $("#av").val();
+
+		// alert(id);
+		$.get('/home/details/insert', {id:id, meet:meet, meeting:value, rest:rest, guest:guest, av:av, restcount:restcount, guestcount:guestcount, avcount:avcount}, function(data){
+
+			if(data == 0)
+			{
+				alert('你还未登录,请登录后再来');location.href='/home/index';
+			}else if(data == 1)
+			{
+				alert('恭喜你添加购物车成功,');location.href='/home/order/myOrder';
+			}else if(data == 2)
+			{
+				alert('你还没选择会议日期,请选择后在提交');location.href='/home/index';
+			}
+
+		}, 'json');
+
+	});
+
+
+//=============点击大宴会厅,收起或放下内容=============
 	var flag = null;
 
 	$('.details_header_char').on('click', function(){
@@ -583,6 +495,80 @@
 			$(this).parent().next().css('display', 'none');
 			$(this).prev().find('img').attr('src', "{{ asset('/images/jiaobiao.png') }}");
 		}
+
+	});
+
+
+// =======================点击茶歇,============================
+
+		$('#rest').on('change', function(){
+
+			// alert('ok');
+			var value = $(this).val();
+			// alert(value);
+			$.get('/home/details/ajax', {"value": value}, function(data){
+
+				// alert(data);
+				$('#restPrice').find('option').remove();
+				$('#restPrice').append("<option>"+ data +"</option>");
+
+			}, 'json');
+		
+		});
+
+// ===========点击客房=============	
+
+	$('#guest').on('change',function(){
+
+		var value = $(this).val();
+		// alert(value);
+		$.get('/home/details/ajax',{"guest": value},function(data){
+
+			$('#guestPrice').find('option').remove();
+			$('#guestPrice').append("<option>"+ data +"</option>");
+
+		}, 'json');
+
+	});
+
+
+// ==========点击设备时======================
+
+	$('#av').on('change', function(){
+
+		var value = $(this).val();
+
+		$.get('/home/details/ajax', {"av": value}, function(data){
+
+			$('#avPrice').find('option').remove();
+			$('#avPrice').append("<option>"+ data +"</option>");
+
+		}, 'json');
+
+	});
+
+
+
+// ===============数量点击事件================================
+
+	$('.add').on('click', function(){
+
+		var value = $(this).next().html();
+
+		value ++;
+
+		$(this).next().html(value);
+
+	});
+
+	$('.reduce').on('click', function(){
+		var value = $(this).prev().html();
+
+		if(value > 1)
+		{
+			value --;
+		}
+		$(this).prev().html(value);
 
 	});
 

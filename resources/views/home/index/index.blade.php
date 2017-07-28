@@ -53,14 +53,18 @@
 					<ul class="wrap_ul r">
 
 						<div>
-							<a href="#"><span class="first_span">我的开场</span></a>
+							<a href="{{ asset('/home/personal/index') }}"><span class="first_span">我的开场</span></a>
 							<ul>
+
+								
+
 								<li><a href="{{ url('/home/order/myOrder') }}">我的订单</a></li>
+
 								<li><a href="#">我的足迹</a></li>
 							</ul>
 						</div>
 
-						<div><a href="#"><span>购物车</span></a></div>
+						<div><a href="{{ asset('/home/shop') }}"><span>购物车</span></a></div>
 
 
 						<div><a href="#"><span>收藏夹</span></a>

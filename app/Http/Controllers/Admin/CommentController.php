@@ -16,7 +16,7 @@ class CommentController extends Controller
     	// dd($keywords);
 
     	$data = \DB::table('comment')
-    			->join('users', 'users.id', '=', 'comment.mid')
+    			->join('users', 'users.id', '=', 'comment.sid')
     			->where('users.userName', 'like', '%'. $keywords .'%')
     			->paginate($num);
 
