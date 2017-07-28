@@ -72,7 +72,7 @@
                   <th>会场名</th>
                   <th>会议时间</th>
                   <th>总价</th>
-        
+                  <th>状态</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -92,6 +92,11 @@
 
                   </td>
                   <td>{{ $val->money }}</td>
+                  <td>@if($val->pay)
+                        已支付
+                      @else
+                        未支付
+                      @endif
                
                 </tr>
               @endforeach  

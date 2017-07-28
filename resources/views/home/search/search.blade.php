@@ -199,7 +199,7 @@
 
 							<ul>
 								<li>
-									<label class="float_l">您已选择 :</label>
+									<!-- <label class="float_l">您已选择 :</label> -->
 								</li>						
 							</ul>
 						</form>
